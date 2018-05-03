@@ -10,9 +10,11 @@ const pool = new pg.Pool({
 });
 
 const selectAllTrips = ()  => {
+  console.log('selecting all trips')
   const query = `SELECT * FROM TRIPS;`
   return pool.query(query)
-  .catch(err => console.error(err))
+    .catch(err => console.error(err))
 };
 
-module.exports = pool;
+exports.selectAllTrips = selectAllTrips; 
+
