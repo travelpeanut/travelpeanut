@@ -13,9 +13,13 @@ class TripDetail extends React.Component {
 
   
   render() {
+    let tripName = window.location.pathname.split( '/' )[2];
+
     return(
       <div>
-        <h1>Trip Details: Day 1</h1>
+        <h1>Trip Details: Day 1 in {tripName}</h1>
+
+        <p>8am: blah..</p>
        
       </div>
     )

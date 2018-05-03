@@ -14,6 +14,9 @@ const createTrip = (data) => (dispatch, getState) => {
     code: data
   }) 
 
+  dispatch(push(`/trip/${data.name}`));
+
+
 
 
 }

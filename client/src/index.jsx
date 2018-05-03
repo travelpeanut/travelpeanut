@@ -46,9 +46,9 @@ ReactDOM.render(
         <Route exact path="/" component={LandingPage}/>
         <Route exact path="/login" component={LoginPage}/>
         <Route exact path="/home" component={HomePage}/>
-        <Route exact path="/:trip" component={TripMenu}/>
-        <Route exact path="/:trip/itinerary" component={TripItinerary}/>
-        <Route exact path="/:trip/details" component={TripDetail}/>
+        <Route exact path="/trip/:name" component={TripMenu}/>
+        <Route exact path="/trip/:name/itinerary" component={TripItinerary}/>
+        <Route exact path="/trip/:name/details" component={TripDetail}/>
 
 
       </div>

@@ -86,7 +86,7 @@ class HomePage extends React.Component {
               <div>
                 <p>{tripState.temp ? tripState.temp.name : ''}</p>
                   <p>{tripState.temp ? tripState.temp.city : ''}</p>
-                  <Link to={`/${tripState.temp.name}`}>Go To Trip</Link>
+                  <Link to={`/trip/${tripState.temp.name}`}>Go To Trip</Link>
 
               </div>
             : ''
