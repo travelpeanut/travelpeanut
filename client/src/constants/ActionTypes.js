@@ -1,0 +1,4 @@
+export default {
+  STORE_SOMETHING: 'STORE_SOMETHING',
+  CREATE_TRIP: 'CREATE_TRIP'  
+}

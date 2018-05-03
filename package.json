@@ -5,14 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js"
+    "react-dev": "webpack -d --watch & npm run watch-css",
+    "server-dev": "nodemon server/index.js",
+    "watch-css": "node-sass-chokidar client/src/styles/sass -o client/src/styles --watch --recursive"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/travelpeanut/travelpeanut.git"
   },
-  "author": "David, Heidi, Ryan, Brian",
+  "author": "David Baek, Heidi Poon, Ryan Schabel, Brian Fang",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.23.1",
