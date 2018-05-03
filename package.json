@@ -5,14 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js"
+    "react-dev": "webpack -d --watch & npm run watch-css",
+    "server-dev": "nodemon server/index.js",
+    "watch-css": "node-sass-chokidar client/src/styles/sass -o client/src/styles --watch --recursive"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/travelpeanut/travelpeanut.git"
   },
-  "author": "David, Heidi, Ryan, Brian",
+  "author": "David Baek, Heidi Poon, Ryan Schabel, Brian Fang",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.23.1",
@@ -26,9 +27,6 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "css-loader": "^0.28.11",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.11.0",
     "express": "^4.15.0",
     "node-sass-chokidar": "^1.2.2",
     "path": "^0.12.7",
