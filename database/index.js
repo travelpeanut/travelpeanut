@@ -13,25 +13,16 @@ const pool = new pg.Pool({
 // ============
 // Helper Functions
 // ============
-const selectAllTrips = ()  => {
-  console.log('selecting all trips')
-  const query = `SELECT * FROM TRIPS;`
+const addNewUser = ({username, password, firstName, lastName}) => {  
+  const query = `INSERT INTO USERS (username, password, first_name, last_name)
+                 VALUES ('${username}', '${password}', '${firstName}', '${lastName}')`;
+  console.log('query: ', query);  
   return pool.query(query)
-    .catch(err => console.error(err))
+    .catch( (err) => {
+      console.log('ERROR IN ADDING USER: ', err);
+    })
 };
 
-const selectAllUsers = ()  => {
-  console.log('selecting all Users')
-  const query = `SELECT * FROM USERS;`
-  return pool.query(query)
-    .catch(err => console.error(err))
-};
+exports.addNewUser = addNewUser; 
 
-const addNewUser = (user) => {
-  console.log('adding this user: ', user)
-  const query = `INSERT INTO `
-};
-
-exports.selectAllTrips = selectAllTrips; 
-exports.selectAllUsers = selectAllUsers; 
 

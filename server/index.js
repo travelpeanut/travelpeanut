@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const router = require('./routes.js');
-const {selectAllTrips} = require('../database/index.js');
 
 const app = express();
 
@@ -16,6 +15,7 @@ app.use(bodyParser.json());
 // Server Routes
 // ====================
 app.use('/api', router);
+
 
 
 const port = process.env.PORT || 3000;
