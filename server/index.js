@@ -1,8 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const homeRouter = require('./routes/home.js');
-const {selectAllTrips} = require('../database/index.js');
+const router = require('./routes.js');
 
 const app = express();
 
@@ -15,31 +14,11 @@ app.use(bodyParser.json());
 // ====================
 // Server Routes
 // ====================
-  app.get('/test', (req, res) => {
-    console.log('getting all trips')
-    selectAllTrips()
-      .then( (results) => {
-        let trips = results.rows;
-        console.log('trips: ', trips)
-        res.send(trips);
-      })
-      .catch( (err) => {
-        console.log('err: ', err);
-      })
-  })
-
-
-
-
-app.use('/api', homeRouter);
-
-
-
+app.use('/api', router);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname + '/../client/dist/index.html'));
 })
-
 
 const port = process.env.PORT || 3000;
 
