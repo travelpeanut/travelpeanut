@@ -26,7 +26,11 @@ router.route('/home')
 
 router.route('/trips')
   .get()
-  .post()
+  .post( (req, res) => {
+    let trip = req.body;
+    console.log('adding this trip: ', trip);
+    res.end();
+  })
   .delete() 
 
   module.exports = router;

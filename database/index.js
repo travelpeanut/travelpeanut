@@ -23,6 +23,12 @@ const addNewUser = ({username, password, firstName, lastName}) => {
     })
 };
 
+const addTrip = () => {
+
+}
+
+
 exports.addNewUser = addNewUser; 
+
 
 

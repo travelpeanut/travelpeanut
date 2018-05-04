@@ -13,8 +13,14 @@ const createTrip = (data) => (dispatch, getState) => {
     type: ActionTypes.CREATE_TRIP,
     code: data
   }) 
+  axios.post('/api/trips')
+    .then( (response) => {
+      dispatch(push(`/trip/${data.name}`));
 
-  dispatch(push(`/trip/${data.name}`));
+    })
+    .catch( (err) => {
+
+    })
 
 
 
