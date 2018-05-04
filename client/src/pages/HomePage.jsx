@@ -119,6 +119,6 @@ export default connect(
       tripState: state.tripReducer
   }),
   dispatch => ({
-      actions: bindActionCreators(tripActions, dispatch)
+      actions: bindActionCreators(Object.assign({}, tripActions), dispatch)
   })
 )(HomePage);

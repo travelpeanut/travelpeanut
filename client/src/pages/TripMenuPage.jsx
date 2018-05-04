@@ -13,10 +13,22 @@ class TripMenu extends React.Component {
 
   }
 
-  redirectItinerary(){
+  redirectItinerary(type){
     let tripName = window.location.pathname.split( '/' )[2];
-    // console.log(pathArray);
-    this.props.history.push(`/trip/${tripName}/itinerary`)
+    switch(type){
+      case 'itinerary':
+        this.props.history.push(`/trip/${tripName}/itinerary`)
+        break
+      case 'discover':
+        this.props.history.push(`/trip/${tripName}/discovery`)
+        break
+      case 'members':
+        this.props.history.push(`/trip/${tripName}/members`)
+        break
+      default:
+        break
+
+    }
   }
 
  
@@ -30,11 +42,11 @@ class TripMenu extends React.Component {
         <h1>Trip Menu for: {tripName}</h1>
 
         <br/>
-        <button onClick={this.redirectItinerary}>View/Edit Itinerary</button>
+        <button onClick={() => { this.redirectItinerary('itinerary') }}>View/Edit Itinerary</button>
         <br/>
-        <button>Discover Places</button>
+        <button onClick={() => { this.redirectItinerary('discover')}}>Discover Places</button>
         <br/>
-        <button>View/Add Members for this Trip</button>
+        <button onClick={() => { this.redirectItinerary('members')}}>View/Add Members for this Trip</button>
 
        
       </div>
