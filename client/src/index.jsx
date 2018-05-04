@@ -15,10 +15,13 @@ import chatReducer from './reducers/chatReducer.js'
 
 import LandingPage from './pages/LandingPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
+import SignupPage from './pages/SignupPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import TripMenu from './pages/TripMenuPage.jsx'
 import TripItinerary from './pages/TripItineraryPage.jsx'
 import TripDetail from './pages/TripDetailPage.jsx'
+import MembersList from './pages/MembersPage.jsx'
+import Discovery from './pages/DiscoverPlacesPage.jsx'
 
 import './styles/main.css'
 
@@ -45,10 +48,13 @@ ReactDOM.render(
       <div>
         <Route exact path="/" component={LandingPage}/>
         <Route exact path="/login" component={LoginPage}/>
+        <Route exact path="/signup" component={SignupPage}/>
         <Route exact path="/home" component={HomePage}/>
         <Route exact path="/trip/:name" component={TripMenu}/>
         <Route exact path="/trip/:name/itinerary" component={TripItinerary}/>
         <Route exact path="/trip/:name/details" component={TripDetail}/>
+        <Route exact path="/trip/:name/members" component={MembersList}/>
+        <Route exact path="/trip/:name/discovery" component={Discovery}/>
 
 
       </div>

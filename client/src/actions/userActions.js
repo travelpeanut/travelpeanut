@@ -37,7 +37,19 @@ const goToLogin = () => (dispatch, getState) => {
 
 }
 
+const signUp = (data) => (dispatch, getState) => {
+
+  // make axios request to server endpoint (create user endpoint)
+
+
+  // after sign up,
+  // redirect to login page
+  dispatch(push(`/login`));
+
+}
+
 module.exports = {
   goToLogin: goToLogin,
-  storeSomething: storeSomething
+  storeSomething: storeSomething,
+  signUp: signUp
 } 

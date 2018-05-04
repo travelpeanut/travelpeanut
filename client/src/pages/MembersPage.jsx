@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import * as tripActions from '../actions/tripActions.js';
 
 
-class Discovery extends React.Component {
+class MembersPage extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -12,7 +12,11 @@ class Discovery extends React.Component {
   render() {
     return(
       <div>
-        <h1>Discover Places</h1>
+        <h1>View/Edit Members Page</h1>
+        <br/><br/>
+        <h3>Add a member</h3>
+        <br/>
+        <h3>Member List:</h3>
       </div>
     )
   }
@@ -28,4 +32,4 @@ export default connect(
   dispatch => ({
     actions: bindActionCreators(tripActions, dispatch)
   })
-)(Discovery);
+)(MembersPage);
