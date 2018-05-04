@@ -53,11 +53,19 @@ const goToSignup = () => (dispatch, getState) => {
 const signUp = (data) => (dispatch, getState) => {
 
   // make axios request to server endpoint (create user endpoint)
+  
+  console.log('in signup function: adding user: ', data);
+  axios.post('/api/users', data)
+    .then( (response) => {
+    // after sign up,
+    // redirect to login page
+      dispatch(push(`/login`));      
+    })
+    .catch( (err) => {
+      console.log('ERROR IN signUp function: ', err);
+    })
 
 
-  // after sign up,
-  // redirect to login page
-  dispatch(push(`/login`));
 
 }
 
