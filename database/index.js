@@ -9,6 +9,10 @@ const pool = new pg.Pool({
   database : config.DATABASE
 });
 
+
+// ============
+// Helper Functions
+// ============
 const selectAllTrips = ()  => {
   console.log('selecting all trips')
   const query = `SELECT * FROM TRIPS;`
@@ -16,5 +20,13 @@ const selectAllTrips = ()  => {
     .catch(err => console.error(err))
 };
 
+const selectAllUsers = ()  => {
+  console.log('selecting all Users')
+  const query = `SELECT * FROM Users;`
+  return pool.query(query)
+    .catch(err => console.error(err))
+};
+
 exports.selectAllTrips = selectAllTrips; 
+exports.selectAllUsers = selectAllUsers; 
 
