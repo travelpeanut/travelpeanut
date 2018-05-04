@@ -22,9 +22,14 @@ const selectAllTrips = ()  => {
 
 const selectAllUsers = ()  => {
   console.log('selecting all Users')
-  const query = `SELECT * FROM Users;`
+  const query = `SELECT * FROM USERS;`
   return pool.query(query)
     .catch(err => console.error(err))
+};
+
+const addNewUser = (user) => {
+  console.log('adding this user: ', user)
+  const query = `INSERT INTO `
 };
 
 exports.selectAllTrips = selectAllTrips; 

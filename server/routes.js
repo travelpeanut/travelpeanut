@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {selectAllUsers} = require('../database/index')
+const {selectAllUsers, selectAllTrips} = require('../database/index')
 
 router.route('/users')
   .get( (req, res) => {
@@ -13,7 +13,10 @@ router.route('/users')
         console.log('ERROR GET/users: ', err);
         res.send(err)
       })
-  })
+    })
+    .post( () => {
+
+    })
 
 router.route('/home')
   .get()
@@ -21,7 +24,18 @@ router.route('/home')
   .delete()
 
   router.route('/trips')
-  .get()
+  .get( (req, res) => {
+    selectAllTrips()
+      .then( (response) => {
+        let trips = response.rows;
+        console.log('GET/trips: ', trips);
+        res.send(trips);
+      })
+      .catch( (err) => {
+        console.log('ERROR GET/trips: ', err);
+        res.send(err)
+      })
+  })
   .post()
   .delete() 
 
