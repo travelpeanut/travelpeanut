@@ -8,6 +8,7 @@ class SignUp extends React.Component {
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
+    
   }
 
   handleSubmit(){
@@ -18,8 +19,11 @@ class SignUp extends React.Component {
       lastName: this.lastName.value,
       password: this.password.value
     }
+    console.log('adding this user: ', data);
     this.props.actions.signUp(data)
   }
+
+  
 
   
 
