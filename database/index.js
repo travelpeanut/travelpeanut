@@ -23,6 +23,14 @@ const addNewUser = ({username, password, firstName, lastName}) => {
     })
 };
 
+const checkLogin = (username) => {
+  const query = `SELECT * FROM USERS WHERE USERNAME = '${username}'`
+  return pool.query(query)
+  .catch((error) => console.error(error));
+}
+
+
 exports.addNewUser = addNewUser; 
+exports.checkLogin = checkLogin;
 
 

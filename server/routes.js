@@ -1,8 +1,25 @@
 const router = require('express').Router();
-const { addNewUser } = require('../database/index')
+const { addNewUser,
+checkLogin
+ } = require('../database/index')
 
 router.route('/users')
-  .get()
+  .get((req, res) => {
+    const {username, password} = req.query;
+    checkLogin(username)
+    .then((data) => {
+      if (data.rowCount === 0) {
+        console.log('username does not exist')
+        res.sendStatus(401);
+      } else if (data.rows[0].password !== password) {
+        console.log('password does not match')
+        res.sendStatus(401);
+      } else {
+        console.log('match')
+        res.json(data.rows[0])
+      };
+    });
+  })
 
   .post( (req, res) => {
     let newUser = req.body;
