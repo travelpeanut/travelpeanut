@@ -48,8 +48,53 @@ router.route('/trips')
       .catch((err) => {
         res.status(400).send(err);
       })
+  })  
+  .post( (req, res) => {
   })
-  .post()
   .delete() 
+  
+  router.route('/newTrip')
+  .post((req, res) => {
+    let trip = req.body;        
+    db.addTripToTrips(trip)
+    .then((response) => {                
+      res.send(response);
+    })
+    .catch((err) => {        
+      res.send(err);
+      })        
+    })
+
+  router.route('/tripId')
+    .get( (req, res) => {
+      let owner = req.query.id;
+      console.log('getting newly created trip for this owner: ', owner);
+      db.getNewTripId(owner)
+        .then((response) => {          
+          let newTrip = response.rows[0];
+          res.send(newTrip);
+        })
+        .catch((err) => {
+          res.send(err)
+        })
+    })
+
+  router.route('/usersByTrips')
+    .get()
+    .post((req, res) => {
+      let newTripId = req.body.newTripId
+      let ownerId = req.body.ownerId
+      console.log('in /usersByTrips. userId: ', ownerId)
+      console.log('in /usersByTrips. newTripId: ', newTripId)
+
+      db.addTripsByUser(ownerId, newTripId)
+        .then((response) => {
+          res.send(response);
+        })
+        .catch((err) => {
+          res.send(err);
+        })
+    })
+    
 
   module.exports = router;

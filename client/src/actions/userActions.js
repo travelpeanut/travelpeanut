@@ -64,9 +64,16 @@ const signUp = (data) => (dispatch, getState) => {
     .catch( (err) => {
       console.log('ERROR IN signUp function: ', err);
     })
+  }
 
-
-
+const signUp = (data) => (dispatch, getState) => {
+  axios.post('/api/users', data)
+    .then( (response) => {    
+      dispatch(push(`/login`));      
+    })
+    .catch( (err) => {
+      console.log('ERROR IN signUp function: ', err);
+    })
 }
 
 module.exports = {
@@ -76,4 +83,4 @@ module.exports = {
   storeSomething: storeSomething,
   signUp: signUp,
   goToSignup: goToSignup
-} 
+}
