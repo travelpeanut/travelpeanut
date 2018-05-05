@@ -40,8 +40,13 @@ const getTripsByUser = (userId) => {
     })
 }
 
+const deleteTrip = (tripId) => {
+  const query1 = ``
+}
+
 exports.addNewUser = addNewUser; 
 exports.getTripsByUser = getTripsByUser; 
 exports.checkLogin = checkLogin;
+exports.deleteTrip = deleteTrip;
 
 

@@ -50,6 +50,15 @@ router.route('/trips')
       })
   })
   .post()
-  .delete() 
+  .delete((req, res) => {
+    console.log(req.body.tripId)
+    db.deleteTrip(req.body.tripId)
+      .then(()=> {
+        console.log('success in delete')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }) 
 
   module.exports = router;
