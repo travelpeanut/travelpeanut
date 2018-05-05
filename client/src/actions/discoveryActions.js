@@ -4,8 +4,17 @@ import axios from 'axios'
 
 const getCoordinatesByCity = (cityAndState) => (dispatch, getState) => {
     console.log('in discoveryActions: ', cityAndState)
-    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${cityAndState}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
-    // .then((success))
+    axios.get(`/api/getCoordinates`, {params: cityAndState})
+    .then((cityData)=> {
+        console.log('got data! : ', cityData)
+        dispatch({
+            type: ActionTypes.STORE_CITY_LOCATION,
+            code: cityData
+        })
+    })
+    .catch(err => {
+        console.log('coudlnt get data :( :', err)
+    })
     // dispatch({
     //     type: ActionTypes.STORE_SOMETHING,
     //     code: success
@@ -26,4 +35,9 @@ const createTrip = (data) => (dispatch, getState) => {
   
     dispatch(push(`/trip/${data.name}`));
   
+  }
+
+  module.exports = {
+    getCoordinatesByCity: getCoordinatesByCity,
+    createTrip: createTrip
   }
