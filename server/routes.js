@@ -48,8 +48,26 @@ router.route('/trips')
       .catch((err) => {
         res.status(400).send(err);
       })
+  })  
+  .post( (req, res) => {
+    let trip = req.body;    
+    console.log('adding this trip: ', trip);
+    db.addTripToTrips(trip)
+      .then( (response) => {        
+        console.log('ADDED THIS TRIP: ', response)
+        res.send(response);
+      })
+      .catch( (err) => {
+        console.log('DID NOT ADD TRIP: ', err)
+        res.send(err);
+      })    
   })
-  .post()
   .delete() 
+
+  router.route('/usersTrips')
+    .get()
+    .post( (req, res) => {
+      console.log('trip_id and users_id: ', )
+    })
 
   module.exports = router;

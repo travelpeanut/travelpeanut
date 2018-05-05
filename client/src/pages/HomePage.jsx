@@ -47,7 +47,12 @@ class HomePage extends React.Component {
     let data = {
       name: this.name.value,
       city: this.city.value,
-      country: this.country.value
+      country: this.country.value,
+      startDate: this.startDate.value,
+      endDate: this.endDate.value,
+      province: '', 
+      // ownerId needs to come from login state. hard coded right now
+      ownerId: 1
     }
     
     this.props.actions.createTrip(data)
@@ -85,6 +90,10 @@ class HomePage extends React.Component {
             <br/>
             <input type="text" placeholder="Country" ref={country => this.country = country}/>
             <br/>
+            <input type="text" placeholder="Start Date" ref={startDate => this.startDate = startDate}/>
+            <br/>
+            <input type="text" placeholder="End Date" ref={endDate => this.endDate = endDate}/>
+            <br/>          
             <button onClick={this.handleSubmit}>Submit</button>
           </div>
 
