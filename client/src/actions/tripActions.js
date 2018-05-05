@@ -16,6 +16,7 @@ const createTrip = (data) => (dispatch, getState) => {
   axios.post('/api/trips', data)
     .then( (response) => {
       // Add tripid and userid to users_trips table
+      
       dispatch(push(`/trip/${data.name}`));      
     })
     .catch( (err) => {

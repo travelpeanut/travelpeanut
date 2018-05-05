@@ -31,8 +31,8 @@ router.route('/trips')
     console.log('adding this trip: ', trip);
     addTripToTrips(trip)
       .then( (response) => {        
-        console.log('ADDED THIS TRIP: ', response.data)
-        res.send(response.data);
+        console.log('ADDED THIS TRIP: ', response)
+        res.send(response);
       })
       .catch( (err) => {
         console.log('DID NOT ADD TRIP: ', err)
