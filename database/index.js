@@ -43,7 +43,7 @@ const addTripsByUser = (userid, tripid) => {
 }
 
 const getNewlyCreatedTrip = (ownerId) => {
-  const query = `SELECT * FROM TIPS ORDER BY ID DESC LIMIT 1 WHERE OWNER_ID=${ownerId}`;
+  const query = `SELECT * FROM TRIPS ORDER BY ID DESC LIMIT 1 WHERE OWNER_ID=${ownerId}`;
   return pool.query(query)
     .catch( (err) => {
       console.log('ERROR IN GETTING NEW TRIP ID: ', err);

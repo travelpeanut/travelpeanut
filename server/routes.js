@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { addNewUser, addTripToTrips } = require('../database/index')
+const { addNewUser, addTripToTrips, getNewlyCreatedTrip } = require('../database/index')
 
 router.route('/users')
   .get()
