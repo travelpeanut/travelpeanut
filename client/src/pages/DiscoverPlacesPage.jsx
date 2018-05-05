@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as tripActions from '../actions/tripActions.js'
+import * as discoverActions from '../actions/discoveryActions'
 
 
 class Discovery extends React.Component {
@@ -114,6 +114,6 @@ export default connect(
     tripState: state.tripReducer
   }),
   dispatch => ({
-    actions: bindActionCreators(tripActions, dispatch)
+    actions: bindActionCreators(discoverActions, dispatch)
   })
 )(Discovery);
