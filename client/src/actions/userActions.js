@@ -3,16 +3,25 @@ import { push } from 'react-router-redux'
 import axios from 'axios'
 
 
-const storeSomething = (input) => (dispatch, getState) => {
-  console.log('in actions:', input)
-  dispatch({
-    type: ActionTypes.STORE_SOMETHING,
-    code: input
-  }) 
-
-  dispatch(push(`/home`));
-
-
+const checkLogin = (input) => (dispatch, getState) => {
+  //ping the database with the login
+  //see if the username exists
+  //if it does not exist, throw an alert message
+  //if the password does not match, alert the password is not matching
+  //if the password matches, dispatch an action to change the state
+  axios.get('/api/users', {
+    params: input
+  })
+  .then((data) => {
+    Promise.resolve(dispatch({
+      type: ActionTypes.CHECK_LOGIN,
+      payload: data.data
+    }))
+    .then(() => dispatch(push(`/home`)))
+  })
+  .catch((error) => {
+    window.alert('Incorrect Username or Password. Please try again!')
+  })
 }
 
 
@@ -50,6 +59,7 @@ const signUp = (data) => (dispatch, getState) => {
 
 module.exports = {
   goToLogin: goToLogin,
-  storeSomething: storeSomething,
+  // storeSomething: storeSomething,
+  checkLogin: checkLogin,
   signUp: signUp
 } 

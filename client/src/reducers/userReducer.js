@@ -4,7 +4,8 @@ import { updateObject, createReducer } from'./reducerUtils'
 
 const initialState = {
   userInfo: {},
-  something: ''
+  something: '',
+  currentUser: {}
 }
 
 const userReducer = (state = initialState, action) => {
@@ -13,8 +14,11 @@ const userReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         something: action.code
       })
-  
-
+    case 'CHECK_LOGIN':
+      return {
+        ...state,
+        currentUser: action.payload
+      }
 
     default:
       return Object.assign({}, state)

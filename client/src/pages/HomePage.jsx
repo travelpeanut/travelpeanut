@@ -53,13 +53,13 @@ class HomePage extends React.Component {
     console.log('this is trip state:', this.props.tripState);
     let {userState} = this.props
     let {tripState} = this.props
-
+    console.log('this is user state:', userState)
     return(
       <div>
 
         <div>
           <h1>Home Page (after user logs in)</h1>
-          <p>User name: {userState.something}</p>
+          <p>User name: {userState.currentUser.username}</p>
 
           <hr/>
           <br/>

@@ -11,24 +11,24 @@ class LoginPage extends React.Component {
   }
 
   handleSubmit(){
-    console.log(this.username.value)
-    this.props.actions.storeSomething(this.username.value)
+    console.log(this.username.value, this.password.value)
+    this.props.actions.checkLogin({username: this.username.value, password: this.password.value})
   }
 
   
 
   
   render() {
+    console.log(this.props.userState);
     return(
       <div>
         <h1>This is Login Page</h1>
         <input type="text" placeholder='username' ref={username => this.username = username}/>
-        <input type="text"/>
+        <input type="password" placeholder='password' ref={password => this.password = password}/>
         <button onClick={this.handleSubmit}>Log In</button>
       </div>
     )
   }
-
 
 
 }
