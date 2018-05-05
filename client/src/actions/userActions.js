@@ -46,20 +46,24 @@ const goToLogin = () => (dispatch, getState) => {
 
 }
 
+const goToSignup = () => (dispatch, getState) => {
+  dispatch(push(`/signup`));
+}
+
 const signUp = (data) => (dispatch, getState) => {
-
-  // make axios request to server endpoint (create user endpoint)
-
-
-  // after sign up,
-  // redirect to login page
-  dispatch(push(`/login`));
-
+  axios.post('/api/users', data)
+    .then( (response) => {    
+      dispatch(push(`/login`));      
+    })
+    .catch( (err) => {
+      console.log('ERROR IN signUp function: ', err);
+    })
 }
 
 module.exports = {
   goToLogin: goToLogin,
   // storeSomething: storeSomething,
-  checkLogin: checkLogin,
-  signUp: signUp
-} 
+  checkLogin: checkLogin,  
+  signUp: signUp,
+  goToSignup: goToSignup
+}
