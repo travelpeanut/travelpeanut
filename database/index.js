@@ -23,12 +23,28 @@ const addNewUser = ({username, password, firstName, lastName}) => {
     })
 };
 
-const addTrip = () => {
+const addTripToTrips = ({name, city, country, startDate, endDate, ownerId}) => {
+  const query = `INSERT INTO TRIPS (city, country, start_date, end_date, title, owner_id)
+                 VALUES ('${city}', '${country}', '${startDate}', '${endDate}', '${name}', '${ownerId}')`
+  console.log('query: ', query);
+  return pool.query(query)
+    .catch( (err) => {
+      console.log('ERROR IN ADDING TRIP: ', err);
+    })
+}
 
+const addTripsByUser = (userid, tripid) => {
+  const query = `INSERT INTO USERS_TRIPS (user_id, trip_id)
+                 VALUES (${userid}, ${tripid})`
+  return pool.query(query)
+    .catch( (err) => {
+      console.log('ERROR IN ADDING TRIP BY USER: ', err);
+    })
 }
 
 
 exports.addNewUser = addNewUser; 
+exports.addTripToTrips = addTripToTrips; 
 
 
 

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { addNewUser } = require('../database/index')
+const { addNewUser, addTripToTrips } = require('../database/index')
 
 router.route('/users')
   .get()
@@ -27,10 +27,24 @@ router.route('/home')
 router.route('/trips')
   .get()
   .post( (req, res) => {
-    let trip = req.body;
+    let trip = req.body;    
     console.log('adding this trip: ', trip);
-    res.end();
+    addTripToTrips(trip)
+      .then( (response) => {        
+        console.log('ADDED THIS TRIP: ', response.data)
+        res.send(response.data);
+      })
+      .catch( (err) => {
+        console.log('DID NOT ADD TRIP: ', err)
+        res.send(err);
+      })    
   })
   .delete() 
+
+  router.route('/usersTrips')
+    .get()
+    .post( (req, res) => {
+      console.log('trip_id and users_id: ', )
+    })
 
   module.exports = router;

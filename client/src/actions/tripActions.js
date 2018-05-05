@@ -13,10 +13,10 @@ const createTrip = (data) => (dispatch, getState) => {
     type: ActionTypes.CREATE_TRIP,
     code: data
   }) 
-  axios.post('/api/trips')
+  axios.post('/api/trips', data)
     .then( (response) => {
-      dispatch(push(`/trip/${data.name}`));
-
+      // Add tripid and userid to users_trips table
+      dispatch(push(`/trip/${data.name}`));      
     })
     .catch( (err) => {
 
