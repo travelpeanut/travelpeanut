@@ -29,4 +29,10 @@ router.route('/trips')
   .post()
   .delete() 
 
+router.route('/discover')
+  .get()
+  .post()
+  .delete()
+
+
   module.exports = router;

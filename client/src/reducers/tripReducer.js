@@ -6,7 +6,7 @@ const initialState = {
   allTrips: [],
   currentTrip: {},
   currentDay: {},
-  temp: {}
+  temp: {},
 }
 
 const tripReducer = (state = initialState, action) => {
@@ -15,7 +15,7 @@ const tripReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         temp: action.code
       })
-  
+
 
 
     default:
