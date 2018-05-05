@@ -52,7 +52,7 @@ class HomePage extends React.Component {
       endDate: this.endDate.value,
       province: '', 
       // ownerId needs to come from login state. hard coded right now
-      ownerId: 1
+      ownerId: this.props.userState.currentUser.id
     }
     
     this.props.actions.createTrip(data)
