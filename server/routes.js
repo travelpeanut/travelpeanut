@@ -97,4 +97,10 @@ router.route('/trips')
     })
     
 
+router.route('/discover')
+  .get()
+  .post()
+  .delete()
+
+
   module.exports = router;
