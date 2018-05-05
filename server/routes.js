@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { addNewUser } = require('../database/index')
+const db  = require('../database/index')
 
 router.route('/users')
   .get()
@@ -7,7 +7,7 @@ router.route('/users')
   .post( (req, res) => {
     let newUser = req.body;
     console.log('going to add this user: ', newUser);
-    addNewUser(newUser)
+    db.addNewUser(newUser)
       .then( (response) => {
         let addedUser = response;
         console.log('added this user: ', addedUser);
@@ -25,7 +25,15 @@ router.route('/home')
   .delete()
 
 router.route('/trips')
-  .get()
+  .get((req, res) => {
+    db.getTripsByUser(req.query.userId)
+      .then((response) => {
+        res.status(200).send(response)
+      })
+      .catch((err) => {
+        res.status(400).send(err);
+      })
+  })
   .post()
   .delete() 
 

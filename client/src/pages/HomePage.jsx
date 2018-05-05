@@ -13,9 +13,19 @@ class HomePage extends React.Component {
     this.handleCreate = this.handleCreate.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.goToTrip = this.goToTrip.bind(this)
+    this.getAllTrips = this.getAllTrips.bind(this) 
     this.state = {
       show: 'none'
     }
+  }
+
+  componentDidMount(){
+    this.getAllTrips()
+  }
+
+  getAllTrips(){
+    let userId = 2
+    this.props.actions.getAllTrips(userId)
   }
 
   handleCreate(){
@@ -43,9 +53,9 @@ class HomePage extends React.Component {
     this.props.actions.createTrip(data)
   }
 
-  goToTrip(){
+  goToTrip(item){
 
-    this.props.actions.setCurrentTrip()
+    this.props.actions.setCurrentTrip(item)
   }
 
 
@@ -79,27 +89,22 @@ class HomePage extends React.Component {
           </div>
 
           
-          <h3>Show All trips:</h3>
+          <h2>Show All trips:</h2>
 
           {
-            tripState.temp.name ? 
-              <div>
-                <p>{tripState.temp ? tripState.temp.name : ''}</p>
-                  <p>{tripState.temp ? tripState.temp.city : ''}</p>
-                  <Link to={`/trip/${tripState.temp.name}`}>Go To Trip</Link>
+            tripState.allTrips.map((item, i) => {
+              return (
+                <div key={i}>
+                  <p>{item.title}</p>
+                  <button onClick={()=> this.goToTrip(item)}>Go to Trip</button>
 
-              </div>
-            : ''
+                </div>
+              )
+            }) 
+              
           }
          
 
-
-
-          <div>
-            <h3>dumbie trip</h3>
-
-            <button onClick={this.goToTrip}>Go to Trip</button>
-          </div>
 
 
         </div>
