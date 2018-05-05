@@ -8,7 +8,7 @@ const initialState = {
   currentTrip: {},
   currentDay: {},
   temp: {},
-  tripCoordinates: ''
+  tripCoordinates: {}
 }
 
 const tripReducer = (state = initialState, action) => {
@@ -16,6 +16,11 @@ const tripReducer = (state = initialState, action) => {
     case 'CREATE_TRIP':
       return Object.assign({}, state, {
         temp: action.code
+      })
+
+    case 'STORE_CITY_LOCATION':
+      return Object.assign({}, state, {
+        tripCoordinates: action.code
       })
 
 

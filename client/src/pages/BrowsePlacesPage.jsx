@@ -12,7 +12,7 @@ class BrowsePlaces extends React.Component {
     componentDidMount(){
         let categoryName = window.location.pathname.split( '/' )[4];
 
-        this.props.tripState.geolocation
+        // this.props.tripState.geolocation
 
 
         //api request to google
