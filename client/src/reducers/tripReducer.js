@@ -15,7 +15,14 @@ const tripReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         temp: action.code
       })
-  
+    case 'GET_ALL_TRIPS':
+      return Object.assign({}, state, {
+        allTrips: action.code
+      })
+    case 'SET_CURRENT_TRIP':
+      return Object.assign({}, state, {
+        currentTrip: action.code
+      })
 
 
     default:

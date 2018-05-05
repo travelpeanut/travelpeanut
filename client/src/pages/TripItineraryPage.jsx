@@ -11,18 +11,18 @@ class TripItinerary extends React.Component {
   }
 
   redirectToDetails(){
-    let tripName = window.location.pathname.split( '/' )[2];
-    this.props.history.push(`/trip/${tripName}/details`)
+    let {currentTrip} = this.props.tripState
+    this.props.history.push(`/trip/${currentTrip.id}/details`)
   }
 
 
   
   render() {
-    let tripName = window.location.pathname.split( '/' )[2];
+    let {currentTrip} = this.props.tripState
 
     return(
       <div>
-       <h1>This is Trip: {tripName}</h1>
+       <h1>This is Trip: {currentTrip.title}</h1>
 
        <p>day 1</p>
        <button onClick={this.redirectToDetails}>View Details</button>

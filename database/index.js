@@ -30,7 +30,18 @@ const checkLogin = (username) => {
 }
 
 
+const getTripsByUser = (userId) => {
+  const query = `select * from trips 
+                  inner join users_trips on users_trips.trip_id = trips.id
+                  where user_id = ${userId};`
+  return pool.query(query)
+    .catch( (err) => {
+      console.log('ERROR IN GETTING TRIPS FOR USERID: ', err);
+    })
+}
+
 exports.addNewUser = addNewUser; 
+exports.getTripsByUser = getTripsByUser; 
 exports.checkLogin = checkLogin;
 
 

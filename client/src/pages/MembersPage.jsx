@@ -10,9 +10,11 @@ class MembersPage extends React.Component {
   }
 
   render() {
+    let {currentTrip} = this.props.tripState
+
     return(
       <div>
-        <h1>View/Edit Members Page</h1>
+        <h1>View/Edit Members Page for {currentTrip.title}</h1>
         <br/><br/>
         <h3>Add a member</h3>
         <br/>
