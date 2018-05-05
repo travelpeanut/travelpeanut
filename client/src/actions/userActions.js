@@ -46,6 +46,10 @@ const goToLogin = () => (dispatch, getState) => {
 
 }
 
+const goToSignup = () => (dispatch, getState) => {
+  dispatch(push(`/signup`));
+}
+
 const signUp = (data) => (dispatch, getState) => {
 
   // make axios request to server endpoint (create user endpoint)
@@ -60,6 +64,8 @@ const signUp = (data) => (dispatch, getState) => {
 module.exports = {
   goToLogin: goToLogin,
   // storeSomething: storeSomething,
-  checkLogin: checkLogin,
-  signUp: signUp
+  checkLogin: checkLogin,  
+  storeSomething: storeSomething,
+  signUp: signUp,
+  goToSignup: goToSignup
 } 
