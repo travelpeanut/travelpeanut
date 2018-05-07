@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom';
-
+import TripList from '../components/TripListHome.jsx';
 import * as userActions from '../actions/userActions.js';
 import * as tripActions from '../actions/tripActions.js';
 
@@ -14,6 +14,7 @@ class HomePage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.goToTrip = this.goToTrip.bind(this)
     this.getAllTrips = this.getAllTrips.bind(this) 
+    this.deleteTrip = this.deleteTrip.bind(this)
     this.handleLogOut = this.handleLogOut.bind(this) 
     this.state = {
       show: 'none'
@@ -25,8 +26,8 @@ class HomePage extends React.Component {
   }
 
   getAllTrips(){
-    let userId = 2
-    this.props.actions.getAllTrips(userId)
+    let {currentUser} = this.props.userState
+    this.props.actions.getAllTrips(currentUser.id)
   }
 
   handleCreate(){
@@ -60,8 +61,12 @@ class HomePage extends React.Component {
   }
 
   goToTrip(item){
-
     this.props.actions.setCurrentTrip(item)
+  }
+
+  deleteTrip(tripId){
+    let {currentUser} = this.props.userState
+    this.props.actions.deleteTrip(tripId, currentUser.id)
   }
 
   handleLogOut() {    
@@ -107,20 +112,12 @@ class HomePage extends React.Component {
 
           
           <h2>Show All trips:</h2>
-
-          {
-            tripState.allTrips.map((item, i) => {
-              return (
-                <div key={i}>
-                  <p>{item.title}</p>
-                  <button onClick={()=> this.goToTrip(item)}>Go to Trip</button>
-
-                </div>
-              )
-            }) 
-              
-          }
-         
+          <TripList 
+            allTrips={tripState.allTrips} 
+            goToTrip={(item) => this.goToTrip(item)}
+            currentUserId={userState.currentUser.id}
+            deleteTrip={(tripId) => this.deleteTrip(tripId)}
+          />
 
 
 

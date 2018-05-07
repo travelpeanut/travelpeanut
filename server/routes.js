@@ -53,9 +53,19 @@ router.route('/trips')
   })  
   .post( (req, res) => {
   })
-  .delete() 
+  .delete((req, res) => {
+    console.log(req.body.tripId)
+    db.deleteTrip(req.body.tripId)
+      .then(()=> {
+        console.log('success in delete')
+        res.status(200).send();
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }) 
   
-  router.route('/newTrip')
+router.route('/newTrip')
   .post((req, res) => {
     let trip = req.body;        
     db.addTripToTrips(trip)
@@ -67,36 +77,36 @@ router.route('/trips')
       })        
     })
 
-  router.route('/tripId')
-    .get( (req, res) => {
-      let owner = req.query.id;
-      console.log('getting newly created trip for this owner: ', owner);
-      db.getNewTripId(owner)
-        .then((response) => {          
-          let newTrip = response.rows[0];
-          res.send(newTrip);
-        })
-        .catch((err) => {
-          res.send(err)
-        })
-    })
+router.route('/tripId')
+  .get( (req, res) => {
+    let owner = req.query.id;
+    console.log('getting newly created trip for this owner: ', owner);
+    db.getNewTripId(owner)
+      .then((response) => {          
+        let newTrip = response.rows[0];
+        res.send(newTrip);
+      })
+      .catch((err) => {
+        res.send(err)
+      })
+  })
 
-  router.route('/usersByTrips')
-    .get()
-    .post((req, res) => {
-      let newTripId = req.body.newTripId
-      let ownerId = req.body.ownerId
-      console.log('in /usersByTrips. userId: ', ownerId)
-      console.log('in /usersByTrips. newTripId: ', newTripId)
+router.route('/usersByTrips')
+  .get()
+  .post((req, res) => {
+    let newTripId = req.body.newTripId
+    let ownerId = req.body.ownerId
+    console.log('in /usersByTrips. userId: ', ownerId)
+    console.log('in /usersByTrips. newTripId: ', newTripId)
 
-      db.addTripsByUser(ownerId, newTripId)
-        .then((response) => {
-          res.send(response);
-        })
-        .catch((err) => {
-          res.send(err);
-        })
-    })
+    db.addTripsByUser(ownerId, newTripId)
+      .then((response) => {
+        res.send(response);
+      })
+      .catch((err) => {
+        res.send(err);
+      })
+  })
     
 
 router.route('/discover')

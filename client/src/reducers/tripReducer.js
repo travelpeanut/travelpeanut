@@ -22,9 +22,10 @@ const tripReducer = (state = initialState, action) => {
         allTrips: action.code
       })
     case 'SET_CURRENT_TRIP':
+      console.log(action.code)
       return Object.assign({}, state, {
         currentTrip: action.code
-      }) 
+      })
     case 'STORE_CITY_LOCATION':
       return Object.assign({}, state, {
         tripCoordinates: action.code
