@@ -8,12 +8,23 @@ class Discovery extends React.Component {
   constructor(props) {
     super(props);
     this.redirectDiscover = this.redirectDiscover.bind(this)
+    this.getPlaces = this.getPlaces.bind(this)
   }
 
   componentDidMount(){
     let addressString = this.props.tripState.temp.city + ',' + this.props.tripState.temp.country;
     // console.log('stringToUse for address:', addressString)
     this.props.actions.getCoordinatesByCity(addressString)
+  }
+
+  clickHandler(e){
+    console.log(this.tripState, e.target.value[0], e.target.value[1])
+    this.
+    this.redirectDiscover(e.target.value[0])  
+  }
+
+  getPlaces(placeTypes){
+    this.props.actions.getNearbyPlacesByType(placeTypes)
   }
 
   redirectDiscover(type){

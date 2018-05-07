@@ -150,9 +150,9 @@ router.route('/discover')
 
 router.route('/getCoordinates')
   .get((req, res)=>{
-    console.log('in router.route getcoordinates')
-    console.log('city and country are...', req.query[0])
-    console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query[0]}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
+    // console.log('in router.route getcoordinates')
+    // console.log('city and country are...', req.query[0])
+    // console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query[0]}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query[0]}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
     .then(data => {
       let cityData = {
@@ -170,6 +170,20 @@ router.route('/getCoordinates')
       res.status(400).send(err)
     })
   })
+
+  router.route('/getNearbyPlacesByType')
+    console.log('req.query is...', req.query)
+    .get((req, res => {
+      axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
+      .then(places => {
+        console.log(places)
+        res.status(200).send(places)
+      })
+      .catch(err => {
+        console.log('couldnt get places:', err)
+        res.status(400).send(err)
+      })
+    }))
 
 
 router.route('/trip/members')

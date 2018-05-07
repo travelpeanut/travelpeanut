@@ -9,7 +9,8 @@ const initialState = {
   currentDay: {},
   temp: {},
   tripCoordinates: {},
-  tripMembers: []
+  tripMembers: [],
+  nearbyPlaces: []
 }
 
 const tripReducer = (state = initialState, action) => {
@@ -30,6 +31,10 @@ const tripReducer = (state = initialState, action) => {
     case 'STORE_CITY_LOCATION':
       return Object.assign({}, state, {
         tripCoordinates: action.code
+      })
+    case 'STORE_NEARBY_PLACES':
+      return Object.assign({}, state, {
+        nearbyPlaces: action.code
       })
     case 'ADD_MEMBER':
       return {...state,
