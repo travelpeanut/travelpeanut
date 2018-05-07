@@ -15,6 +15,7 @@ class HomePage extends React.Component {
     this.goToTrip = this.goToTrip.bind(this)
     this.getAllTrips = this.getAllTrips.bind(this) 
     this.deleteTrip = this.deleteTrip.bind(this)
+    this.handleLogOut = this.handleLogOut.bind(this) 
     this.state = {
       show: 'none'
     }
@@ -60,20 +61,24 @@ class HomePage extends React.Component {
   }
 
   goToTrip(item){
-
     this.props.actions.setCurrentTrip(item)
   }
 
   deleteTrip(tripId){
-    console.log('delete clicked', tripId)
     let {currentUser} = this.props.userState
-
     this.props.actions.deleteTrip(tripId, currentUser.id)
+  }
+
+  handleLogOut() {    
+    console.log('user in homePage: ', this.props.userState);
+    let currentUser = this.props.userState
+    this.props.actions.logOut();
+    console.log('userState after log out: ', this.props.userState);
   }
 
 
   render() {
-    console.log('this is trip state:', this.props.tripState);
+    console.log('this is trip state:', this.props.tripState);    
     let {userState} = this.props
     let {tripState} = this.props
     console.log('this is user state:', userState)
@@ -83,7 +88,7 @@ class HomePage extends React.Component {
         <div>
           <h1>Home Page (after user logs in)</h1>
           <p>User name: {userState.currentUser.username}</p>
-
+          <button onClick={this.handleLogOut}>Log out</button>
           <hr/>
           <br/>
 
@@ -133,6 +138,6 @@ export default connect(
       tripState: state.tripReducer
   }),
   dispatch => ({
-      actions: bindActionCreators(Object.assign({}, tripActions), dispatch)
+      actions: bindActionCreators(Object.assign({}, tripActions, userActions), dispatch)
   })
 )(HomePage);

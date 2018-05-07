@@ -60,10 +60,19 @@ const signUp = (data) => (dispatch, getState) => {
     })
 }
 
+const logOut = () => (dispatch, getState) =>  {  
+  console.log('calling logOut')
+  dispatch({
+    type: ActionTypes.LOGOUT_USER    
+  })
+  dispatch(push(`/login`));
+}
+
 module.exports = {
   goToLogin: goToLogin,
   // storeSomething: storeSomething,
   checkLogin: checkLogin,  
   signUp: signUp,
-  goToSignup: goToSignup
+  goToSignup: goToSignup,
+  logOut: logOut
 }
