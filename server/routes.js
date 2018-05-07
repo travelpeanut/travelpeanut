@@ -58,6 +58,7 @@ router.route('/trips')
     db.deleteTrip(req.body.tripId)
       .then(()=> {
         console.log('success in delete')
+        res.status(200).send();
       })
       .catch((err) => {
         console.log(err)

@@ -71,7 +71,15 @@ const getNewTripId = (ownerId) => {
 }
 
 const deleteTrip = (tripId) => {
-  const query1 = ``
+  const query1 = `DELETE FROM users_trips WHERE trip_id = ${tripId}`
+  const query2 = `DELETE FROM trips WHERE trip_id = ${tripId}`
+  return pool.query(query1)
+    .then(() => {
+      return pool.query(query2)
+    })
+    .catch((err) => {
+      console.log('err in db')
+    })
 }
 
 exports.addNewUser = addNewUser; 

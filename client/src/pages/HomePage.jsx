@@ -66,7 +66,9 @@ class HomePage extends React.Component {
 
   deleteTrip(tripId){
     console.log('delete clicked', tripId)
-    this.props.actions.deleteTrip(tripId)
+    let {currentUser} = this.props.userState
+
+    this.props.actions.deleteTrip(tripId, currentUser.id)
   }
 
 

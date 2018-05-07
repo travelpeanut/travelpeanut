@@ -69,11 +69,10 @@ const setCurrentTrip = (item) => (dispatch, getState) => {
 
 }
 
-const deleteTrip = (tripId) => (dispatch, getState) => {
+const deleteTrip = (tripId, userId) => (dispatch, getState) => {
   axios.delete('/api/trips', {data: {tripId: tripId}})
   .then(() => {
-    console.log('delete success')
-    this.getAllTrips()
+    dispatch(getAllTrips(userId))
   })
   .catch((err) => {
     console.log(err)
