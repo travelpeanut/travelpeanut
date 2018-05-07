@@ -8,7 +8,7 @@ const initialState = {
   currentUser: {}
 }
 
-const userReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {  
   switch (action.type) {
     case 'STORE_SOMETHING':
       return Object.assign({}, state, {
@@ -19,7 +19,8 @@ const userReducer = (state = initialState, action) => {
         ...state,
         currentUser: action.payload
       }
-
+    case 'LOGOUT_USER':
+      return initialState
     default:
       return Object.assign({}, state)
   }
