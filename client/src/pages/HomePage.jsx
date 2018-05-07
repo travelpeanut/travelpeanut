@@ -103,9 +103,9 @@ class HomePage extends React.Component {
             <br/>
             <input type="text" placeholder="Country" ref={country => this.country = country}/>
             <br/>
-            <input type="text" placeholder="Start Date" ref={startDate => this.startDate = startDate}/>
+            <input type="date" placeholder="Start Date" ref={startDate => this.startDate = startDate}/>
             <br/>
-            <input type="text" placeholder="End Date" ref={endDate => this.endDate = endDate}/>
+            <input type="date" placeholder="End Date" ref={endDate => this.endDate = endDate}/>
             <br/>          
             <button onClick={this.handleSubmit}>Submit</button>
           </div>
