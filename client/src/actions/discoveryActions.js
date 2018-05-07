@@ -6,7 +6,6 @@ const getCoordinatesByCity = (cityAndState) => (dispatch, getState) => {
     console.log('in discoveryActions: ', cityAndState)
     axios.get(`/api/getCoordinates`, {params: cityAndState})
     .then((cityData)=> {
-        console.log('got data! : ', cityData)
         dispatch({
             type: ActionTypes.STORE_CITY_LOCATION,
             code: cityData
@@ -17,18 +16,26 @@ const getCoordinatesByCity = (cityAndState) => (dispatch, getState) => {
     })
 }
 
-const getNearbyPlacesByType = (type, coordinates) => (dispatch, getState) => {
-    console.log('in getNearbyPlacesByType. type: ', type, coordinates)
-    axios.get(`/api/getNearbyPlacesByType`, {params: type, coordinates})
+const getNearbyPlacesByType = (types, coordinates) => (dispatch, getState) => {
+    console.log('in getNearbyPlacesByType. type: ', types, 'coordinates:', coordinates)
+    let placesToBrowse = []
+    console.log('types is...', types)
+    types.forEach(type => {
+        axios.get(`/api/getNearbyPlacesByType`, {params: [type, coordinates]})
+        .then(places => {
+            placesToBrowse.push(places)
+        })
+        .catch(err => console.log('couldnt get places: ', err))
+    })
     .then(nearbyPlaces => {
-        console.log('got nearby places: ', nearbyPlaces)
+        console.log('got ALL nearby places: ', nearbyPlaces)
         dispatch({
             type: ActionTypes.STORE_NEARBY_PLACES,
             code: nearbyPlaces
         })
     })
     .catch(err => {
-        console.log('couldnt get nearbyplaces: ', err)
+        console.log('couldnt get ALL nearbyplaces: ', err)
     })
 }
 

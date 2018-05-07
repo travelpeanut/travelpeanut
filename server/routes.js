@@ -155,6 +155,7 @@ router.route('/getCoordinates')
     // console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query[0]}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query[0]}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
     .then(data => {
+      console.log('type of coordinates is...', typeof data.data.results[0].geometry.location)
       let cityData = {
         formattedName: data.data.results[0].formatted_address,
         coordinates: data.data.results[0].geometry.location,
@@ -172,18 +173,19 @@ router.route('/getCoordinates')
   })
 
   router.route('/getNearbyPlacesByType')
-    console.log('req.query is...', req.query)
-    .get((req, res => {
-      axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
-      .then(places => {
-        console.log(places)
-        res.status(200).send(places)
-      })
-      .catch(err => {
-        console.log('couldnt get places:', err)
-        res.status(400).send(err)
-      })
-    }))
+  .get((req, res) => {
+    console.log('req.query 0 and 1 are...', 'zero', req.query[0],'one', req.query[1], 'type is...', typeof req.query[1], 'keys are...', Object.keys(req.query[1]))
+      // axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
+      // .then(places => {
+      //   console.log(places)
+      //   res.status(200).send(places)
+      // })
+      // .catch(err => {
+      //   console.log('couldnt get places:', err)
+      //   res.status(400).send(err)
+      // })
+      res.send()
+    })
 
 
 router.route('/trip/members')

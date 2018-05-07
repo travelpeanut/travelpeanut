@@ -14,7 +14,6 @@ class BrowsePlaces extends React.Component {
 
         // this.props.tripState.geolocation
 
-
         //api request to google
             //input is category name and locations
     }
@@ -23,8 +22,8 @@ class BrowsePlaces extends React.Component {
 
     return(
       <div>
-        <h1>Browse Places: {tripName}</h1>
-        {props.browseplaces.map(place => {
+        <h1>Browse Places: {this.props.tripState.temp.name}</h1>
+        {this.props.tripState.nearbyPlaces.map(place => {
             return (
                 <div>{place.name}</div>
             )
@@ -33,8 +32,6 @@ class BrowsePlaces extends React.Component {
     )
   }
 }
-
-
 
 export default connect(
     state => ({

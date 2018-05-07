@@ -9,22 +9,25 @@ class Discovery extends React.Component {
     super(props);
     this.redirectDiscover = this.redirectDiscover.bind(this)
     this.getPlaces = this.getPlaces.bind(this)
+    this.clickHandler = this.clickHandler.bind(this)
   }
 
   componentDidMount(){
     let addressString = this.props.tripState.temp.city + ',' + this.props.tripState.temp.country;
     // console.log('stringToUse for address:', addressString)
     this.props.actions.getCoordinatesByCity(addressString)
+    // console.log('typeof trip coordinates', typeof this.props.tripState.tripCoordinates.data.coordinates) ... this was object
   }
 
-  clickHandler(e){
-    console.log(this.tripState, e.target.value[0], e.target.value[1])
-    this.
-    this.redirectDiscover(e.target.value[0])  
+  clickHandler(placeType){
+    // console.log('state:', this.props.tripState, 'placeType[0]:', placeType[0], 'placeType[1]:', placeType[1])
+    this.getPlaces(placeType[1], this.props.tripState.tripCoordinates.data.coordinates)
+    this.redirectDiscover(placeType[0])
   }
 
-  getPlaces(placeTypes){
-    this.props.actions.getNearbyPlacesByType(placeTypes)
+  getPlaces(placeTypes, coordinates){
+    this.props.actions.getNearbyPlacesByType(placeTypes, coordinates)
+    // this.props.actions.getNearbyPlacesByType(placeTypes, this.props.tripState.tripCoordinates.data.coordinates)
   }
 
   redirectDiscover(type){
@@ -64,7 +67,7 @@ class Discovery extends React.Component {
     return (
       <div>
         <h1>Discover Places</h1>
-        <div onClick={() => {this.redirectDiscover('museums')}}>
+        <div onClick={() => {this.clickHandler(['museums', ['aquarium', 'art_gallery', 'museum', 'library']])}}>
         aquarium
         <br />
         art_gallery
@@ -74,19 +77,19 @@ class Discovery extends React.Component {
         library
         </div>
         <hr />
-        <div onClick={() => {this.redirectDiscover('bars_clubs')}}>
+        <div value = {['bars_clubs', ['night_club', 'bar']]} onClick={() => {this.clickHandler()}}>
         night_club
         <br />
         bar
         </div>
         <hr />
-        <div onClick={() => {this.redirectDiscover('spa_salon')}}>
+        <div value = {['spa_salon', ['beauty_salon', 'spa']]} onClick={() => {this.clickHandler()}}>
         beauty_salon
         <br />
         spa
         </div>
         <hr />
-        <div onClick={() => {this.redirectDiscover('food_drink')}}>
+        <div value = {['food_drink', ['restaurant', 'bakery', 'cafe']]} onClick={() => {this.clickHandler()}}>
         restaurant
         <br />
         bakery
@@ -94,15 +97,15 @@ class Discovery extends React.Component {
         cafe
         </div>
         <hr />
-        <div onClick={() => {this.redirectDiscover('shopping')}}>
+        <div value = {['shopping', ['clothing_store', 'shopping_mall']]} onClick={() => {this.clickHandler()}}>
         clothing_store
         <br />
         shopping_mall
         </div>
         <hr />
-        <div onClick={() => {this.redirectDiscover('camping')}}>campground</div>
+        <div value = {['camping', ['campground']]} onClick={() => {this.clickHandler()}}>campground</div>
         <hr />
-        <div onClick={() => {this.redirectDiscover('movies_bowling_amusement')}}>
+        <div value = {['movies_bowling_amusement', ['movie_theater', 'bowling_alley', 'amusement_park', 'park', 'zoo']]} onClick={() => {this.clickHandler()}}>
         movie_theater
         <br />
         bowling_alley
@@ -114,9 +117,9 @@ class Discovery extends React.Component {
         zoo
         </div >
         <hr />
-        <div onClick={() => {this.redirectDiscover('stadiums')}}>stadium</div>
+        <div value = {['stadiums', ['stadium']]} onClick={() => {this.clickHandler()}}>stadium</div>
         <hr />
-        <div onClick={() => {this.redirectDiscover('grocery')}}>
+        <div value = {['grocery', ['supermarket', 'liquor_store']]} onClick={() => {this.clickHandler()}}>
           supermarket
           <br />
           liquor_store
