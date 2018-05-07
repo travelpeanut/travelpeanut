@@ -70,6 +70,7 @@ const getNewTripId = (ownerId) => {
     })
 }
 
+<<<<<<< HEAD
 const deleteTrip = (tripId) => {
   const query1 = `DELETE FROM users_trips WHERE trip_id = ${tripId}`
   const query2 = `DELETE FROM trips WHERE trip_id = ${tripId}`
@@ -82,13 +83,42 @@ const deleteTrip = (tripId) => {
     })
 }
 
+=======
+>>>>>>> 5c795e607d272eaadcd6dabab7170534bd2f077f
+const addMemberToTrip = (username, tripId) => {
+  const query = `INSERT INTO USERS_TRIPS (USER_ID, TRIP_ID) VALUES ((SELECT ID FROM USERS WHERE USERNAME = '${username}'), ${tripId});`
+  return pool.query(query)
+  .catch((err) => {
+    console.error(err)
+  })
+}
+
+const getTripMembers = (tripId) => {
+  const query = `(select * from users where Id in (select user_Id from users_trips where trip_Id = ${tripId}))`
+  return pool.query(query)
+  .catch((err => {
+    console.error(err)
+  }))
+}
+
+const getFirstNameByUsername = (username) => {
+  const query = `select first_name from users where username = '${username}';`
+  return pool.query(query)
+  .catch((err) => {
+    console.error(err)
+  })
+}
+
 exports.addNewUser = addNewUser; 
 exports.getTripsByUser = getTripsByUser; 
 exports.checkLogin = checkLogin;
+<<<<<<< HEAD
 exports.deleteTrip = deleteTrip;
 exports.addTripToTrips = addTripToTrips; 
 exports.getNewTripId = getNewTripId; 
 exports.addTripsByUser = addTripsByUser; 
-
-
-
+=======
+>>>>>>> 5c795e607d272eaadcd6dabab7170534bd2f077f
+exports.addMemberToTrip = addMemberToTrip;
+exports.getTripMembers = getTripMembers,
+exports.getFirstNameByUsername = getFirstNameByUsername

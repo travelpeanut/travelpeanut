@@ -8,7 +8,11 @@ const initialState = {
   currentTrip: {},
   currentDay: {},
   temp: {},
-  tripCoordinates: {}
+<<<<<<< HEAD
+  tripCoordinates: {},
+=======
+>>>>>>> 5c795e607d272eaadcd6dabab7170534bd2f077f
+  tripMembers: []
 }
 
 const tripReducer = (state = initialState, action) => {
@@ -26,13 +30,23 @@ const tripReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         currentTrip: action.code
       })
+<<<<<<< HEAD
     case 'STORE_CITY_LOCATION':
       return Object.assign({}, state, {
         tripCoordinates: action.code
       })
-
-
-
+=======
+>>>>>>> 5c795e607d272eaadcd6dabab7170534bd2f077f
+    case 'ADD_MEMBER':
+      return {...state,
+        tripMembers: [
+          ...state.tripMembers, 
+          action.member
+      ]}
+    case 'GET_TRIP_MEMBERS': 
+      return {...state,
+        tripMembers: action.members
+      }
     default:
       return Object.assign({}, state)
   }
