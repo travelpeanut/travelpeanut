@@ -9,7 +9,7 @@ const checkLogin = (input) => (dispatch, getState) => {
   //if it does not exist, throw an alert message
   //if the password does not match, alert the password is not matching
   //if the password matches, dispatch an action to change the state
-  axios.get('/api/users', {
+  axios.get('/api/checkLogin', {
     params: input
   })
   .then((data) => {

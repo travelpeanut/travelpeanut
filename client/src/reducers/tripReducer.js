@@ -6,7 +6,8 @@ const initialState = {
   allTrips: [],
   currentTrip: {},
   currentDay: {},
-  temp: {}
+  temp: {},
+  tripMembers: []
 }
 
 const tripReducer = (state = initialState, action) => {
@@ -23,8 +24,16 @@ const tripReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         currentTrip: action.code
       })
-
-
+    case 'ADD_MEMBER':
+      return {...state,
+        tripMembers: [
+          ...state.tripMembers, 
+          action.member
+      ]}
+    case 'GET_TRIP_MEMBERS': 
+      return {...state,
+        tripMembers: action.members
+      }
     default:
       return Object.assign({}, state)
   }
