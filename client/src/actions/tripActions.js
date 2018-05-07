@@ -58,7 +58,6 @@ const setCurrentTrip = (item) => (dispatch, getState) => {
 
 }
 
-<<<<<<< HEAD
 const deleteTrip = (tripId, userId) => (dispatch, getState) => {
   axios.delete('/api/trips', {data: {tripId: tripId}})
   .then(() => {
@@ -68,8 +67,6 @@ const deleteTrip = (tripId, userId) => (dispatch, getState) => {
     console.log(err)
   })
 }
-=======
->>>>>>> 5c795e607d272eaadcd6dabab7170534bd2f077f
 const addMember = ({username, tripId}) => (dispatch, getState) => {
   axios.post('/api/trip/members', {
     params: {
@@ -116,10 +113,7 @@ module.exports = {
   createTrip: createTrip,
   getAllTrips: getAllTrips,
   setCurrentTrip: setCurrentTrip,
-<<<<<<< HEAD
   deleteTrip: deleteTrip,
-=======
->>>>>>> 5c795e607d272eaadcd6dabab7170534bd2f077f
   addMember: addMember,
   getTripMembers: getTripMembers
 } 
