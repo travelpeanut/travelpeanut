@@ -44,7 +44,7 @@ const createTrip = (data) => (dispatch, getState) => {
     })
     .catch( (err) => {
     })
-  dispatch(push(`/trip/${data.name}`));
+  dispatch(push(`/home`));
 
 }
 
