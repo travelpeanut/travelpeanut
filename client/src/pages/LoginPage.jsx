@@ -26,6 +26,8 @@ class LoginPage extends React.Component {
         <input type="text" placeholder='username' ref={username => this.username = username}/>
         <input type="password" placeholder='password' ref={password => this.password = password}/>
         <button onClick={this.handleSubmit}>Log In</button>
+
+        <div className="g-signin2" data-onsuccess="onSignIn"></div>
       </div>
     )
   }
