@@ -14,6 +14,7 @@ class SignUp extends React.Component {
   handleSubmit(){
     console.log(this.username.value)
     let data = {
+      email: this.email.value,
       username: this.username.value,
       firstName: this.firstName.value,
       lastName: this.lastName.value,
@@ -33,6 +34,7 @@ class SignUp extends React.Component {
       <div>
         <h1>Sign Up</h1>
         <br/>
+        <input type="text" placeholder='E-mail' ref={email => this.email = email}/>
         <input type="text" placeholder='Username' ref={username => this.username = username}/>
         <input type="text" placeholder='First name' ref={firstName => this.firstName = firstName}/>
         <input type="text" placeholder='Last name' ref={lastName => this.lastName = lastName}/>
