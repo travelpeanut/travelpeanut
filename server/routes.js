@@ -155,7 +155,7 @@ router.route('/getCoordinates')
     // console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query[0]}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query[0]}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
     .then(data => {
-      console.log('type of coordinates is...', typeof data.data.results[0].geometry.location)
+      // console.log('type of coordinates is...', typeof data.data.results[0].geometry.location)
       let cityData = {
         formattedName: data.data.results[0].formatted_address,
         coordinates: data.data.results[0].geometry.location,
@@ -174,8 +174,46 @@ router.route('/getCoordinates')
 
   router.route('/getNearbyPlacesByType')
   .get((req, res) => {
-    console.log('req.query 0 and 1 are...', 'zero', req.query[0],'one', req.query[1], 'type is...', typeof req.query[1], 'keys are...', Object.keys(req.query[1]))
-      // axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
+    console.log('is this an array?', Array.isArray(req.query[0]))
+    // console.log('req.query 0 and 1 are...', 'zero', req.query[0],'one', req.query[1], req.query[2])
+    let allPlaces = []
+    Promise.all(req.query[0].map(type => {
+      console.log('TYPE', type)
+      return axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${req.query[1]},${req.query[2]}&radius=1500&type=${type}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
+    }))
+    .then(places => {
+      placeData = places.map(received => {
+        return received.data.results
+      })
+      let outArr = [];
+      console.log('lentgh of placeData...', placeData.length)
+      for (var i = 0; i < placeData.length; i++){
+        outArr = outArr.concat(placeData[i])
+      }
+      console.log('outArr is..', outArr)
+      // placeData = placeData.flatten()
+      // console.log('PLACES', placeData)
+      // allPlaces.push(places.data.results)
+      // console.log('all the places:', allPlaces)
+      // console.log(placeData)
+      res.status(200).send(outArr)
+    })
+    .catch(err => {
+      console.log('couldnt get all places in server:', err)
+      res.status(400).send(err)
+    })
+    // console.log('allPlaces is...', allPlaces);
+  })
+
+
+    // .then(places => {
+    //   console.log('hopefully final places is...', places)
+    //   res.status(200).send(places)
+    // })
+    // .catch(err => {
+    //   console.log('hopefully not an err...', err)
+    //   res.status(400).send(err)
+    // })
       // .then(places => {
       //   console.log(places)
       //   res.status(200).send(places)
@@ -184,8 +222,6 @@ router.route('/getCoordinates')
       //   console.log('couldnt get places:', err)
       //   res.status(400).send(err)
       // })
-      res.send()
-    })
 
 
 router.route('/trip/members')

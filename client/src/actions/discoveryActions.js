@@ -20,13 +20,7 @@ const getNearbyPlacesByType = (types, coordinates) => (dispatch, getState) => {
     console.log('in getNearbyPlacesByType. type: ', types, 'coordinates:', coordinates)
     let placesToBrowse = []
     console.log('types is...', types)
-    types.forEach(type => {
-        axios.get(`/api/getNearbyPlacesByType`, {params: [type, coordinates]})
-        .then(places => {
-            placesToBrowse.push(places)
-        })
-        .catch(err => console.log('couldnt get places: ', err))
-    })
+    axios.get(`/api/getNearbyPlacesByType`, {params: [types, coordinates.lat, coordinates.lng]})
     .then(nearbyPlaces => {
         console.log('got ALL nearby places: ', nearbyPlaces)
         dispatch({

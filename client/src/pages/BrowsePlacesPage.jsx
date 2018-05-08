@@ -19,13 +19,20 @@ class BrowsePlaces extends React.Component {
     }
       
   render() {
-
+    let places = this.props.tripState.nearbyPlaces
+    console.log('all the places!', places)
+    console.log('places.data', places.data)
+    console.log('typeof nearbyPlaces:', Array.isArray(places))
+    console.log(places.length)
     return(
       <div>
         <h1>Browse Places: {this.props.tripState.temp.name}</h1>
-        {this.props.tripState.nearbyPlaces.map(place => {
+        {typeof places.data !== 'undefined' && places.data.map(place => {
             return (
-                <div>{place.name}</div>
+                <div>
+                  <h3>{place.name}</h3>
+                  <p>rating: {place.rating}</p>
+                </div>
             )
         })}
       </div>
