@@ -14,27 +14,31 @@ class BrowsePlaces extends React.Component {
 
         // this.props.tripState.geolocation
 
-
         //api request to google
             //input is category name and locations
     }
       
   render() {
-
+    let places = this.props.tripState.nearbyPlaces
+    console.log('all the places!', places)
+    console.log('places.data', places.data)
+    console.log('typeof nearbyPlaces:', Array.isArray(places))
+    console.log(places.length)
     return(
       <div>
-        <h1>Browse Places: {tripName}</h1>
-        {props.browseplaces.map(place => {
+        <h1>Browse Places: {this.props.tripState.destination.name}</h1>
+        {typeof places.data !== 'undefined' && places.data.map((place, key) => {
             return (
-                <div>{place.name}</div>
+                <div>
+                  <h3 key={place.id}>{place.name}</h3>
+                  <p>rating: {place.rating}</p>
+                </div>
             )
         })}
       </div>
     )
   }
 }
-
-
 
 export default connect(
     state => ({
