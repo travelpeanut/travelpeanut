@@ -99,11 +99,20 @@ const getTripMembers = (tripId) => {
 }
 
 const getFirstNameByUsername = (username) => {
-  const query = `select first_name from users where username = '${username}';`
+  const query = `select * from users where username = '${username}';`
   return pool.query(query)
   .catch((err) => {
     console.error(err)
   })
+}
+
+const deleteTripMember = (memberId, tripId) => {
+  const query = `DELETE FROM USERS_TRIPS WHERE USER_ID=${memberId} AND TRIP_ID=${tripId};`
+  console.log('deleteTripMember query: ', query);
+  return pool.query(query)
+    .catch((err) => {
+      console.error(err);
+    })
 }
 
 exports.addNewUser = addNewUser; 
@@ -115,4 +124,5 @@ exports.getNewTripId = getNewTripId;
 exports.addTripsByUser = addTripsByUser; 
 exports.addMemberToTrip = addMemberToTrip;
 exports.getTripMembers = getTripMembers,
-exports.getFirstNameByUsername = getFirstNameByUsername
+exports.getFirstNameByUsername = getFirstNameByUsername;
+exports.deleteTripMember = deleteTripMember;
