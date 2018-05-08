@@ -14,13 +14,10 @@ class Discovery extends React.Component {
 
   componentDidMount(){
     let addressString = this.props.tripState.destination.city + ',' + this.props.tripState.destination.country;
-    // console.log('stringToUse for address:', addressString)
     this.props.actions.getCoordinatesByCity(addressString)
   }
   
   clickHandler(placeType){
-    console.log('typeof trip coordinates:', typeof this.props.tripState.tripCoordinates.data.coordinates) //... this was object
-    // console.log('state:', this.props.tripState, 'placeType[0]:', placeType[0], 'placeType[1]:', placeType[1])
     Promise.resolve(
       this.getPlaces(placeType[1], this.props.tripState.tripCoordinates.data.coordinates)
     )
@@ -31,7 +28,6 @@ class Discovery extends React.Component {
 
   getPlaces(placeTypes, coordinates){
     this.props.actions.getNearbyPlacesByType(placeTypes, coordinates)
-    // this.props.actions.getNearbyPlacesByType(placeTypes, this.props.tripState.tripCoordinates.data.coordinates)
   }
 
   redirectDiscover(type){
