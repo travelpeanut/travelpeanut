@@ -22,25 +22,6 @@ router.route('/checkLogin')
   });
 })
 
-
-router.route('/checkLogin')
-.get((req, res) => {
-  const {username, password} = req.query;
-  db.checkLogin(username)
-  .then((data) => {
-    if (data.rowCount === 0) {
-      console.log('username does not exist')
-      res.sendStatus(401);
-    } else if (data.rows[0].password !== password) {
-      console.log('password does not match')
-      res.sendStatus(401);
-    } else {
-      console.log('match')
-      res.json(data.rows[0])
-    };
-  });
-})
-
 router.route('/users')
   .get((req, res) => {
     const {username} = req.query
@@ -142,12 +123,6 @@ router.route('/discover')
   .post()
   .delete()
 
-
-router.route('/discover')
-  .get()
-  .post()
-  .delete()
-
 router.route('/getCoordinates')
   .get((req, res)=>{
     console.log('in router.route getcoordinates')
@@ -206,26 +181,5 @@ router.route('/trip/members')
       })
   })
 
-router.route('/trip/members')
-  .get((req, res) => {
-    const {tripId} = req.query
-    db.getTripMembers(tripId)
-    .then((data) => {
-      res.json(data.rows)
-    })
-    .catch((err) => {
-      res.sendStatus(400).send(err)
-    })
-  })
-  .post((req, res) => {
-    const {username, tripId} = req.body.params
-    db.addMemberToTrip(username, tripId)
-    .then((response => {
-      res.sendStatus(201);
-    }))
-    .catch((err) => {
-      res.status(400).send(err);
-    })
-  })
 
   module.exports = router;
