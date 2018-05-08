@@ -10,14 +10,17 @@ const initialState = {
   temp: {},
   tripCoordinates: {},
   tripMembers: [],
-  nearbyPlaces: []
+  nearbyPlaces: [],
+  destination: {}
 }
 
 const tripReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'CREATE_TRIP':
       return Object.assign({}, state, {
-        temp: action.code
+        //ryan: added destination to stop using temp. temp is no longer used throughout the app, AFAIK 
+        temp: action.code,
+        destination: action.code
       })
     case 'GET_ALL_TRIPS':
       return Object.assign({}, state, {

@@ -26,11 +26,11 @@ class BrowsePlaces extends React.Component {
     console.log(places.length)
     return(
       <div>
-        <h1>Browse Places: {this.props.tripState.temp.name}</h1>
-        {typeof places.data !== 'undefined' && places.data.map(place => {
+        <h1>Browse Places: {this.props.tripState.destination.name}</h1>
+        {typeof places.data !== 'undefined' && places.data.map((place, key) => {
             return (
                 <div>
-                  <h3>{place.name}</h3>
+                  <h3 key={place.id}>{place.name}</h3>
                   <p>rating: {place.rating}</p>
                 </div>
             )

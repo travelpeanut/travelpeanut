@@ -13,7 +13,7 @@ class Discovery extends React.Component {
   }
 
   componentDidMount(){
-    let addressString = this.props.tripState.temp.city + ',' + this.props.tripState.temp.country;
+    let addressString = this.props.tripState.destination.city + ',' + this.props.tripState.destination.country;
     // console.log('stringToUse for address:', addressString)
     this.props.actions.getCoordinatesByCity(addressString)
   }
