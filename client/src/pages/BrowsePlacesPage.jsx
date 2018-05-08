@@ -23,6 +23,7 @@ class BrowsePlaces extends React.Component {
                 <div>
                   <h3 key={place.id}>{place.name}</h3>
                   <p>rating: {place.rating}</p>
+                  <br />
                 </div>
             )
         })}
