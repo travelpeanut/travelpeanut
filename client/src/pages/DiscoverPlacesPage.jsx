@@ -68,61 +68,35 @@ class Discovery extends React.Component {
       <div>
         <h1>Discover Places</h1>
         <div onClick={() => {this.clickHandler(['museums', ['aquarium', 'art_gallery', 'museum', 'library']])}}>
-        aquarium
-        <br />
-        art_gallery
-        <br />
-        museum
-        <br />
-        library
+        Museums
         </div>
         <hr />
         <div onClick={() => {this.clickHandler(['bars_clubs', ['night_club', 'bar']])}}>
-        night_club
-        <br />
-        bar
+        Nightlife
         </div>
         <hr />
         <div onClick={() => {this.clickHandler(['spa_salon', ['beauty_salon', 'spa']])}}>
-        beauty_salon
-        <br />
-        spa
+        Relax
         </div>
         <hr />
         <div onClick={() => {this.clickHandler(['food_drink', ['restaurant', 'bakery', 'cafe']])}}>
-        restaurant
-        <br />
-        bakery
-        <br />
-        cafe
+        Eat
         </div>
         <hr />
         <div onClick={() => {this.clickHandler(['shopping', ['clothing_store', 'shopping_mall']])}}>
-        clothing_store
-        <br />
-        shopping_mall
+        Shop
         </div>
         <hr />
-        <div onClick={() => {this.clickHandler(['camping', ['campground']])}}>campground</div>
+        <div onClick={() => {this.clickHandler(['camping', ['campground']])}}>Campgrounds</div>
         <hr />
         <div onClick={() => {this.clickHandler(['movies_bowling_amusement', ['movie_theater', 'bowling_alley', 'amusement_park', 'park', 'zoo']])}}>
-        movie_theater
-        <br />
-        bowling_alley
-        <br />
-        amusement_park
-        <br />
-        park
-        <br />
-        zoo
+        Family
         </div >
         <hr />
-        <div onClick={() => {this.clickHandler(['stadiums', ['stadium']])}}>stadium</div>
+        <div onClick={() => {this.clickHandler(['stadiums', ['stadium']])}}>Local Stadiums</div>
         <hr />
         <div onClick={() => {this.clickHandler(['grocery', ['supermarket', 'liquor_store']])}}>
-          supermarket
-          <br />
-          liquor_store
+        Grocery
         </div>
       </div>
     );
