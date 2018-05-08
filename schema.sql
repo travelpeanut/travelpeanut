@@ -90,3 +90,16 @@ CREATE TABLE chats (
   message VARCHAR(255) NOT NULL,
   trip_id INTEGER NOT NULL
 );
+
+-- Table 'invitations'
+-- 
+
+DROP TABLE IF EXISTS invitations;
+
+
+CREATE TABLE invitations (
+ id SERIAL PRIMARY KEY,
+ owner_id INTEGER NOT NULL,    
+ user_id INTEGER NOT NULL,
+ trip_id INTEGER NOT NULL
+);
