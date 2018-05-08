@@ -39,7 +39,7 @@ const tripReducer = (state = initialState, action) => {
       ]}
     case 'GET_TRIP_MEMBERS': 
       return {...state,
-        tripMembers: action.members
+        tripMembers: action.members.map((member) => member)
       }
     default:
       return Object.assign({}, state)

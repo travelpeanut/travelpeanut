@@ -67,7 +67,7 @@ const deleteTrip = (tripId, userId) => (dispatch, getState) => {
     console.log(err)
   })
 }
-const addMember = ({username, tripId}) => (dispatch, getState) => {
+const addMember = ({username, tripId}) => (dispatch, getState) => {  
   axios.post('/api/trip/members', {
     params: {
       username: username,
@@ -81,9 +81,10 @@ const addMember = ({username, tripId}) => (dispatch, getState) => {
       }
     })
     .then((data) => {
+      console.log('data: ', data);      
       dispatch({
         type: ActionTypes.ADD_MEMBER,
-        member: data.data.first_name
+        member: data.data
       })
     })
   })
@@ -98,13 +99,27 @@ const getTripMembers = (tripId) => (dispatch, getState) => {
   .then((data) => {
     dispatch({
       type: ActionTypes.GET_TRIP_MEMBERS,
-      members: data.data.map((member) => {return member.first_name})
+      members: data.data
     })
   })
   .catch((err) => {
     console.error(err)
   })
 
+}
+
+const deleteTripMember = (member, trip) => (dispatch, getState) => {
+  console.log('deleting this member: ', member, ' from this trip: ', trip);
+  axios.delete('/api/trip/members', {
+    data: {
+      member: member,
+      trip: trip
+    }
+  })    
+    .then((response) => {
+      
+    })
+    .catch()
 }
 
 
@@ -115,5 +130,6 @@ module.exports = {
   setCurrentTrip: setCurrentTrip,
   deleteTrip: deleteTrip,
   addMember: addMember,
-  getTripMembers: getTripMembers
+  getTripMembers: getTripMembers,
+  deleteTripMember: deleteTripMember
 } 

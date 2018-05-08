@@ -193,6 +193,18 @@ router.route('/trip/members')
       res.status(400).send(err);
     })
   })
+  .delete((req, res) => {
+    let memberId = req.body.member.id
+    let tripId = req.body.trip.trip_id    
+    db.deleteTripMember(memberId, tripId)
+      .then((response) => {
+        console.log('response from deleting member: ', response);
+        res.status(200).send(response)
+      })
+      .catch((err) => {
+        res.status(400).send(err)
+      })
+  })
 
 router.route('/trip/members')
   .get((req, res) => {
