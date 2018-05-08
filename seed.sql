@@ -32,4 +32,10 @@ insert into chats (date_time, user_id, message, trip_id) values ('2018-04-12 6:1
 
 
 --select * from chats as c
+<<<<<<< HEAD
 --inner join users on users.id = c.user_id;
+=======
+--inner join users on users.id = c.user_id;
+
+insert into invitations (owner_id, trip_id, user_id) values (1, 2, 3);
+>>>>>>> d53afff3a5e43f69e193042050ae689bb9b83cdd
