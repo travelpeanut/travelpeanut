@@ -11,19 +11,10 @@ class BrowsePlaces extends React.Component {
 
     componentDidMount(){
         let categoryName = window.location.pathname.split( '/' )[4];
-
-        // this.props.tripState.geolocation
-
-        //api request to google
-            //input is category name and locations
     }
       
   render() {
     let places = this.props.tripState.nearbyPlaces
-    console.log('all the places!', places)
-    console.log('places.data', places.data)
-    console.log('typeof nearbyPlaces:', Array.isArray(places))
-    console.log(places.length)
     return(
       <div>
         <h1>Browse Places: {this.props.tripState.destination.name}</h1>
