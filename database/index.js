@@ -13,9 +13,9 @@ const pool = new pg.Pool({
 // ============
 // Helper Functions
 // ============
-const addNewUser = ({username, password, firstName, lastName}) => {  
-  const query = `INSERT INTO USERS (username, password, first_name, last_name)
-                 VALUES ('${username}', '${password}', '${firstName}', '${lastName}')`;
+const addNewUser = ({username, password, firstName, lastName, email}) => {  
+  const query = `INSERT INTO USERS (username, password, first_name, last_name, email)
+                 VALUES ('${username}', '${password}', '${firstName}', '${lastName}', '${email}')`;
   console.log('query: ', query);  
   return pool.query(query)
     .catch( (err) => {
@@ -82,6 +82,39 @@ const deleteTrip = (tripId) => {
     })
 }
 
+const addMemberToTrip = (username, tripId) => {
+  const query = `INSERT INTO USERS_TRIPS (USER_ID, TRIP_ID) VALUES ((SELECT ID FROM USERS WHERE USERNAME = '${username}'), ${tripId});`
+  return pool.query(query)
+  .catch((err) => {
+    console.error(err)
+  })
+}
+
+const getTripMembers = (tripId) => {
+  const query = `(select * from users where Id in (select user_Id from users_trips where trip_Id = ${tripId}))`
+  return pool.query(query)
+  .catch((err => {
+    console.error(err)
+  }))
+}
+
+const getFirstNameByUsername = (username) => {
+  const query = `select * from users where username = '${username}';`
+  return pool.query(query)
+  .catch((err) => {
+    console.error(err)
+  })
+}
+
+const deleteTripMember = (memberId, tripId) => {
+  const query = `DELETE FROM USERS_TRIPS WHERE USER_ID=${memberId} AND TRIP_ID=${tripId};`
+  console.log('deleteTripMember query: ', query);
+  return pool.query(query)
+    .catch((err) => {
+      console.error(err);
+    })
+}
+
 exports.addNewUser = addNewUser; 
 exports.getTripsByUser = getTripsByUser; 
 exports.checkLogin = checkLogin;
@@ -89,6 +122,7 @@ exports.deleteTrip = deleteTrip;
 exports.addTripToTrips = addTripToTrips; 
 exports.getNewTripId = getNewTripId; 
 exports.addTripsByUser = addTripsByUser; 
-
-
-
+exports.addMemberToTrip = addMemberToTrip;
+exports.getTripMembers = getTripMembers,
+exports.getFirstNameByUsername = getFirstNameByUsername;
+exports.deleteTripMember = deleteTripMember;

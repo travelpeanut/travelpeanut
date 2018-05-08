@@ -43,8 +43,8 @@ const createTrip = (data) => (dispatch, getState) => {
       dispatch(getAllTrips(data.ownerId))
     })
     .catch( (err) => {
-
     })
+  dispatch(push(`/home`));
 
 }
 
@@ -67,10 +67,69 @@ const deleteTrip = (tripId, userId) => (dispatch, getState) => {
     console.log(err)
   })
 }
+const addMember = ({username, tripId}) => (dispatch, getState) => {  
+  axios.post('/api/trip/members', {
+    params: {
+      username: username,
+      tripId: tripId
+    }
+  })
+  .then(() => {
+    axios.get('/api/users', {
+      params: {
+        username: username
+      }
+    })
+    .then((data) => {
+      console.log('data: ', data);      
+      dispatch({
+        type: ActionTypes.ADD_MEMBER,
+        member: data.data
+      })
+    })
+  })
+}
+
+const getTripMembers = (tripId) => (dispatch, getState) => {
+  axios.get('/api/trip/members', {
+    params: {
+      tripId: tripId
+    }
+  })
+  .then((data) => {
+    dispatch({
+      type: ActionTypes.GET_TRIP_MEMBERS,
+      members: data.data
+    })
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+
+}
+
+const deleteTripMember = (member, trip) => (dispatch, getState) => {
+  console.log('deleting this member: ', member, ' from this trip: ', trip);
+  axios.delete('/api/trip/members', {
+    data: {
+      member: member,
+      trip: trip
+    }
+  })    
+    .then((response) => {
+      
+    })
+    .catch()
+}
+
+
 
 module.exports = {
   createTrip: createTrip,
   getAllTrips: getAllTrips,
   setCurrentTrip: setCurrentTrip,
-  deleteTrip: deleteTrip
+  deleteTrip: deleteTrip,
+  addMember: addMember,
+  getTripMembers: getTripMembers,
+  deleteTripMember: deleteTripMember
 } 

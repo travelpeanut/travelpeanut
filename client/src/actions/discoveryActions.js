@@ -6,7 +6,6 @@ const getCoordinatesByCity = (cityAndState) => (dispatch, getState) => {
     console.log('in discoveryActions: ', cityAndState)
     axios.get(`/api/getCoordinates`, {params: cityAndState})
     .then((cityData)=> {
-        console.log('got data! : ', cityData)
         dispatch({
             type: ActionTypes.STORE_CITY_LOCATION,
             code: cityData
@@ -15,15 +14,23 @@ const getCoordinatesByCity = (cityAndState) => (dispatch, getState) => {
     .catch(err => {
         console.log('coudlnt get data :( :', err)
     })
-    // dispatch({
-    //     type: ActionTypes.STORE_SOMETHING,
-    //     code: success
-    // })
-    // .catch(err => console.log('couldnt set coordinates:', err))
-    // https://maps.googleapis.com/maps/api/geocode/json?address=MountainView,+CA&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s
-    //I don't think we need to dispatch push because we just want to update state
-    //dispatch(push(`/trip/${}))
+}
 
+const getNearbyPlacesByType = (types, coordinates) => (dispatch, getState) => {
+    console.log('in getNearbyPlacesByType. type: ', types, 'coordinates:', coordinates)
+    let placesToBrowse = []
+    console.log('types is...', types)
+    axios.get(`/api/getNearbyPlacesByType`, {params: [types, coordinates.lat, coordinates.lng]})
+    .then(nearbyPlaces => {
+        console.log('got ALL nearby places: ', nearbyPlaces)
+        dispatch({
+            type: ActionTypes.STORE_NEARBY_PLACES,
+            code: nearbyPlaces
+        })
+    })
+    .catch(err => {
+        console.log('couldnt get ALL nearbyplaces: ', err)
+    })
 }
 
 const createTrip = (data) => (dispatch, getState) => {
@@ -39,5 +46,6 @@ const createTrip = (data) => (dispatch, getState) => {
 
   module.exports = {
     getCoordinatesByCity: getCoordinatesByCity,
+    getNearbyPlacesByType: getNearbyPlacesByType,
     createTrip: createTrip
   }

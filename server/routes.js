@@ -3,24 +3,33 @@ const db  = require('../database/index')
 const { addNewUser } = require('../database/index')
 const axios = require('axios');
 
+
+router.route('/checkLogin')
+.get((req, res) => {
+  const {username, password} = req.query;
+  db.checkLogin(username)
+  .then((data) => {
+    if (data.rowCount === 0) {
+      console.log('username does not exist')
+      res.sendStatus(401);
+    } else if (data.rows[0].password !== password) {
+      console.log('password does not match')
+      res.sendStatus(401);
+    } else {
+      console.log('match')
+      res.json(data.rows[0])
+    };
+  });
+})
+
 router.route('/users')
   .get((req, res) => {
-    const {username, password} = req.query;
-    db.checkLogin(username)
+    const {username} = req.query
+    db.getFirstNameByUsername(username)
     .then((data) => {
-      if (data.rowCount === 0) {
-        console.log('username does not exist')
-        res.sendStatus(401);
-      } else if (data.rows[0].password !== password) {
-        console.log('password does not match')
-        res.sendStatus(401);
-      } else {
-        console.log('match')
-        res.json(data.rows[0])
-      };
-    });
+      res.json(data.rows[0])
+    })
   })
-
   .post( (req, res) => {
     let newUser = req.body;
     console.log('going to add this user: ', newUser);
@@ -114,19 +123,14 @@ router.route('/discover')
   .post()
   .delete()
 
-
-router.route('/discover')
-  .get()
-  .post()
-  .delete()
-
 router.route('/getCoordinates')
   .get((req, res)=>{
-    console.log('in router.route getcoordinates')
-    console.log('city and country are...', req.query[0])
-    console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query[0]}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
+    // console.log('in router.route getcoordinates')
+    // console.log('city and country are...', req.query[0])
+    // console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query[0]}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query[0]}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
     .then(data => {
+      // console.log('type of coordinates is...', typeof data.data.results[0].geometry.location)
       let cityData = {
         formattedName: data.data.results[0].formatted_address,
         coordinates: data.data.results[0].geometry.location,
@@ -141,6 +145,92 @@ router.route('/getCoordinates')
       console.log('couldnt get data:', err)
       res.status(400).send(err)
     })
+  })
+
+  router.route('/getNearbyPlacesByType')
+  .get((req, res) => {
+    console.log('is this an array?', Array.isArray(req.query[0]))
+    // console.log('req.query 0 and 1 are...', 'zero', req.query[0],'one', req.query[1], req.query[2])
+    let allPlaces = []
+    Promise.all(req.query[0].map(type => {
+      console.log('TYPE', type)
+      return axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${req.query[1]},${req.query[2]}&radius=1500&type=${type}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
+    }))
+    .then(places => {
+      placeData = places.map(received => {
+        return received.data.results
+      })
+      let outArr = [];
+      console.log('lentgh of placeData...', placeData.length)
+      for (var i = 0; i < placeData.length; i++){
+        outArr = outArr.concat(placeData[i])
+      }
+      console.log('outArr is..', outArr)
+      // placeData = placeData.flatten()
+      // console.log('PLACES', placeData)
+      // allPlaces.push(places.data.results)
+      // console.log('all the places:', allPlaces)
+      // console.log(placeData)
+      res.status(200).send(outArr)
+    })
+    .catch(err => {
+      console.log('couldnt get all places in server:', err)
+      res.status(400).send(err)
+    })
+    // console.log('allPlaces is...', allPlaces);
+  })
+
+
+    // .then(places => {
+    //   console.log('hopefully final places is...', places)
+    //   res.status(200).send(places)
+    // })
+    // .catch(err => {
+    //   console.log('hopefully not an err...', err)
+    //   res.status(400).send(err)
+    // })
+      // .then(places => {
+      //   console.log(places)
+      //   res.status(200).send(places)
+      // })
+      // .catch(err => {
+      //   console.log('couldnt get places:', err)
+      //   res.status(400).send(err)
+      // })
+
+
+router.route('/trip/members')
+  .get((req, res) => {
+    const {tripId} = req.query
+    db.getTripMembers(tripId)
+    .then((data) => {
+      res.json(data.rows)
+    })
+    .catch((err) => {
+      res.sendStatus(400).send(err)
+    })
+  })
+  .post((req, res) => {
+    const {username, tripId} = req.body.params
+    db.addMemberToTrip(username, tripId)
+    .then((response => {
+      res.sendStatus(201);
+    }))
+    .catch((err) => {
+      res.status(400).send(err);
+    })
+  })
+  .delete((req, res) => {
+    let memberId = req.body.member.id
+    let tripId = req.body.trip.trip_id    
+    db.deleteTripMember(memberId, tripId)
+      .then((response) => {
+        console.log('response from deleting member: ', response);
+        res.status(200).send(response)
+      })
+      .catch((err) => {
+        res.status(400).send(err)
+      })
   })
 
 
