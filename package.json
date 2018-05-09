@@ -44,7 +44,8 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "request": "^2.81.0",
-    "style-loader": "^0.21.0"
+    "style-loader": "^0.21.0",
+    "underscore": "^1.9.0"
   },
   "bugs": {
     "url": "https://github.com/travelpeanut/travelpeanut/issues"

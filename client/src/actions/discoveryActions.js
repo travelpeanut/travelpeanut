@@ -3,7 +3,7 @@ import { push } from 'react-router-redux'
 import axios from 'axios'
 
 const getCoordinatesByCity = (cityAndState) => (dispatch, getState) => {
-    console.log('in discoveryActions: ', cityAndState)
+    // console.log('in discoveryActions: ', cityAndState)
     axios.get(`/api/getCoordinates`, {params: cityAndState})
     .then((cityData)=> {
         dispatch({
@@ -17,12 +17,12 @@ const getCoordinatesByCity = (cityAndState) => (dispatch, getState) => {
 }
 
 const getNearbyPlacesByType = (types, coordinates) => (dispatch, getState) => {
-    console.log('in getNearbyPlacesByType. type: ', types, 'coordinates:', coordinates)
+    // console.log('in getNearbyPlacesByType. type: ', types, 'coordinates:', coordinates)
     let placesToBrowse = []
-    console.log('types is...', types)
+    // console.log('types is...', types)
     axios.get(`/api/getNearbyPlacesByType`, {params: [types, coordinates.lat, coordinates.lng]})
     .then(nearbyPlaces => {
-        console.log('got ALL nearby places: ', nearbyPlaces)
+        // console.log('got ALL nearby places: ', nearbyPlaces)
         dispatch({
             type: ActionTypes.STORE_NEARBY_PLACES,
             code: nearbyPlaces

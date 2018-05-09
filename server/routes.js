@@ -169,6 +169,9 @@ router.route('/getCoordinates')
       for (var i = 0; i < placeData.length; i++){
         outArr = outArr.concat(placeData[i])
       }
+      outArr = _.uniq(outArr, false, (place) => {
+        return place.id
+      })
       res.status(200).send(outArr)
     })
     .catch(err => {

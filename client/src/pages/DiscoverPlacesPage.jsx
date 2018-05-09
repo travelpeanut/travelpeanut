@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as discoverActions from '../actions/discoveryActions'
 
-
 class Discovery extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +12,8 @@ class Discovery extends React.Component {
   }
 
   componentDidMount(){
-    let addressString = this.props.tripState.destination.city + ',' + this.props.tripState.destination.country;
+    let addressString = this.props.tripState.currentTrip.city + ',' + this.props.tripState.currentTrip.country;
+    // console.log('in discoverplaces, state is', this.props.tripState)
     this.props.actions.getCoordinatesByCity(addressString)
   }
   
@@ -22,7 +22,7 @@ class Discovery extends React.Component {
       this.getPlaces(placeType[1], this.props.tripState.tripCoordinates.data.coordinates)
     )
     .then(() => 
-      this.redirectDiscover(placeType[0])
+      setTimeout(() => {this.redirectDiscover(placeType[0])}, 1000)
     )
   }
 
