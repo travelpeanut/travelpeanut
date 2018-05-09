@@ -4,8 +4,11 @@ const { addNewUser } = require('../database/index')
 const axios = require('axios');
 const { API } = require('../config.js')
 const sgMail = require('@sendgrid/mail');
+const _ = require('underscore');
 
 router.route('/login')
+
+router.route('/checkLogin')
 .get((req, res) => {
   console.log(req.query)
   var userInfo = req.query
@@ -188,6 +191,9 @@ router.route('/getCoordinates')
       for (var i = 0; i < placeData.length; i++){
         outArr = outArr.concat(placeData[i])
       }
+      outArr = _.uniq(outArr, false, (place) => {
+        return place.id
+      })
       res.status(200).send(outArr)
     })
     .catch(err => {

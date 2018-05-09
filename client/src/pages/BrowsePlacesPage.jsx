@@ -5,28 +5,39 @@ import * as tripActions from '../actions/tripActions.js'
 import axios from 'axios';
 
 class BrowsePlaces extends React.Component {
-    constructor(props) {
-      super(props);
-    }
+  constructor(props) {
+    super(props);
+    this.addToItinerary = this.addToItinerary.bind(this)
+  }
 
-    componentDidMount(){
-        let categoryName = window.location.pathname.split( '/' )[4];
-    }
+
+  componentWillMount(){
+      let categoryName = window.location.pathname.split( '/' )[4];
+      this.render, 5000;
+  }
+
+  addToItinerary(placeToAdd){
+    
+  }
       
   render() {
     let places = this.props.tripState.nearbyPlaces
+    let i = 0;
     return(
       <div>
-        <h1>Browse Places: {this.props.tripState.destination.name}</h1>
+        <h1>Browse Places: {this.props.tripState.currentTrip.name}</h1>
         {typeof places.data !== 'undefined' && places.data.map((place, key) => {
-            return (
-                <div>
-                  <h3 key={place.id}>{place.name}</h3>
+          return (
+            <div key={place.id}>
+                  <h3>{place.name}</h3>
+                  <div><img src={place.icon}/></div>
                   <p>rating: {place.rating}</p>
-                  <br />
+                  <button class="addToItinerary" onClick={this.addToItinerary(place)}>Add To Itinerary</button>
+                  <hr />
                 </div>
             )
-        })}
+          })}
+          {console.log('tripstate!:', this.props.tripState)}
       </div>
     )
   }
