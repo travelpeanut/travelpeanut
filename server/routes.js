@@ -4,8 +4,11 @@ const { addNewUser } = require('../database/index')
 const axios = require('axios');
 const { sgAPI, unsplashAPI } = require('../config.js')
 const sgMail = require('@sendgrid/mail');
+const _ = require('underscore');
 
 router.route('/login')
+
+router.route('/checkLogin')
 .get((req, res) => {
   console.log(req.query)
   var userInfo = req.query
