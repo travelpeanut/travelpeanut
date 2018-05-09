@@ -2,7 +2,7 @@ const router = require('express').Router();
 const db  = require('../database/index')
 const { addNewUser } = require('../database/index')
 const axios = require('axios');
-
+const _ = require('underscore');
 
 router.route('/checkLogin')
 .get((req, res) => {
@@ -154,6 +154,9 @@ router.route('/getCoordinates')
       for (var i = 0; i < placeData.length; i++){
         outArr = outArr.concat(placeData[i])
       }
+      outArr = _.uniq(outArr, false, (place) => {
+        return place.id
+      })
       res.status(200).send(outArr)
     })
     .catch(err => {
