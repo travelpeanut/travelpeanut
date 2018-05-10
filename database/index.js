@@ -13,7 +13,7 @@ const pool = new pg.Pool({
 // ============
 // Helper Functions
 // ============
-const addNewUser = ({username, password, firstName, lastName, email}) => {  
+const addNewUser = (username, password, firstName, lastName, email) => {  
   const query = `INSERT INTO USERS (username, password, first_name, last_name, email)
                  VALUES ('${username}', '${password}', '${firstName}', '${lastName}', '${email}')`;
   console.log('query: ', query);  
@@ -23,8 +23,8 @@ const addNewUser = ({username, password, firstName, lastName, email}) => {
     })
 };
 
-const checkLogin = (username) => {
-  const query = `SELECT * FROM USERS WHERE USERNAME = '${username}'`
+const checkLogin = (email) => {
+  const query = `SELECT * FROM USERS WHERE EMAIL = '${email}'`
   return pool.query(query)
   .catch((error) => console.error(error));
 }
