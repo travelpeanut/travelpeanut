@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as tripActions from '../actions/tripActions.js'
 import moment from 'moment'
+import Chat from './ChatPage'
 
 class TripItinerary extends React.Component {
   constructor(props) {
@@ -46,7 +47,7 @@ class TripItinerary extends React.Component {
           )
         })
       }
-
+      <Chat />
     
        
       </div>
