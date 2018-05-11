@@ -10,7 +10,7 @@ CREATE TABLE comments (
   user_id INTEGER NOT NULL,
   trip_id INTEGER NOT NULL,
   activity_id INTEGER NOT NULL,
-  comments VARCHAR(255)
+  comments VARCHAR
 );
 
 -- ---
@@ -23,13 +23,13 @@ DROP TABLE IF EXISTS activities;
 CREATE TABLE activities (
   id SERIAL PRIMARY KEY,
   trip_id INTEGER NOT NULL,
-  description VARCHAR(255),
+  description VARCHAR,
   up_vote INTEGER DEFAULT 0,
   down_vote INTEGER DEFAULT 0,
-  type VARCHAR(255),
-  activity_level VARCHAR(255) DEFAULT NULL,
+  type VARCHAR,
+  activity_level VARCHAR DEFAULT NULL,
   comment_id INTEGER,
-  start_date DATE,
+  date_of_activity DATE,
   start_time TIME
 );
 
@@ -43,7 +43,8 @@ DROP TABLE IF EXISTS users_trips;
 CREATE TABLE users_trips (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
-  trip_id INTEGER NOT NULL
+  trip_id INTEGER NOT NULL,
+  UNIQUE (user_id, trip_id)
 );
 
 -- ---
@@ -55,11 +56,10 @@ DROP TABLE IF EXISTS users;
         
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  username VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  first_name VARCHAR(255) NOT NULL,
-  last_name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL
+  first_name VARCHAR NOT NULL,
+  last_name VARCHAR NOT NULL,
+  email VARCHAR NOT NULL UNIQUE,
+  uid VARCHAR
 );
 
 -- Table 'trips'
@@ -69,26 +69,13 @@ DROP TABLE IF EXISTS trips;
         
 CREATE TABLE trips (
   id SERIAL PRIMARY KEY,
-  city VARCHAR(255) NOT NULL,
-  country VARCHAR(255) NOT NULL,
+  city VARCHAR NOT NULL,
+  country VARCHAR NOT NULL,
   start_date DATE NOT NULL,
   end_date DATE NOT NULL,
-  title VARCHAR(255) NOT NULL,
-  province VARCHAR(255),
+  title VARCHAR NOT NULL,
+  province VARCHAR,
   owner_id INTEGER NOT NULL
-);
-
--- Table 'chats'
--- 
-
-DROP TABLE IF EXISTS chats;
-        
-CREATE TABLE chats (
-  id SERIAL PRIMARY KEY,
-  date_time TIMESTAMP NOT NULL,
-  user_id INTEGER NOT NULL,
-  message VARCHAR(255) NOT NULL,
-  trip_id INTEGER NOT NULL
 );
 
 -- Table 'invitations'
@@ -99,7 +86,8 @@ DROP TABLE IF EXISTS invitations;
 
 CREATE TABLE invitations (
  id SERIAL PRIMARY KEY,
- owner_id INTEGER NOT NULL,    
- user_id INTEGER NOT NULL,
- trip_id INTEGER NOT NULL
+ user_email VARCHAR NOT NULL,
+ trip_id INTEGER NOT NULL,
+ owner_id INTEGER NOT NULL,
+ UNIQUE (user_email, trip_id, owner_id)
  );

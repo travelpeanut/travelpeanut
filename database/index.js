@@ -26,6 +26,9 @@ const addNewUser = (firstName, lastName, email, uid) => {
     })
 };
 
+
+
+
 const checkLogin = (email) => {
   const query = `SELECT * FROM USERS WHERE EMAIL = '${email}'`
   return pool.query(query)
@@ -85,8 +88,8 @@ const deleteTrip = (tripId) => {
     })
 }
 
-const addMemberToTrip = (username, tripId) => {
-  const query = `INSERT INTO USERS_TRIPS (USER_ID, TRIP_ID) VALUES ((SELECT ID FROM USERS WHERE USERNAME = '${username}'), ${tripId});`
+const addMember = (userId, tripId) => {
+  const query = `INSERT INTO USERS_TRIPS (USER_ID, TRIP_ID) VALUES (${userId}, ${tripId});`
   return pool.query(query)
   .catch((err) => {
     console.error(err)
@@ -118,6 +121,51 @@ const deleteTripMember = (memberId, tripId) => {
     })
 }
 
+const saveInvite = (email, tripId, ownerId) => {
+  const query = `INSERT INTO INVITATIONS (USER_EMAIL, TRIP_ID, OWNER_ID) VALUES ('${email}', ${tripId}, ${ownerId});`
+  return pool.query(query)
+    .catch((err) => {
+      console.error(err);
+    })
+}
+
+const getPendingInvites = (userId, tripId) => {
+  const query = `SELECT USER_EMAIL FROM INVITATIONS WHERE TRIP_ID = ${tripId} AND OWNER_ID = ${userId};`
+  return pool.query(query)
+    .catch((err) => {
+      console.error(err);
+    })
+}
+
+const deleteInvite = (email, tripId) => {
+  const query = `DELETE FROM INVITATIONS WHERE USER_EMAIL = '${email}' AND TRIP_ID = ${tripId};`
+  return pool.query(query)
+  .catch((err) => {
+    console.error(err);
+  })
+}
+
+const getInvitations = (email) => {
+  const query = `SELECT TRIPS.ID, TRIPS.TITLE, USERS.FIRST_NAME FROM INVITATIONS 
+  INNER JOIN TRIPS 
+  ON INVITATIONS.TRIP_ID = TRIPS.ID
+  INNER JOIN USERS
+  ON INVITATIONS.OWNER_ID = USERS.ID
+  WHERE USER_EMAIL = '${email}';`
+  return pool.query(query)
+  .catch((err) => {
+    console.error(err);
+  })
+}
+
+const deleteInvitation = (email, tripId) => {
+  const query = `DELETE FROM INVITATIONS WHERE USER_EMAIL = '${email}' AND TRIP_ID = ${tripId};`
+  return pool.query(query)
+  .catch((err) => {
+    console.error(err);
+  })
+}
+
 exports.addNewUser = addNewUser; 
 exports.getTripsByUser = getTripsByUser; 
 exports.checkLogin = checkLogin;
@@ -125,7 +173,12 @@ exports.deleteTrip = deleteTrip;
 exports.addTripToTrips = addTripToTrips; 
 exports.getNewTripId = getNewTripId; 
 exports.addTripsByUser = addTripsByUser; 
-exports.addMemberToTrip = addMemberToTrip;
+exports.addMember = addMember;
 exports.getTripMembers = getTripMembers,
 exports.getFirstNameByUsername = getFirstNameByUsername;
 exports.deleteTripMember = deleteTripMember;
+exports.saveInvite = saveInvite;
+exports.getPendingInvites = getPendingInvites;
+exports.deleteInvite = deleteInvite,
+exports.getInvitations = getInvitations,
+exports.deleteInvitation = deleteInvitation

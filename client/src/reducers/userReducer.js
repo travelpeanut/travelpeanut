@@ -5,7 +5,8 @@ import { updateObject, createReducer } from'./reducerUtils'
 const initialState = {
   userInfo: {},
   something: '',
-  currentUser: {}
+  currentUser: {},
+  invitations: []
 }
 
 const userReducer = (state = initialState, action) => {  
@@ -21,6 +22,11 @@ const userReducer = (state = initialState, action) => {
       }
     case 'LOGOUT_USER':
       return initialState
+    case 'GET_INVITATIONS':
+      return {
+        ...state, 
+        invitations: action.invitations
+      }
     default:
       return Object.assign({}, state)
   }

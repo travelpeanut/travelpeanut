@@ -9,7 +9,8 @@ const initialState = {
   tripCoordinates: {},
   tripMembers: [],
   nearbyPlaces: [],
-  destination: {}
+  destination: {},
+  pendingInvites: []
 }
 
 const tripReducer = (state = initialState, action) => {
@@ -45,7 +46,11 @@ const tripReducer = (state = initialState, action) => {
       ]}
     case 'GET_TRIP_MEMBERS': 
       return {...state,
-        tripMembers: action.members.map((member) => member)
+        tripMembers: action.members
+      }
+    case 'GET_PENDING_INVITES':
+      return {...state,
+        pendingInvites: action.pendingInvites
       }
     default:
       return Object.assign({}, state)

@@ -2,6 +2,8 @@ const router = require('express').Router();
 const db  = require('../database/index')
 const { addNewUser } = require('../database/index')
 const axios = require('axios');
+const { API, DOMAIN } = require('../config.js')
+const sgMail = require('@sendgrid/mail');
 
 router.route('/login')
 .get((req, res) => {
@@ -80,6 +82,7 @@ router.route('/home')
   .get()
   .post()
   .delete()
+
 
 router.route('/trips')
   .get((req, res) => {
@@ -205,8 +208,8 @@ router.route('/trip/members')
     })
   })
   .post((req, res) => {
-    const {username, tripId} = req.body.params
-    db.addMemberToTrip(username, tripId)
+    const {userId, tripId} = req.body.params
+    db.addMember(userId, tripId)
     .then((response => {
       res.sendStatus(201);
     }))
@@ -215,17 +218,77 @@ router.route('/trip/members')
     })
   })
   .delete((req, res) => {
-    let memberId = req.body.member.id
-    let tripId = req.body.trip.trip_id    
+    console.log(req.body, req.params, req.query)
+    const { memberId, tripId } = req.body   
     db.deleteTripMember(memberId, tripId)
       .then((response) => {
-        console.log('response from deleting member: ', response);
-        res.status(200).send(response)
+        res.status(202).send(response)
       })
       .catch((err) => {
         res.status(400).send(err)
       })
   })
+
+  router.route('/trip/invite')
+    .get((req, res) => {
+      const {userId, tripId} = req.query
+      db.getPendingInvites(userId, tripId)
+      .then((data) => {
+        res.json(data.rows)
+      })
+    })
+    .post((req, res) => {
+      // sgMail.setApiKey(API);
+      // const msg = {
+      //   to: 'pdphouse14@gmail.com',
+      //   from: 'bfang212@gmail.com',
+      //   subject: 'Sending with SendGrid is Fun',
+      //   text: 'and easy to do anywhere, even with Node.js',
+      //   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+      // };
+      // sgMail.send(msg);
+      const {email, tripId, ownerId} = req.body.params
+      db.saveInvite(email, tripId, ownerId)
+      .then((response) => {
+        res.status(201).send(response)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+    })
+    .delete((req, res) => {
+      const { email, tripId } = req.query
+      db.deleteInvite(email, tripId)
+      .then((data) => {
+        res.sendStatus(202)
+      })
+      .catch((err) => {
+        res.status(400).send(err)
+      })
+    })       
+
+    router.route('/invitations')
+    .get((req, res) =>{
+      const {email} = req.query;
+      db.getInvitations(email)
+      .then((data) => {
+        res.json(data.rows)
+      })
+      .catch((err) => {
+        res.status(400).send(err)
+      })
+    })
+    .delete((req, res) => {
+      const {email, tripId} = req.query
+      db.deleteInvitation(email, tripId)
+      .then((data) => {
+        res.json(data.rows)
+      })
+      .catch((err) => {
+        res.status(400).send(err)
+      })
+    })
+
 
 
   module.exports = router;

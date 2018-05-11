@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import TripList from '../components/TripListHome.jsx';
 import * as userActions from '../actions/userActions.js';
 import * as tripActions from '../actions/tripActions.js';
+import Invitation from '../components/Invitation.jsx';
 
 
 class HomePage extends React.Component {
@@ -16,6 +17,9 @@ class HomePage extends React.Component {
     this.getAllTrips = this.getAllTrips.bind(this) 
     this.deleteTrip = this.deleteTrip.bind(this)
     this.handleLogOut = this.handleLogOut.bind(this) 
+    this.getInvitations = this.getInvitations.bind(this)
+    this.acceptInvitation = this.acceptInvitation.bind(this)
+    this.rejectInvitation = this.rejectInvitation.bind(this)
     this.state = {
       show: 'none'
     }
@@ -23,6 +27,7 @@ class HomePage extends React.Component {
 
   componentDidMount(){
     this.getAllTrips()
+    this.getInvitations()
   }
 
   getAllTrips(){
@@ -34,6 +39,18 @@ class HomePage extends React.Component {
     this.setState({
       show: 'block'
     })  
+  }
+
+
+  acceptInvitation(email, tripId, userId) {
+    Promise.resolve(this.props.actions.acceptInvitation(email, tripId, userId))
+    .then(() => this.props.actions.addMember(userId, tripId))
+    .then(() => this.getAllTrips())
+  }
+
+  rejectInvitation(email, tripId) {
+    this.props.actions.rejectInvitation(email, tripId)
+
   }
 
   handleSubmit(){
@@ -55,13 +72,17 @@ class HomePage extends React.Component {
     this.props.actions.createTrip(data)
   }
 
-  goToTrip(item){
+  goToTrip(item) {
     this.props.actions.setCurrentTrip(item)
   }
 
-  deleteTrip(tripId){
+  deleteTrip(tripId) {
     let {currentUser} = this.props.userState
     this.props.actions.deleteTrip(tripId, currentUser.id)
+  }
+
+  getInvitations() {
+    this.props.actions.getInvitations(this.props.userState.currentUser.email)
   }
 
   handleLogOut() {    
@@ -104,8 +125,20 @@ class HomePage extends React.Component {
             <br/>          
             <button onClick={this.handleSubmit}>Submit</button>
           </div>
+      
+          {userState.invitations && userState.invitations.map((invitation, index) => {
+            return (
+            <div key={index}>
+            <Invitation
+              invitation={invitation}
+            />
+            <button onClick={() => this.acceptInvitation(userState.currentUser.email, invitation.id, userState.currentUser.id)}>Yes</button>
+            <button onClick={() => this.rejectInvitation(userState.currentUser.email, invitation.id, userState.currentUser.id)}>No</button> 
+            </div>)           
+          }
+        )}        
 
-          
+
           <h2>Show All trips:</h2>
           <TripList 
             allTrips={tripState.allTrips} 
@@ -113,9 +146,6 @@ class HomePage extends React.Component {
             currentUserId={userState.currentUser.id}
             deleteTrip={(tripId) => this.deleteTrip(tripId)}
           />
-
-
-
         </div>
 
        

@@ -18,6 +18,7 @@ class LoginPage extends React.Component {
   // }
 
   handleSubmit(){
+    console.log(this.username.value, this.password.value)
     this.props.actions.loginGoogle();   
 
   }

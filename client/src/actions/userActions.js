@@ -119,6 +119,43 @@ const logOut = () => (dispatch, getState) =>  {
   dispatch(push(`/login`));
 }
 
+const getInvitations = (email) => (dispatch, getState) => {
+  console.log('email', email)
+  //pings the server -> database
+  axios.get('/api/invitations', {
+    params: {
+      email: email
+    }
+  })
+  .then((data) => {
+    dispatch({
+      type: ActionTypes.GET_INVITATIONS,
+      invitations: data.data
+    })
+  })
+}
+
+const acceptInvitation = (email, tripId, userId) => (dispatch, getState) => {
+  axios.delete('/api/invitations', {
+    params: {
+      email: email,
+      tripId: tripId
+    }
+  })
+  .then(() => dispatch(getInvitations(email)))
+}
+
+const rejectInvitation = (email, tripId) => (dispatch, getState) => {
+  axios.delete('/api/invitations', {
+    params: {
+      email: email,
+      tripId: tripId
+    }
+  })
+  .then(() => dispatch(getInvitations(email)))
+}
+
+
 module.exports = {
   goToLogin: goToLogin,
   // storeSomething: storeSomething,
@@ -126,5 +163,8 @@ module.exports = {
   checkLogin: checkLogin,  
   signUp: signUp,
   goToSignup: goToSignup,
-  logOut: logOut
+  logOut: logOut,
+  getInvitations: getInvitations,
+  acceptInvitation: acceptInvitation,
+  rejectInvitation: rejectInvitation
 }
