@@ -19,7 +19,7 @@ router.route('/checkLogin')
       if (data.rowCount === 0) {
         console.log('hi new user!!!!')
         //query insert new data
-        return db.addNewUser(userInfo.firstName, userInfo.lastName, userInfo.email, userInfo.uid)
+        return db.addNewUser(userInfo.uid, 'dumbiepw', userInfo.firstName, userInfo.lastName, userInfo.email)
       } else {
         console.log('matched', data.rows[0])
         // res.json(data.rows[0]) 
