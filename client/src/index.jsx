@@ -23,6 +23,7 @@ import TripDetail from './pages/TripDetailPage.jsx'
 import MembersList from './pages/MembersPage.jsx'
 import Discovery from './pages/DiscoverPlacesPage.jsx'
 import BrowsePlaces from './pages/BrowsePlacesPage.jsx'
+import AddToItinerary from './pages/AddToItinerary.jsx'
 
 import './styles/main.css'
 import { auth } from '../../firebase/index.js';

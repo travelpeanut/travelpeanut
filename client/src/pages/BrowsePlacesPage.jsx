@@ -1,13 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as tripActions from '../actions/tripActions.js'
+import * as discoveryActions from '../actions/discoveryActions.js'
 import axios from 'axios';
 
 class BrowsePlaces extends React.Component {
   constructor(props) {
     super(props);
     this.addToItinerary = this.addToItinerary.bind(this)
+    this.redirectAddPlace = this.redirectAddPlace.bind(this)
   }
 
 
@@ -17,7 +18,16 @@ class BrowsePlaces extends React.Component {
   }
 
   addToItinerary(placeToAdd){
-    
+    //set state to have clicked place.
+    this.props.actions.stagePlace(placeToAdd)
+    setTimeout(() => this.redirectAddPlace(placeToAdd.name), 1000)
+  }
+
+  redirectAddPlace(place){
+    let placeName = place.trim()
+    let tripCity = this.props.tripState.currentTrip.city.trim()
+    let discoverType = window.location.pathname.split(`/`)[4];
+    this.props.history.push(`/trip/${tripCity}/discovery/${discoverType}/${placeName}/addToItinerary`)
   }
       
   render() {
@@ -32,7 +42,7 @@ class BrowsePlaces extends React.Component {
                   <h3>{place.name}</h3>
                   <div><img src={place.icon}/></div>
                   <p>rating: {place.rating}</p>
-                  <button class="addToItinerary" onClick={this.addToItinerary(place)}>Add To Itinerary</button>
+                  <button className="addToItinerary" onClick={() => this.addToItinerary(place)}>Add To Itinerary</button>
                   <hr />
                 </div>
             )
@@ -48,7 +58,7 @@ export default connect(
         tripState: state.tripReducer,
     }),
     dispatch => ({
-        actions: bindActionCreators( tripActions , dispatch)
+        actions: bindActionCreators( discoveryActions , dispatch)
     })
   )(BrowsePlaces);
   

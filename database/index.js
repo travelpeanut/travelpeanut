@@ -166,6 +166,20 @@ const deleteInvitation = (email, tripId) => {
   })
 }
 
+const addActivity = (activityData) => {
+  let tripId = activityData.params.tripId
+  let activityDate = activityData.params.activityDate
+  let startTime = activityData.params.startTime;
+  let activityName = activityData.params.activityName
+  let activityType = activityData.params.activityType || null
+  let activityLevel = activityData.params.activityLevel || null
+  const query = `INSERT INTO activities (trip_id, description, type, activity_level, date_of_activity, start_time) values (${tripId}, '${activityName}', ${activityType}, ${activityLevel}, '${activityDate}', '${startTime}');`
+  return pool.query(query)
+    .catch(err => {
+      console.log('couldnt insert activity:', err)
+    })
+}
+
 exports.addNewUser = addNewUser; 
 exports.getTripsByUser = getTripsByUser; 
 exports.checkLogin = checkLogin;
@@ -181,4 +195,5 @@ exports.saveInvite = saveInvite;
 exports.getPendingInvites = getPendingInvites;
 exports.deleteInvite = deleteInvite,
 exports.getInvitations = getInvitations,
-exports.deleteInvitation = deleteInvitation
+exports.deleteInvitation = deleteInvitation;
+exports.addActivity = addActivity;

@@ -10,7 +10,8 @@ const initialState = {
   tripMembers: [],
   nearbyPlaces: [],
   destination: {},
-  pendingInvites: []
+  pendingInvites: [],
+  placeToAdd: {},
 }
 
 const tripReducer = (state = initialState, action) => {
@@ -52,6 +53,10 @@ const tripReducer = (state = initialState, action) => {
       return {...state,
         pendingInvites: action.pendingInvites
       }
+    case 'STAGE_PLACE_FOR_ITINERARY':
+      return Object.assign({}, state, {
+        placeToAdd: action.code
+      })
     default:
       return Object.assign({}, state)
   }

@@ -278,6 +278,18 @@ router.route('/trip/members')
       })
     })
 
+  router.route('/addActivity')
+    .get()
+    .post((req, res) => {
+      db.addActivity(req.body)
+      .then(success => {
+        res.status(200).send(success)
+      })
+      .catch(err => {
+        res.status(400).send(err)
+      })
+    })
+
 
 
   module.exports = router;
