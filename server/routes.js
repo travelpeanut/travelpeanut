@@ -5,6 +5,56 @@ const axios = require('axios');
 const { API, DOMAIN } = require('../config.js')
 const sgMail = require('@sendgrid/mail');
 
+router.route('/login')
+.get((req, res) => {
+  console.log(req.query)
+  var userInfo = req.query
+  // let token = req.query['0']
+  db.checkLogin(userInfo.email)
+    .then((data) => {
+      console.log('db back',data)
+      if (data.rowCount === 0) {
+        console.log('hi new user!!!!')
+        //query insert new data
+        return db.addNewUser(userInfo.firstName, userInfo.lastName, userInfo.email, userInfo.uid)
+      } else {
+        console.log('matched', data.rows[0])
+        // res.json(data.rows[0]) 
+        // res.status(200).send('user exists, login success')
+        return data
+      }
+    })
+    .then((data) => {
+      console.log('response', data)
+      let userInfo = {userId: data.rows[0].id}
+      res.status(200).send(userInfo)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+
+ 
+})
+
+
+// router.route('/login')
+// .get((req, res) => {
+//   const {username, password} = req.query;
+//   db.checkLogin(username)
+//   .then((data) => {
+//     if (data.rowCount === 0) {
+//       console.log('username does not exist')
+//       res.sendStatus(401);
+//     } else if (data.rows[0].password !== password) {
+//       console.log('password does not match')
+//       res.sendStatus(401);
+//     } else {
+//       console.log('match')
+//       res.json(data.rows[0])
+//     };
+//   });
+// })
+
 router.route('/users')
   .get((req, res) => {
     const {username} = req.query

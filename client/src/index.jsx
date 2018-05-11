@@ -25,11 +25,12 @@ import Discovery from './pages/DiscoverPlacesPage.jsx'
 import BrowsePlaces from './pages/BrowsePlacesPage.jsx'
 
 import './styles/main.css'
+import { auth } from '../../firebase/index.js';
 
 const history = createHistory()
 const middleware = routerMiddleware(history)
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
   userReducer,
   tripReducer,
   chatReducer,
@@ -37,8 +38,35 @@ const reducers = combineReducers({
 })
 
 const store = createStore(
-  reducers,
+  rootReducer,
   applyMiddleware(thunk, middleware)
+)
+
+const authStatus = {
+  ifLoggedIn: function(){
+    let state = store.getState();
+    let userToken = localStorage.getItem('userToken')
+    if(userToken === state.userReducer.currentUser.uid){
+      return true
+    } else{
+      return false
+    }
+  }
+}
+
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+       authStatus.ifLoggedIn() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/login" />
+
+      )
+    }
+  />
 )
 
 
@@ -50,13 +78,13 @@ ReactDOM.render(
         <Route exact path="/" component={LandingPage}/>
         <Route exact path="/login" component={LoginPage}/>
         <Route exact path="/signup" component={SignupPage}/>
-        <Route exact path="/home" component={HomePage}/>
-        <Route exact path="/trip/:name" component={TripMenu}/>
-        <Route exact path="/trip/:name/itinerary" component={TripItinerary}/>
-        <Route exact path="/trip/:name/details" component={TripDetail}/>
-        <Route exact path="/trip/:name/members" component={MembersList}/>
-        <Route exact path="/trip/:name/discovery" component={Discovery}/>
-        <Route exact path="/trip/:name/discovery/:category" component={BrowsePlaces}/>
+        <PrivateRoute exact path="/home" component={HomePage}/>
+        <PrivateRoute exact path="/trip/:name" component={TripMenu}/>
+        <PrivateRoute exact path="/trip/:name/itinerary" component={TripItinerary}/>
+        <PrivateRoute exact path="/trip/:name/details" component={TripDetail}/>
+        <PrivateRoute exact path="/trip/:name/members" component={MembersList}/>
+        <PrivateRoute exact path="/trip/:name/discovery" component={Discovery}/>
+        <PrivateRoute exact path="/trip/:name/discovery/:category" component={BrowsePlaces}/>
 
       </div>
     </ConnectedRouter>

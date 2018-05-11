@@ -36,14 +36,11 @@ class HomePage extends React.Component {
   }
 
   handleCreate(){
-
     this.setState({
       show: 'block'
-    })
-
-
-     
+    })  
   }
+
 
   acceptInvitation(email, tripId, userId) {
     Promise.resolve(this.props.actions.acceptInvitation(email, tripId, userId))
@@ -56,8 +53,7 @@ class HomePage extends React.Component {
 
   }
 
-  handleSubmit() {
-
+  handleSubmit(){
     this.setState({
       show: 'none'
     })
@@ -107,7 +103,7 @@ class HomePage extends React.Component {
 
         <div>
           <h1>Home Page (after user logs in)</h1>
-          <p>User name: {userState.currentUser.username}</p>
+          <p>Welcome, {userState.currentUser.firstName}!</p>
           <button onClick={this.handleLogOut}>Log out</button>
           <hr/>
           <br/>
