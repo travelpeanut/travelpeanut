@@ -239,15 +239,18 @@ router.route('/trip/members')
     })
     .post((req, res) => {
       sgMail.setApiKey(API);
+      console.log('req.query: ', req.query)
+      console.log('req.body: ', req.body)
+      console.log('req.params: ', req.params)
+      let {email, tripId, ownerId, ownerEmail} = req.body.params
       const msg = {
-        to: 'heidixpoon@gmail.com',
-        from: 'bfang212@gmail.com',
-        subject: 'Sending with SendGrid is Fun',
-        text: 'and easy to do anywhere, even with Node.js',
-        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+        to: email,
+        from: ownerEmail,
+        subject: 'Message from travel peanut',
+        text: 'owner has invited you to their magical journey',
+        html: `<h1>You've been invited to a magical journey</h1><br/><img src="http://placecorgi.com/250" />`,
       };
       sgMail.send(msg);
-      const {email, tripId, ownerId} = req.body.params
       db.saveInvite(email, tripId, ownerId)
       .then((response) => {
         res.status(201).send(response)
