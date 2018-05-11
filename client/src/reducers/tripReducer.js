@@ -10,11 +10,8 @@ const initialState = {
   tripMembers: [],
   nearbyPlaces: [],
   destination: {},
-<<<<<<< HEAD
-  pendingInvites: []
-=======
+  pendingInvites: [],
   placeToAdd: {},
->>>>>>> successfully adding event from browse to database activities table
 }
 
 const tripReducer = (state = initialState, action) => {
