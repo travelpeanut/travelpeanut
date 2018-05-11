@@ -170,7 +170,17 @@ const deleteInvite = (email, tripId, ownerId) => (dispatch, getState) => {
   .catch((error) => {
     console.error(error)
   })
+}
 
+const getActivitiesForDate = (date, trip) => (dispact, getState) => {
+  console.log('getting Activities for ', date, 'and trip id:', trip)
+  axios.get(`/api/trip/activities`)
+    .then(success => {
+      console.log('got activites!', success)
+    })
+    .catch(err => {
+      console.log('couldnt get activities from db', err)
+    })
 }
 
 
@@ -185,4 +195,5 @@ module.exports = {
   getPendingInvites: getPendingInvites,
   getTripMembers: getTripMembers,
   deleteTripMember: deleteTripMember,
+  getActivitiesForDate: getActivitiesForDate
 } 
