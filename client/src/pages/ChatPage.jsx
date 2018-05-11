@@ -2,6 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { firebase, fbDb } from '../../../firebase/firebase';
 import Message from '../components/Message.jsx'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as tripActions from '../actions/tripActions.js'
 
 class Chat extends React.Component {
   constructor(props) {
@@ -9,8 +12,12 @@ class Chat extends React.Component {
     this.state = {
       messages: [],
       message: '',
-      tripId: 1,
-      userId: 1,      
+      tripId: null,
+      userId: null,
+      email: '',
+      firstName: '',
+      lastName: '',
+      imgUrl: ''      
     }
   this.handleMessageInput = this.handleMessageInput.bind(this);
   this.handleSubmitMessage = this.handleSubmitMessage.bind(this);    
@@ -18,12 +25,25 @@ class Chat extends React.Component {
   }
 
   componentWillMount() {
-    this.getMessages();
+    let { currentUser } = this.props.userState
+    let { currentTrip } = this.props.tripState
+    console.log('currentUser: ', currentUser)
+    console.log('currentTrip: ', currentTrip)
+    this.setState({
+      tripId: currentTrip.id,
+      userId: currentUser.id,
+      email: currentUser.email,
+      firstName: currentUser.firstName,
+      lastName: currentUser.lastName,
+      imgUrl: currentUser.imgUrl  
+    }, () => {
+      this.getMessages();
+    })
   }
-  
+
   getMessages() {
     fbDb.child(`${this.state.tripId}/messages`)
-    .on('value', (snapshot) => {
+    .on('value', (snapshot) => {      
   
       // Get the data back from firebase
       let message = snapshot.val();      
@@ -32,9 +52,7 @@ class Chat extends React.Component {
       message = Object.keys(message).map((key)=>{
         return [key, message[key]]
       })    
-  
-      console.log('messages: ', message);
-  
+        
       this.setState({
         messages: message
       })      
@@ -50,7 +68,11 @@ class Chat extends React.Component {
   handleSubmitMessage() {
     const message = {
       message: this.state.message,      
-      user_id: this.state.userId,      
+      user_id: this.state.userId,
+      email: this.state.email,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      imgUrl: this.state.imgUrl      
     }
     // Add the new message to firebase
     fbDb.child(`${this.state.tripId}/messages`).push(message)    
@@ -65,7 +87,7 @@ class Chat extends React.Component {
             const key = item[0]
             const msg = item[1].message
             return (
-              <Message key={key} message={msg}/>
+              <Message key={key} message={msg} firstName={this.state.firstName} imgUrl={this.state.imgUrl}/>
             )
           })}
         </div>
@@ -78,4 +100,12 @@ class Chat extends React.Component {
   }
 }
 
-export default Chat;
+export default connect(
+  state => ({
+    userState: state.userReducer,
+    tripState: state.tripReducer
+  }),
+  dispatch => ({
+    actions: bindActionCreators(tripActions, dispatch)
+  })
+)(Chat)
