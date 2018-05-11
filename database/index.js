@@ -195,5 +195,5 @@ exports.saveInvite = saveInvite;
 exports.getPendingInvites = getPendingInvites;
 exports.deleteInvite = deleteInvite,
 exports.getInvitations = getInvitations,
-exports.deleteInvitation = deleteInvitation
+exports.deleteInvitation = deleteInvitation,
 exports.addActivity = addActivity;

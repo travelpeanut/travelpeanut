@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import * as discoveryActions from '../actions/discoveryActions.js'
 import axios from 'axios';
 
+
 class BrowsePlaces extends React.Component {
   constructor(props) {
     super(props);

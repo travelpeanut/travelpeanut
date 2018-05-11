@@ -11,8 +11,9 @@ class TripItinerary extends React.Component {
     this.redirectToDetails = this.redirectToDetails.bind(this)
   }
 
-  redirectToDetails(){
+  redirectToDetails(date){
     let {currentTrip} = this.props.tripState
+    //
     this.props.history.push(`/trip/${currentTrip.id}/details`)
   }
 
@@ -35,7 +36,8 @@ class TripItinerary extends React.Component {
       let m = moment(day).month()+1
       let year = moment(day).year()
       let name = moment(day).format('dddd')
-      dayArr.push([i, m, date, year, name]);
+      let fullDate = moment(day).format('MMMM D YYYY')
+      dayArr.push([i, m, date, year, name, fullDate]);
       // console.log('dayArr is...', dayArr)
     }
 
@@ -49,7 +51,7 @@ class TripItinerary extends React.Component {
             <div key={i}>
               <p>{item[4]} - Day {item[0]+1} </p>
               <p>{item[1]}/{item[2]}/{item[3]} </p>
-              <button onClick={this.redirectToDetails}>View Details</button>
+              <button onClick={() => this.redirectToDetails(item[5])}>View Details</button>
             </div>
           )
         })

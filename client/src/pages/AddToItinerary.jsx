@@ -10,7 +10,7 @@ class AddToItinerary extends React.Component{
         super(props)
         this.addActivity = this.addActivity.bind(this)
     }
-    
+
     addActivity(activityName, currentTrip){
         console.log('activityName is...', activityName)
         let tripId = currentTrip.currentTrip.id;

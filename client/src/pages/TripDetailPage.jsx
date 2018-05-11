@@ -7,10 +7,18 @@ import * as tripActions from '../actions/tripActions.js';
 class TripDetail extends React.Component {
   constructor(props) {
     super(props)
+    this.getActivitiesForDate = this.getActivitiesForDate.bind(this)
   }
 
- 
+getActivitiesForDate(){
 
+  //date = date clicked. 
+  let tripId = this.props.tripState.currentTrip.id
+  let activityDate = 
+  this.props.actions.getActivitiesForDate(date, tripId)
+}
+ 
+//grab curr
   
   render() {
     let {currentTrip} = this.props.tripState
