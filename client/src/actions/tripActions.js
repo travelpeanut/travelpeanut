@@ -124,7 +124,7 @@ const sendInvite = (email, tripId, ownerId) => (dispatch, getState) => {
     params: {
       email: email,
       tripId: tripId,
-      ownerId, ownerId
+      ownerId: ownerId
     }
   })
   .then(() => {

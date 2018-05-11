@@ -70,7 +70,7 @@ const loginGoogle = () => (dispatch) => {
     dispatch(push(`/home`))
   })
   .catch((err) => {
-    console.log('sign in err')
+    console.log('sign in err: ', err)
   })
 
 }
