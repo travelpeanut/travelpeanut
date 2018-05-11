@@ -8,22 +8,23 @@ router.route('/login')
   console.log(req.query)
   var userInfo = req.query
   // let token = req.query['0']
-  db.checkLogin(req.query.email)
+  db.checkLogin(userInfo.email)
     .then((data) => {
       console.log('db back',data)
       if (data.rowCount === 0) {
+        console.log('hi new user!!!!')
         //query insert new data
-        return db.addNewUser(userInfo.user_id, 'dumbiepw', userInfo.firstName, userInfo.lastName, userInfo.email)
+        return db.addNewUser(userInfo.firstName, userInfo.lastName, userInfo.email, userInfo.uid)
       } else {
         console.log('matched', data.rows[0])
         // res.json(data.rows[0]) 
         // res.status(200).send('user exists, login success')
-        return data.rows[0]
+        return data
       }
     })
     .then((data) => {
-      console.log('response', data.id)
-      let userInfo = {userId: data.id}
+      console.log('response', data)
+      let userInfo = {userId: data.rows[0].id}
       res.status(200).send(userInfo)
     })
     .catch((err) => {

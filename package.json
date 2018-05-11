@@ -31,7 +31,6 @@
     "css-loader": "^0.28.11",
     "express": "^4.15.0",
     "firebase": "^5.0.1",
-    "firebase-admin": "^5.12.0",
     "moment": "^2.22.1",
     "node-sass-chokidar": "^1.2.2",
     "path": "^0.12.7",
