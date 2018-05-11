@@ -2,7 +2,10 @@ import React from 'react'
 
 const Message = (props) => {  
   return (
-    <div>{props.message}</div>
+   <div>
+     {/* <img src={props.imgUrl} /> */}
+     <div>{props.firstName}: {props.message}</div>
+   </div>
   )
 }
 
