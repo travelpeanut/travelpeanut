@@ -10,7 +10,11 @@ const initialState = {
   tripMembers: [],
   nearbyPlaces: [],
   destination: {},
+<<<<<<< HEAD
   pendingInvites: []
+=======
+  placeToAdd: {},
+>>>>>>> successfully adding event from browse to database activities table
 }
 
 const tripReducer = (state = initialState, action) => {
@@ -52,6 +56,10 @@ const tripReducer = (state = initialState, action) => {
       return {...state,
         pendingInvites: action.pendingInvites
       }
+    case 'STAGE_PLACE_FOR_ITINERARY':
+      return Object.assign({}, state, {
+        placeToAdd: action.code
+      })
     default:
       return Object.assign({}, state)
   }
