@@ -42,6 +42,8 @@ class MembersPage extends React.Component {
   
   render() {
     let {currentTrip, pendingInvites} = this.props.tripState
+    let {currentUser} = this.props.userState
+
     let {first_name} = this.props.userState.currentUser
     let {tripMembers} = this.props.tripState
     console.log(this.props.tripState)
@@ -68,7 +70,7 @@ class MembersPage extends React.Component {
         </ul>
         <br/><br/>
 
-        {tripState.currentTrip.owner_id === userState.currentUser.id && (<div>
+        {currentTrip.owner_id === currentUser.id && (<div>
         <h3>Add a member with email</h3>
         <input type='email' placeholder='email' ref={email => this.email = email} />
         <button onClick={() => this.sendInvite(this.email.value, currentTrip.trip_id, currentTrip.owner_id)}>Send Invite</button>

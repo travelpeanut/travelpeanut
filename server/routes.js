@@ -2,7 +2,7 @@ const router = require('express').Router();
 const db  = require('../database/index')
 const { addNewUser } = require('../database/index')
 const axios = require('axios');
-const { API, DOMAIN } = require('../config.js')
+const { API } = require('../config.js')
 const sgMail = require('@sendgrid/mail');
 
 router.route('/login')
@@ -238,15 +238,15 @@ router.route('/trip/members')
       })
     })
     .post((req, res) => {
-      // sgMail.setApiKey(API);
-      // const msg = {
-      //   to: 'pdphouse14@gmail.com',
-      //   from: 'bfang212@gmail.com',
-      //   subject: 'Sending with SendGrid is Fun',
-      //   text: 'and easy to do anywhere, even with Node.js',
-      //   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-      // };
-      // sgMail.send(msg);
+      sgMail.setApiKey(API);
+      const msg = {
+        to: 'heidixpoon@gmail.com',
+        from: 'bfang212@gmail.com',
+        subject: 'Sending with SendGrid is Fun',
+        text: 'and easy to do anywhere, even with Node.js',
+        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+      };
+      sgMail.send(msg);
       const {email, tripId, ownerId} = req.body.params
       db.saveInvite(email, tripId, ownerId)
       .then((response) => {
