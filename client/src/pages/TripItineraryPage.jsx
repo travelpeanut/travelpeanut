@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as tripActions from '../actions/tripActions.js'
 import moment from 'moment'
-import Chat from './ChatPage'
+import Chat from './ChatPage.jsx'
 
 class TripItinerary extends React.Component {
   constructor(props) {
