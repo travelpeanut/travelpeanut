@@ -71,7 +71,7 @@ const logOut = () => (dispatch, getState) =>  {
 module.exports = {
   goToLogin: goToLogin,
   // storeSomething: storeSomething,
-  checkLogin: checkLogin,  
+  checkLogin: checkLogin,
   signUp: signUp,
   goToSignup: goToSignup,
   logOut: logOut

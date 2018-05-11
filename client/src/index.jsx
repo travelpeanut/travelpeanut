@@ -23,6 +23,7 @@ import TripDetail from './pages/TripDetailPage.jsx'
 import MembersList from './pages/MembersPage.jsx'
 import Discovery from './pages/DiscoverPlacesPage.jsx'
 import BrowsePlaces from './pages/BrowsePlacesPage.jsx'
+import AddToItinerary from './pages/AddToItinerary.jsx'
 
 import './styles/main.css'
 
@@ -57,7 +58,7 @@ ReactDOM.render(
         <Route exact path="/trip/:name/members" component={MembersList}/>
         <Route exact path="/trip/:name/discovery" component={Discovery}/>
         <Route exact path="/trip/:name/discovery/:category" component={BrowsePlaces}/>
-
+        <Route exact path="/trip/:name/discovery/:category/:placeName/addToItinerary" component={AddToItinerary}/>
       </div>
     </ConnectedRouter>
   </Provider>

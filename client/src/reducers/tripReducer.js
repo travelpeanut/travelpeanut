@@ -9,7 +9,8 @@ const initialState = {
   tripCoordinates: {},
   tripMembers: [],
   nearbyPlaces: [],
-  destination: {}
+  destination: {},
+  placeToAdd: {},
 }
 
 const tripReducer = (state = initialState, action) => {
@@ -47,6 +48,10 @@ const tripReducer = (state = initialState, action) => {
       return {...state,
         tripMembers: action.members.map((member) => member)
       }
+    case 'STAGE_PLACE_FOR_ITINERARY':
+      return Object.assign({}, state, {
+        placeToAdd: action.code
+      })
     default:
       return Object.assign({}, state)
   }
