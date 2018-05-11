@@ -76,9 +76,9 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div>
-        <Route exact path="/" component={LandingPage}/>
-        <Route exact path="/login" component={LoginPage}/>
-        <Route exact path="/signup" component={SignupPage}/>
+        <PrivateRoute exact path="/" component={LandingPage}/>
+        <PrivateRoute exact path="/login" component={LoginPage}/>
+        <PrivateRoute exact path="/signup" component={SignupPage}/>
         <PrivateRoute exact path="/home" component={HomePage}/>
         <PrivateRoute exact path="/trip/:name" component={TripMenu}/>
         <PrivateRoute exact path="/trip/:name/itinerary" component={TripItinerary}/>
@@ -86,7 +86,7 @@ ReactDOM.render(
         <PrivateRoute exact path="/trip/:name/members" component={MembersList}/>
         <PrivateRoute exact path="/trip/:name/discovery" component={Discovery}/>
         <PrivateRoute exact path="/trip/:name/discovery/:category" component={BrowsePlaces}/>
-
+        <PrivateRoute exact path="/trip/:name/discovery/:category/:placeName/addToItinerary" component={AddToItinerary}/>
       </div>
     </ConnectedRouter>
   </Provider>
