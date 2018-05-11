@@ -10,7 +10,7 @@ class TripDetail extends React.Component {
   }
 
  
-
+//grab curr
   
   render() {
     let {currentTrip} = this.props.tripState
