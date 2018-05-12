@@ -12,6 +12,7 @@ const initialState = {
   destination: {},
   pendingInvites: [],
   placeToAdd: {},
+  activitiesForThisDate: []
 }
 
 const tripReducer = (state = initialState, action) => {
@@ -56,6 +57,10 @@ const tripReducer = (state = initialState, action) => {
     case 'STAGE_PLACE_FOR_ITINERARY':
       return Object.assign({}, state, {
         placeToAdd: action.code
+      })
+    case 'GET_ACTIVITIES':
+      return Object.assign({}, state, {
+        activitiesForThisDate: action.code 
       })
     default:
       return Object.assign({}, state)

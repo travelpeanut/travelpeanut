@@ -3,30 +3,31 @@ const db  = require('../database/index')
 const { addNewUser } = require('../database/index')
 const axios = require('axios');
 const { sgAPI, unsplashAPI } = require('../config.js')
+const { API, GOOGLE_PLACES } = require('../config.js')
 const sgMail = require('@sendgrid/mail');
 const _ = require('underscore');
 
 router.route('/login')
 .get((req, res) => {
-  console.log(req.query)
+  // console.log(req.query)
   var userInfo = req.query
   // let token = req.query['0']
   db.checkLogin(userInfo.email)
     .then((data) => {
       console.log('db back',data)
       if (data.rowCount === 0) {
-        console.log('hi new user!!!!')
+        // console.log('hi new user!!!!')
         //query insert new data
         return db.addNewUser(userInfo.firstName, userInfo.lastName, userInfo.email, userInfo.uid)
       } else {
-        console.log('matched', data.rows[0])
+        // console.log('matched', data.rows[0])
         // res.json(data.rows[0]) 
         // res.status(200).send('user exists, login success')
         return data
       }
     })
     .then((data) => {
-      console.log('response', data)
+      // console.log('response', data)
       let userInfo = {userId: data.rows[0].id}
       res.status(200).send(userInfo)
     })
@@ -47,11 +48,11 @@ router.route('/users')
   })
   .post( (req, res) => {
     let newUser = req.body;
-    console.log('going to add this user: ', newUser);
+    // console.log('going to add this user: ', newUser);
     db.addNewUser(newUser)
       .then( (response) => {
         let addedUser = response;
-        console.log('added this user: ', addedUser);
+        // console.log('added this user: ', addedUser);
         res.send(`Added User ${addedUser}`);
       })
       .catch( (err) => {
@@ -79,10 +80,10 @@ router.route('/trips')
   .post( (req, res) => {
   })
   .delete((req, res) => {
-    console.log(req.body.tripId)
+    // console.log(req.body.tripId)
     db.deleteTrip(req.body.tripId)
       .then(()=> {
-        console.log('success in delete')
+        // console.log('success in delete')
         res.status(200).send();
       })
       .catch((err) => {
@@ -105,7 +106,7 @@ router.route('/newTrip')
 router.route('/tripId')
   .get( (req, res) => {
     let owner = req.query.id;
-    console.log('getting newly created trip for this owner: ', owner);
+    // console.log('getting newly created trip for this owner: ', owner);
     db.getNewTripId(owner)
       .then((response) => {          
         let newTrip = response.rows[0];
@@ -121,8 +122,8 @@ router.route('/usersByTrips')
   .post((req, res) => {
     let newTripId = req.body.newTripId
     let ownerId = req.body.ownerId
-    console.log('in /usersByTrips. userId: ', ownerId)
-    console.log('in /usersByTrips. newTripId: ', newTripId)
+    // console.log('in /usersByTrips. userId: ', ownerId)
+    // console.log('in /usersByTrips. newTripId: ', newTripId)
 
     db.addTripsByUser(ownerId, newTripId)
       .then((response) => {
@@ -141,7 +142,7 @@ router.route('/discover')
 
 router.route('/getCoordinates')
   .get((req, res)=>{
-    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query[0]}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query[0]}&key=${GOOGLE_PLACES}`)
     .then(data => {
       let cityData = {
         formattedName: data.data.results[0].formatted_address,
@@ -160,7 +161,7 @@ router.route('/getCoordinates')
   .get((req, res) => {
     let allPlaces = []
     Promise.all(req.query[0].map(type => {
-      return axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${req.query[1]},${req.query[2]}&radius=1500&type=${type}&key=AIzaSyB0viycMhEqrmrdp841mv_wGEkHNGCrk_s`)
+      return axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${req.query[1]},${req.query[2]}&radius=1500&type=${type}&key=${GOOGLE_PLACES}`)
     }))
     .then(places => {
       placeData = places.map(received => {
@@ -290,6 +291,17 @@ router.route('/trip/members')
         res.status(400).send(err)
       })
     })
-
+  
+  router.route('/getActivities')
+  .get((req, res) => {
+      db.getActivites(req.query)
+      .then(activities => {
+        res.status(200).send(activities)
+      })
+      .catch(err => {
+        console.log('couldnt get activities:', err)
+        res.status(400).send(err)
+      })
+    })
 
   module.exports = router;

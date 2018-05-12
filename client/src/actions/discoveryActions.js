@@ -43,8 +43,8 @@ const createTrip = (data) => (dispatch, getState) => {
     dispatch(push(`/trip/${data.name}`));
   
   }
-
-const stagePlace = (place) => (dispatch, getState) => {
+  
+  const stagePlace = (place) => (dispatch, getState) => {
     console.log('clicked on this place:', place)
     dispatch({
         type: ActionTypes.STAGE_PLACE_FOR_ITINERARY,
