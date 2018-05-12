@@ -7,7 +7,7 @@ import * as tripActions from '../actions/tripActions.js';
 class TripDetail extends React.Component {
   constructor(props) {
     super(props)
-    this.getActivitiesForDate = this.getActivitiesForDate.bind(this)
+    this.getActivities = this.getActivities.bind(this)
   }
 
 getActivities(){

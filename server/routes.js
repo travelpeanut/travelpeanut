@@ -292,5 +292,4 @@ router.route('/trip/members')
     })
 
 
-
   module.exports = router;
