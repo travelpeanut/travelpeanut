@@ -119,13 +119,15 @@ const deleteTripMember = (memberId, tripId) => (dispatch, getState) => {
 }
 
 
-const sendInvite = (email, tripId, ownerId, ownerEmail) => (dispatch, getState) => {
+const sendInvite = (email, tripId, ownerId, ownerEmail, firstName, city) => (dispatch, getState) => {
   axios.post('/api/trip/invite', {
     params: {
       email: email,
       tripId: tripId,
       ownerId: ownerId,
-      ownerEmail: ownerEmail
+      ownerEmail: ownerEmail,
+      firstName: firstName,
+      city, city
     }
   })
   .then(() => {

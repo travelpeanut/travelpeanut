@@ -19,13 +19,13 @@ class MembersPage extends React.Component {
     this.getPendingInvites()
   }
 
-  sendInvite(email, tripId, ownerId, ownerEmail) {
-    this.props.actions.sendInvite(email, tripId, ownerId, ownerEmail)
+  sendInvite(email, tripId, ownerId, ownerEmail, firstName, city) {
+    this.props.actions.sendInvite(email, tripId, ownerId, ownerEmail, firstName, city)
     this.email.value = ''
   }
 
   getPendingInvites() {
-    this.props.actions.getPendingInvites(this.props.userState.currentUser.id, this.props.tripState.currentTrip.trip_id, )
+    this.props.actions.getPendingInvites(this.props.userState.currentUser.id, this.props.tripState.currentTrip.trip_id)
   }
  
   deleteInvite(email, tripId, ownerId) {
@@ -73,7 +73,7 @@ class MembersPage extends React.Component {
         {currentTrip.owner_id === currentUser.id && (<div>
         <h3>Add a member with email</h3>
         <input type='email' placeholder='email' ref={email => this.email = email} />
-        <button onClick={() => this.sendInvite(this.email.value, currentTrip.trip_id, currentTrip.owner_id, currentUser.email)}>Send Invite</button>
+        <button onClick={() => this.sendInvite(this.email.value, currentTrip.trip_id, currentTrip.owner_id, currentUser.email, currentUser.first_name, currentTrip.city)}>Send Invite</button>
         </div>)}
 
         <br/>
