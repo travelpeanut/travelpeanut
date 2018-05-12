@@ -13,7 +13,7 @@ class TripItinerary extends React.Component {
 
   redirectToDetails(){
     let {currentTrip} = this.props.tripState
-    this.props.history.push(`/trip/${currentTrip.id}/details`)
+    this.props.history.push(`/trip/${currentTrip.trip_id}/details`)
   }
 
 
