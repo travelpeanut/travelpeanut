@@ -30,7 +30,7 @@ class Chat extends React.Component {
     console.log('currentUser: ', currentUser)
     console.log('currentTrip: ', currentTrip)
     this.setState({
-      tripId: currentTrip.id,
+      tripId: currentTrip.trip_id,
       userId: currentUser.id,
       email: currentUser.email,
       firstName: currentUser.firstName,
