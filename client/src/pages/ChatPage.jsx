@@ -83,11 +83,13 @@ class Chat extends React.Component {
     return (
       <div>
         <div>
-          {this.state.messages.map((item, i) => {
+          {this.state.messages.map((item, i) => {            
             const key = item[0]
             const msg = item[1].message
+            const firstName = item[1].firstName
+            const lastName = item[1].lastName
             return (
-              <Message key={key} message={msg} firstName={this.state.firstName} imgUrl={this.state.imgUrl}/>
+              <Message key={key} message={msg} firstName={firstName} lastName={lastName} imgUrl={this.state.imgUrl}/>
             )
           })}
         </div>
