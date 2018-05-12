@@ -13,32 +13,25 @@ class TripItinerary extends React.Component {
 
   redirectToDetails(date){
     let {currentTrip} = this.props.tripState
-    //
-    this.props.history.push(`/trip/${currentTrip.id}/details`)
+    let tripId = this.props.tripState.currentTrip.id
+    this.props.actions.getActivitiesForDate(date, tripId)
+    setTimeout(() => this.props.history.push(`/trip/${currentTrip.id}/details`), 500)
   }
-
-
   
   render() {
     let {currentTrip} = this.props.tripState
     let start = new Date(currentTrip.start_date)
     let end = new Date(currentTrip.end_date)
-    console.log('start is...', start);
-    console.log('end is...', end);
-    var dayCount = Math.round(Math.abs((end.getTime() - start.getTime())/(24*60*60*1000)))
+    let dayCount = Math.round(Math.abs((end.getTime() - start.getTime())/(24*60*60*1000)))
     let dayArr = [];
     for(var i = 0; i <= dayCount; i++){
       let day = moment(start).add(24*i,'hours');
-      if (i === 1){
-        console.log('first day is...', day)
-      }
       let date = moment(day).date()
       let m = moment(day).month()+1
       let year = moment(day).year()
       let name = moment(day).format('dddd')
       let fullDate = moment(day).format('MMMM D YYYY')
       dayArr.push([i, m, date, year, name, fullDate]);
-      // console.log('dayArr is...', dayArr)
     }
 
     return(
@@ -57,14 +50,9 @@ class TripItinerary extends React.Component {
         })
       }
       <Chat />
-    
-       
       </div>
     )
   }
-
-
-
 }
 
 
