@@ -3,7 +3,7 @@ import { push } from 'react-router-redux'
 import axios from 'axios'
 
 const getCoordinatesByCity = (cityAndState) => (dispatch, getState) => {
-    console.log('in discoveryActions: ', cityAndState)
+    // console.log('in discoveryActions: ', cityAndState)
     axios.get(`/api/getCoordinates`, {params: cityAndState})
     .then((cityData)=> {
         dispatch({
@@ -17,12 +17,12 @@ const getCoordinatesByCity = (cityAndState) => (dispatch, getState) => {
 }
 
 const getNearbyPlacesByType = (types, coordinates) => (dispatch, getState) => {
-    console.log('in getNearbyPlacesByType. type: ', types, 'coordinates:', coordinates)
+    // console.log('in getNearbyPlacesByType. type: ', types, 'coordinates:', coordinates)
     let placesToBrowse = []
-    console.log('types is...', types)
+    // console.log('types is...', types)
     axios.get(`/api/getNearbyPlacesByType`, {params: [types, coordinates.lat, coordinates.lng]})
     .then(nearbyPlaces => {
-        console.log('got ALL nearby places: ', nearbyPlaces)
+        // console.log('got ALL nearby places: ', nearbyPlaces)
         dispatch({
             type: ActionTypes.STORE_NEARBY_PLACES,
             code: nearbyPlaces
@@ -43,9 +43,30 @@ const createTrip = (data) => (dispatch, getState) => {
     dispatch(push(`/trip/${data.name}`));
   
   }
+  
+  const stagePlace = (place) => (dispatch, getState) => {
+    console.log('clicked on this place:', place)
+    dispatch({
+        type: ActionTypes.STAGE_PLACE_FOR_ITINERARY,
+        code: place
+    })
+}
+
+const addActivityToItinerary = (placeData) => (dispatch, getState) => {
+    console.log('place and time to add:', placeData)
+    axios.post('/api/addActivity', {params: placeData})
+    .then(success => {
+        console.log('saved activity to db')
+    })
+    .catch(err => {
+        console.log('couldnt save activity:', err)
+    })
+}
 
   module.exports = {
     getCoordinatesByCity: getCoordinatesByCity,
     getNearbyPlacesByType: getNearbyPlacesByType,
-    createTrip: createTrip
+    createTrip: createTrip,
+    stagePlace: stagePlace,
+    addActivityToItinerary: addActivityToItinerary
   }

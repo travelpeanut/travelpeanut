@@ -11,25 +11,27 @@ class TripItinerary extends React.Component {
     this.redirectToDetails = this.redirectToDetails.bind(this)
   }
 
-  redirectToDetails(){
+  redirectToDetails(date){
     let {currentTrip} = this.props.tripState
-    this.props.history.push(`/trip/${currentTrip.trip_id}/details`)
+    let tripId = this.props.tripState.currentTrip.id
+    this.props.actions.getActivitiesForDate(date, tripId)
+    setTimeout(() => this.props.history.push(`/trip/${currentTrip.id}/details`), 500)
   }
-
-
   
   render() {
     let {currentTrip} = this.props.tripState
     let start = new Date(currentTrip.start_date)
     let end = new Date(currentTrip.end_date)
-    var dayCount = Math.round(Math.abs((end.getTime() - start.getTime())/(24*60*60*1000))) + 1
+    let dayCount = Math.round(Math.abs((end.getTime() - start.getTime())/(24*60*60*1000)))
     let dayArr = [];
-    for(var i=1; i<=dayCount; i++){
-      let day = moment(start).day(i-1,'days')._d;
+    for(var i = 0; i <= dayCount; i++){
+      let day = moment(start).add(24*i,'hours');
       let date = moment(day).date()
       let m = moment(day).month()+1
       let year = moment(day).year()
-      dayArr.push([i, m, date, year]);
+      let name = moment(day).format('dddd')
+      let fullDate = moment(day).format('MMMM D YYYY')
+      dayArr.push([i, m, date, year, name, fullDate]);
     }
 
     return(
@@ -40,22 +42,17 @@ class TripItinerary extends React.Component {
         dayArr.map((item, i) => {
           return(
             <div key={i}>
-              <p>day {item[0]} </p>
+              <p>{item[4]} - Day {item[0]+1} </p>
               <p>{item[1]}/{item[2]}/{item[3]} </p>
-              <button onClick={this.redirectToDetails}>View Details</button>
+              <button onClick={() => this.redirectToDetails(item[5])}>View Details</button>
             </div>
           )
         })
       }
       <Chat />
-    
-       
       </div>
     )
   }
-
-
-
 }
 
 

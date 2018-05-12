@@ -22,7 +22,7 @@ const getAllTrips = (userId) => (dispatch, getState) => {
 
 
 const createTrip = (data) => (dispatch, getState) => {
-  console.log('in actions:', data)
+  // console.log('in actions:', data)
   dispatch({
     type: ActionTypes.CREATE_TRIP,
     code: data
@@ -32,7 +32,7 @@ const createTrip = (data) => (dispatch, getState) => {
       return axios.get('/api/tripId', {params: {id: data.ownerId}})
     })
     .then((response) => {
-      console.log('got new trip id: ', response);
+      // console.log('got new trip id: ', response);
       let newTripId = response.data.id
       return axios.post('/api/usersByTrips',{
         newTripId: newTripId,
@@ -53,9 +53,7 @@ const setCurrentTrip = (item) => (dispatch, getState) => {
     type: ActionTypes.SET_CURRENT_TRIP,
     code: item
   })
-
   dispatch(push(`/trip/${item.user_id}`));  
-
 }
 
 const deleteTrip = (tripId, userId) => (dispatch, getState) => {
@@ -68,7 +66,7 @@ const deleteTrip = (tripId, userId) => (dispatch, getState) => {
   })
 }
 const addMember = (userId, tripId) => (dispatch, getState) => {  
-  console.log('herereeee', userId, tripId)
+  // console.log('herereeee', userId, tripId)
   axios.post('/api/trip/members', {
     params: {
       userId: userId,
@@ -76,7 +74,7 @@ const addMember = (userId, tripId) => (dispatch, getState) => {
     }
   })
   .then((data) => {
-    console.log('data: ', data);      
+    // console.log('data: ', data);      
     dispatch({
       type: ActionTypes.ADD_MEMBER,
       member: data.data
@@ -99,9 +97,7 @@ const getTripMembers = (tripId) => (dispatch, getState) => {
   .catch((err) => {
     console.error(err)
   })
-
 }
-
 
 const deleteTripMember = (memberId, tripId) => (dispatch, getState) => {
   axios.delete('/api/trip/members', {
@@ -154,7 +150,6 @@ const getPendingInvites = (userId, tripId) => (dispatch, getState) => {
   .catch((error) => {
     console.error(error)
   })
-
 }
 
 const deleteInvite = (email, tripId, ownerId) => (dispatch, getState) => {
@@ -170,7 +165,20 @@ const deleteInvite = (email, tripId, ownerId) => (dispatch, getState) => {
   .catch((error) => {
     console.error(error)
   })
+}
 
+const getActivitiesForDate = (date, trip) => (dispatch, getState) => {
+  axios.get(`/api/getActivities`, {params: {date, trip}})
+    .then(success => {
+      console.log('got activites!', success.data.rows)
+      dispatch({
+        type: ActionTypes.GET_ACTIVITIES, 
+        code: success.data.rows
+      })
+    })
+    .catch(err => {
+      console.log('couldnt get activities from db', err)
+    })
 }
 
 
@@ -185,4 +193,5 @@ module.exports = {
   getPendingInvites: getPendingInvites,
   getTripMembers: getTripMembers,
   deleteTripMember: deleteTripMember,
+  getActivitiesForDate: getActivitiesForDate
 } 

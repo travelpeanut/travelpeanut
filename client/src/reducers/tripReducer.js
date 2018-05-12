@@ -10,14 +10,16 @@ const initialState = {
   tripMembers: [],
   nearbyPlaces: [],
   destination: {},
-  pendingInvites: []
+  pendingInvites: [],
+  placeToAdd: {},
+  activitiesForThisDate: []
 }
 
 const tripReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'CREATE_TRIP':
       return Object.assign({}, state, {
-        //ryan: added destination to stop using temp. temp is no longer used throughout the app, AFAIK 
+        //ryan: added destination to stop using temp. temp is no longer used throughout the app, AFAIK. Realized temp and destination not being used...might delete this entire action? 
         temp: action.code,
         destination: action.code
       })
@@ -52,6 +54,14 @@ const tripReducer = (state = initialState, action) => {
       return {...state,
         pendingInvites: action.pendingInvites
       }
+    case 'STAGE_PLACE_FOR_ITINERARY':
+      return Object.assign({}, state, {
+        placeToAdd: action.code
+      })
+    case 'GET_ACTIVITIES':
+      return Object.assign({}, state, {
+        activitiesForThisDate: action.code 
+      })
     default:
       return Object.assign({}, state)
   }

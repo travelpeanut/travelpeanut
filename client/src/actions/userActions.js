@@ -36,7 +36,7 @@ const loginGoogle = () => (dispatch) => {
     return user.getIdToken()
   })
   .then((token) => {
-    // console.log('actions', token)
+    console.log('actions==========', token)
     let strToken = token.toString();
 
     var base64Url = token.split('.')[1];

@@ -49,7 +49,7 @@ const getTripsByUser = (userId) => {
 const addTripToTrips = ({name, city, country, startDate, endDate, ownerId}) => {
   const query = `INSERT INTO TRIPS (city, country, start_date, end_date, title, owner_id)
                  VALUES ('${city}', '${country}', '${startDate}', '${endDate}', '${name}', '${ownerId}')`
-  console.log('query: ', query);
+  // console.log('query: ', query);
   return pool.query(query)
     .catch( (err) => {
       console.log('ERROR IN ADDING TRIP: ', err);
@@ -57,9 +57,8 @@ const addTripToTrips = ({name, city, country, startDate, endDate, ownerId}) => {
 }
 
 const addTripsByUser = (userid, tripid) => {
-  console.log('addTripsByUser userid: ', userid)
-  console.log('addTripsByUser tripid: ', tripid)
-
+  // console.log('addTripsByUser userid: ', userid)
+  // console.log('addTripsByUser tripid: ', tripid)
   const query = `INSERT INTO USERS_TRIPS (user_id, trip_id)
                  VALUES (${userid}, ${tripid})`
   return pool.query(query)
@@ -166,6 +165,31 @@ const deleteInvitation = (email, tripId) => {
   })
 }
 
+const addActivity = (activityData) => {
+  let tripId = activityData.params.tripId
+  let activityDate = activityData.params.activityDate
+  let startTime = activityData.params.startTime;
+  let activityName = activityData.params.activityName
+  let activityType = activityData.params.activityType || null
+  let activityLevel = activityData.params.activityLevel || null
+  const query = `INSERT INTO activities (trip_id, description, type, activity_level, date_of_activity, start_time) values (${tripId}, '${activityName}', ${activityType}, ${activityLevel}, '${activityDate}', '${startTime}');`
+  return pool.query(query)
+    .catch(err => {
+      console.log('couldnt insert activity:', err)
+    })
+}
+
+const getActivites = (activityData) => {
+  let tripId = activityData.trip
+  let activityDate = activityData.date
+  let query = `SELECT * FROM activities WHERE date_of_activity='${activityDate}' AND trip_id=${tripId}`
+  return pool.query(query)
+    .catch(err=> {
+      console.log('couldnt get activities:', err)
+      res.status(400).send(err)
+    })
+}
+
 exports.addNewUser = addNewUser; 
 exports.getTripsByUser = getTripsByUser; 
 exports.checkLogin = checkLogin;
@@ -181,4 +205,6 @@ exports.saveInvite = saveInvite;
 exports.getPendingInvites = getPendingInvites;
 exports.deleteInvite = deleteInvite,
 exports.getInvitations = getInvitations,
-exports.deleteInvitation = deleteInvitation
+exports.deleteInvitation = deleteInvitation,
+exports.addActivity = addActivity;
+exports.getActivites = getActivites;
