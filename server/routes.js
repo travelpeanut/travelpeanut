@@ -2,7 +2,7 @@ const router = require('express').Router();
 const db  = require('../database/index')
 const { addNewUser } = require('../database/index')
 const axios = require('axios');
-const { API } = require('../config.js')
+const { sgAPI, unsplashAPI } = require('../config.js')
 const sgMail = require('@sendgrid/mail');
 
 router.route('/login')
@@ -35,25 +35,6 @@ router.route('/login')
 
  
 })
-
-
-// router.route('/login')
-// .get((req, res) => {
-//   const {username, password} = req.query;
-//   db.checkLogin(username)
-//   .then((data) => {
-//     if (data.rowCount === 0) {
-//       console.log('username does not exist')
-//       res.sendStatus(401);
-//     } else if (data.rows[0].password !== password) {
-//       console.log('password does not match')
-//       res.sendStatus(401);
-//     } else {
-//       console.log('match')
-//       res.json(data.rows[0])
-//     };
-//   });
-// })
 
 router.route('/users')
   .get((req, res) => {
@@ -238,25 +219,27 @@ router.route('/trip/members')
       })
     })
     .post((req, res) => {
-      sgMail.setApiKey(API);
-      console.log('req.query: ', req.query)
-      console.log('req.body: ', req.body)
-      console.log('req.params: ', req.params)
-      let {email, tripId, ownerId, ownerEmail} = req.body.params
-      const msg = {
-        to: email,
-        from: ownerEmail,
-        subject: 'Message from travel peanut',
-        text: 'owner has invited you to their magical journey',
-        html: `<h1>You've been invited to a magical journey</h1><br/><img src="http://placecorgi.com/250" />`,
-      };
-      sgMail.send(msg);
-      db.saveInvite(email, tripId, ownerId)
-      .then((response) => {
-        res.status(201).send(response)
-      })
-      .catch((err) => {
-        console.error(err)
+      sgMail.setApiKey(sgAPI);
+      let {email, tripId, ownerId, ownerEmail, firstName, city} = req.body.params
+      
+      axios.get(`https://api.unsplash.com/search/photos/?query=${city}&client_id=${unsplashAPI}`)
+      .then((data) => {
+        const imgUrl = data.data.results[0].urls.small
+        const msg = {
+          to: email,
+          from: ownerEmail,
+          subject: 'Message from Travel Peanut',
+          text: `${firstName} has invited you to a magical journey`,
+          html: `<img src=${imgUrl} /> <br></br> Photo by <a href="https://unsplash.com/@${data.data.results[0].user.username}?utm_source=travel_peanut">${data.data.results[0].user.name}</a> on <a href="https://unsplash.com/?utm_source=travel_peanut&">Unsplash</a>`
+        };
+        sgMail.send(msg);
+        db.saveInvite(email, tripId, ownerId)
+        .then((response) => {
+          res.status(201).send(response)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
       })
     })
     .delete((req, res) => {

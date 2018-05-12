@@ -73,6 +73,7 @@ class HomePage extends React.Component {
   }
 
   goToTrip(item) {
+    console.log(item)
     this.props.actions.setCurrentTrip(item)
   }
 

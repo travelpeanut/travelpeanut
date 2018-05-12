@@ -158,7 +158,6 @@ const rejectInvitation = (email, tripId) => (dispatch, getState) => {
 
 module.exports = {
   goToLogin: goToLogin,
-  // storeSomething: storeSomething,
   loginGoogle: loginGoogle,
   checkLogin: checkLogin,  
   signUp: signUp,
