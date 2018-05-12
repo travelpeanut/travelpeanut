@@ -13,13 +13,9 @@ class TripItinerary extends React.Component {
 
   redirectToDetails(date){
     let {currentTrip} = this.props.tripState
-<<<<<<< HEAD
-    this.props.history.push(`/trip/${currentTrip.trip_id}/details`)
-=======
     let tripId = this.props.tripState.currentTrip.id
     this.props.actions.getActivitiesForDate(date, tripId)
     setTimeout(() => this.props.history.push(`/trip/${currentTrip.id}/details`), 500)
->>>>>>> newItinerary
   }
   
   render() {
