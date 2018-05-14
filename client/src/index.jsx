@@ -15,7 +15,6 @@ import chatReducer from './reducers/chatReducer.js'
 
 import LandingPage from './pages/LandingPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
-import SignupPage from './pages/SignupPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import TripMenu from './pages/TripMenuPage.jsx'
 import TripItinerary from './pages/TripItineraryPage.jsx'
@@ -77,8 +76,7 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <div>
         <Route exact path="/" component={LandingPage}/>
-        <Route exact path="/login" component={LoginPage}/>
-        <Route exact path="/signup" component={SignupPage}/>
+        <Route exact path="/login" component={LoginPage}/>        
         <PrivateRoute exact path="/home" component={HomePage}/>
         <PrivateRoute exact path="/trip/:name" component={TripMenu}/>
         <PrivateRoute exact path="/trip/:name/itinerary" component={TripItinerary}/>

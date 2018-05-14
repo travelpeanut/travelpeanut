@@ -1,5 +1,4 @@
-import ActionTypes from '../constants/ActionTypes'
-import { updateObject, createReducer } from'./reducerUtils'
+import ActionTypes from '../constants/ActionTypes';
 
 const initialState = {
   allTrips: [],
@@ -12,59 +11,63 @@ const initialState = {
   destination: {},
   pendingInvites: [],
   placeToAdd: {},
-  activitiesForThisDate: []
-}
+  activitiesForThisDate: [],
+};
 
 const tripReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'CREATE_TRIP':
       return Object.assign({}, state, {
-        //ryan: added destination to stop using temp. temp is no longer used throughout the app, AFAIK. Realized temp and destination not being used...might delete this entire action? 
+        // ryan: added destination to stop using temp. temp is no longer used throughout the app, AFAIK. Realized temp and destination not being used...might delete this entire action?
         temp: action.code,
-        destination: action.code
-      })
+        destination: action.code,
+      });
     case 'GET_ALL_TRIPS':
       return Object.assign({}, state, {
-        allTrips: action.code
-      })
+        allTrips: action.code,
+      });
     case 'SET_CURRENT_TRIP':
-      console.log(action.code)
+      console.log(action.code);
       return Object.assign({}, state, {
-        currentTrip: action.code
-      })
+        currentTrip: action.code,
+      });
     case 'STORE_CITY_LOCATION':
       return Object.assign({}, state, {
-        tripCoordinates: action.code
-      })
+        tripCoordinates: action.code,
+      });
     case 'STORE_NEARBY_PLACES':
       return Object.assign({}, state, {
-        nearbyPlaces: action.code
-      })
+        nearbyPlaces: action.code,
+      });
     case 'ADD_MEMBER':
-      return {...state,
+      return {
+        ...state,
         tripMembers: [
-          ...state.tripMembers, 
-          action.member
-      ]}
-    case 'GET_TRIP_MEMBERS': 
-      return {...state,
-        tripMembers: action.members
-      }
+          ...state.tripMembers,
+          action.member,
+        ],
+      };
+    case 'GET_TRIP_MEMBERS':
+      return {
+        ...state,
+        tripMembers: action.members,
+      };
     case 'GET_PENDING_INVITES':
-      return {...state,
-        pendingInvites: action.pendingInvites
-      }
+      return {
+        ...state,
+        pendingInvites: action.pendingInvites,
+      };
     case 'STAGE_PLACE_FOR_ITINERARY':
       return Object.assign({}, state, {
-        placeToAdd: action.code
-      })
+        placeToAdd: action.code,
+      });
     case 'GET_ACTIVITIES':
       return Object.assign({}, state, {
-        activitiesForThisDate: action.code 
-      })
+        activitiesForThisDate: action.code,
+      });
     default:
-      return Object.assign({}, state)
+      return Object.assign({}, state);
   }
-}
+};
 
-export default tripReducer
+export default tripReducer;
