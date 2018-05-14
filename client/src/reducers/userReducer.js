@@ -1,35 +1,34 @@
-import ActionTypes from '../constants/ActionTypes'
-import { updateObject, createReducer } from'./reducerUtils'
+import ActionTypes from '../constants/ActionTypes';
 
 
 const initialState = {
   userInfo: {},
   something: '',
   currentUser: {},
-  invitations: []
-}
+  invitations: [],
+};
 
-const userReducer = (state = initialState, action) => {  
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'STORE_SOMETHING':
       return Object.assign({}, state, {
-        something: action.code
-      })
+        something: action.code,
+      });
     case 'CHECK_LOGIN':
       return {
         ...state,
-        currentUser: action.payload
-      }
+        currentUser: action.payload,
+      };
     case 'LOGOUT_USER':
-      return initialState
+      return initialState;
     case 'GET_INVITATIONS':
       return {
-        ...state, 
-        invitations: action.invitations
-      }
+        ...state,
+        invitations: action.invitations,
+      };
     default:
-      return Object.assign({}, state)
+      return Object.assign({}, state);
   }
-}
+};
 
-export default userReducer
+export default userReducer;
