@@ -11,19 +11,16 @@ class AddToItinerary extends React.Component{
         this.addActivity = this.addActivity.bind(this)
     }
 
-    addActivity(activityName, currentTrip){
-        console.log('activityName is...', activityName)
-        let tripId = currentTrip.currentTrip.id;
-        //should probably refactor to just be currentTrip.tripId
-        console.log('dont worry tripid is...', tripId)
+    addActivity(activityName, currentTrip){        
+        let tripId = currentTrip.trip_id;        
+        //should probably refactor to just be currentTrip.tripId        
         let activityDate = document.getElementById("date").options[date.selectedIndex].value;
         let startTime = document.getElementById('time').options[time.selectedIndex].value;
         let ampm = document.getElementById('AMPM')
         ampm = ampm.options[ampm.selectedIndex].value
         //for some reason can't combine lines 18 and 19 without getting error
         startTime = startTime.concat(' '+ampm);
-        //can I put ampm and startTime into one line? 
-        console.log('date.options selected is...', date)
+        //can I put ampm and startTime into one line?         
         let userId = this.props.userState.currentUser.id
         let activityData = {
             tripId,
@@ -36,10 +33,10 @@ class AddToItinerary extends React.Component{
     }
 
     render(){
-        let currentTrip = this.props.tripState
-        console.log('currentTrip is: ', currentTrip)
-        let start = new Date(currentTrip.currentTrip.start_date)
-        let end = new Date(currentTrip.currentTrip.end_date)
+        let {tripState} = this.props
+        // console.log('currentTrip is: ', tripState.currentTrip)
+        let start = new Date(tripState.currentTrip.start_date)
+        let end = new Date(tripState.currentTrip.end_date)
         let dayCount = Math.round(Math.abs((end.getTime() - start.getTime())/(24*60*60*1000)))
         let dayArr = [];
         for(var i=0; i<=dayCount; i++){
@@ -53,7 +50,7 @@ class AddToItinerary extends React.Component{
           }
         return(
             <div>
-                <h3>Add To Itinerary: {currentTrip.placeToAdd.name}</h3>
+                <h3>Add To Itinerary: {tripState.placeToAdd.name}</h3>
                 <h4>Day:</h4>
                 <select id="date">
                     {console.log('dayArr is...', dayArr)}
@@ -119,7 +116,7 @@ class AddToItinerary extends React.Component{
                     <option value="PM">PM</option>
                 </select>
 
-                <button onClick={() => this.addActivity(currentTrip.placeToAdd.name, currentTrip)}>Add!</button>
+                <button onClick={() => this.addActivity(tripState.placeToAdd.name, tripState.currentTrip)}>Add!</button>
                 
             </div>
         )
