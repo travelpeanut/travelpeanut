@@ -7,18 +7,7 @@ import moment from 'moment';
 class TripDetail extends React.Component {
   constructor(props) {
     super(props)
-    this.getActivities = this.getActivities.bind(this)
   }
-
-getActivities(){
-  //date = date clicked. 
-  //trip = trip in state
-  let tripId = this.props.tripState.currentTrip.id
-  let activityDate = 
-  this.props.actions.getActivitiesForDate(date, tripId)
-}
- 
-//grab curr
   
   render() {
     let {currentTrip} = this.props.tripState

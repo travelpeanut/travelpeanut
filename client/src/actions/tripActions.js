@@ -123,7 +123,7 @@ const sendInvite = (email, tripId, ownerId, ownerEmail, firstName, city) => (dis
       ownerId: ownerId,
       ownerEmail: ownerEmail,
       firstName: firstName,
-      city, city
+      city: city
     }
   })
   .then(() => {
