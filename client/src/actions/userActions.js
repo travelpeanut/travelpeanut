@@ -119,7 +119,8 @@ const logOut = () => (dispatch, getState) => {
   dispatch(push('/login'));
 };
 
-const getInvitations = email => (dispatch, getState) => {
+const getInvitations = () => (dispatch, getState) => {
+  const { email } = getState().userReducer.currentUser;
   console.log('email', email);
   // pings the server -> database
   axios.get('/api/invitations', {
@@ -127,22 +128,25 @@ const getInvitations = email => (dispatch, getState) => {
       email,
     },
   })
-    .then((data) => {
+    .then(({ data }) => {
+      console.log('data in getInvitations: ', data);
       dispatch({
         type: ActionTypes.GET_INVITATIONS,
-        invitations: data.data,
+        invitations: data,
       });
     });
 };
 
-const acceptInvitation = (email, tripId, userId) => (dispatch, getState) => {
+const acceptInvitation = (email, tripId) => (dispatch, getState) => {
+  console.log('accepting invication email: ', email)
+  console.log('accepting invication tripId: ', tripId)
   axios.delete('/api/invitations', {
     params: {
       email,
       tripId,
     },
   })
-    .then(() => dispatch(getInvitations(email)));
+    .then(() => dispatch(getInvitations()));
 };
 
 const rejectInvitation = (email, tripId) => (dispatch, getState) => {
@@ -152,7 +156,7 @@ const rejectInvitation = (email, tripId) => (dispatch, getState) => {
       tripId,
     },
   })
-    .then(() => dispatch(getInvitations(email)));
+    .then(() => dispatch(getInvitations()));
 };
 
 

@@ -1,105 +1,90 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import TripList from '../components/TripListHome.jsx';
-import * as userActions from '../actions/userActions.js';
-import * as tripActions from '../actions/tripActions.js';
+import * as userActions from '../actions/userActions';
+import * as tripActions from '../actions/tripActions';
 import Invitation from '../components/Invitation.jsx';
 
 
 class HomePage extends React.Component {
   constructor(props) {
-    super(props)
-    this.handleCreate = this.handleCreate.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.goToTrip = this.goToTrip.bind(this)
-    this.getAllTrips = this.getAllTrips.bind(this) 
-    this.deleteTrip = this.deleteTrip.bind(this)
-    this.handleLogOut = this.handleLogOut.bind(this) 
-    this.getInvitations = this.getInvitations.bind(this)
-    this.acceptInvitation = this.acceptInvitation.bind(this)
-    this.rejectInvitation = this.rejectInvitation.bind(this)
+    super(props);
+    this.handleCreate = this.handleCreate.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.goToTrip = this.goToTrip.bind(this);
+    this.deleteTrip = this.deleteTrip.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
+    this.getInvitations = this.getInvitations.bind(this);
+    this.acceptInvitation = this.acceptInvitation.bind(this);
+    this.rejectInvitation = this.rejectInvitation.bind(this);
     this.state = {
-      show: 'none'
-    }
+      show: 'none',
+    };
   }
 
-  componentDidMount(){
-    this.getAllTrips()
-    this.getInvitations()
+  componentDidMount() {
+    this.getInvitations();
+    this.props.actions.getAllTrips();
   }
 
-  getAllTrips(){
-    let {currentUser} = this.props.userState
-    this.props.actions.getAllTrips(currentUser.id)
-  }
-
-  handleCreate(){
+  handleCreate() {
     this.setState({
-      show: 'block'
-    })  
+      show: 'block',
+    });
   }
 
 
-  acceptInvitation(email, tripId, userId) {
-    Promise.resolve(this.props.actions.acceptInvitation(email, tripId, userId))
-    .then(() => this.props.actions.addMember(userId, tripId))
-    .then(() => this.getAllTrips())
+  acceptInvitation(email, tripId) {
+    Promise.resolve(this.props.actions.acceptInvitation(email, tripId))
+      .then(() => this.props.actions.addMember(tripId))
+      .then(() => this.props.actions.getAllTrips());
   }
 
   rejectInvitation(email, tripId) {
-    this.props.actions.rejectInvitation(email, tripId)
-
+    this.props.actions.rejectInvitation(email, tripId);
   }
 
-  handleSubmit(){
+  handleSubmit() {
     this.setState({
-      show: 'none'
-    })
+      show: 'none',
+    });
 
-    let data = {
+    const data = {
       name: this.name.value,
       city: this.city.value,
       country: this.country.value,
       startDate: this.startDate.value,
       endDate: this.endDate.value,
-      province: '', 
+      province: '',
       // ownerId needs to come from login state. hard coded right now
-      ownerId: this.props.userState.currentUser.id
-    }
-    
-    this.props.actions.createTrip(data)
+      ownerId: this.props.userState.currentUser.id,
+    };
+
+    this.props.actions.createTrip(data);
   }
 
-  goToTrip(item) {
-    console.log(item)
-    this.props.actions.setCurrentTrip(item)
+  goToTrip(trip) {
+    this.props.actions.setCurrentTrip(trip);
   }
 
   deleteTrip(tripId) {
-    let {currentUser} = this.props.userState
-    this.props.actions.deleteTrip(tripId, currentUser.id)
+    const { id } = this.props.userState.currentUser;
+    this.props.actions.deleteTrip(tripId, id);
   }
 
   getInvitations() {
-    this.props.actions.getInvitations(this.props.userState.currentUser.email)
+    this.props.actions.getInvitations();
   }
 
-  handleLogOut() {    
-    console.log('user in homePage: ', this.props.userState);
-    let currentUser = this.props.userState
+  handleLogOut() {
     this.props.actions.logOut();
-    console.log('userState after log out: ', this.props.userState);
   }
 
-
-  render() {
-    console.log('this is trip state:', this.props.tripState);    
-    let {userState} = this.props
-    let {tripState} = this.props
-    console.log('this is user state:', userState)
-    return(
+  render() {    
+    const { userState, tripState } = this.props;    
+    return (
       <div>
 
         <div>
@@ -113,7 +98,7 @@ class HomePage extends React.Component {
 
           <br/><br/>
 
-          <div style={{'display':`${this.state.show}`}}>
+          <div style={{ display: `${this.state.show}` }}>
             <input type="text" placeholder="Trip Name" ref={name => this.name = name }/>
             <br/>
             <input type="text" placeholder="City" ref={city => this.city = city}/>
@@ -123,47 +108,41 @@ class HomePage extends React.Component {
             <input type="date" placeholder="Start Date" ref={startDate => this.startDate = startDate}/>
             <br/>
             <input type="date" placeholder="End Date" ref={endDate => this.endDate = endDate}/>
-            <br/>          
+            <br/>
             <button onClick={this.handleSubmit}>Submit</button>
           </div>
-      
-          {userState.invitations && userState.invitations.map((invitation, index) => {
-            return (
+
+          {userState.invitations && userState.invitations.map((invitation, index) => (
             <div key={index}>
             <Invitation
               invitation={invitation}
             />
-            <button onClick={() => this.acceptInvitation(userState.currentUser.email, invitation.id, userState.currentUser.id)}>Yes</button>
-            <button onClick={() => this.rejectInvitation(userState.currentUser.email, invitation.id, userState.currentUser.id)}>No</button> 
-            </div>)           
-          }
-        )}        
+            <button onClick={() => this.acceptInvitation(userState.currentUser.email, invitation.id)}>Yes</button>
+            <button onClick={() => this.rejectInvitation(userState.currentUser.email, invitation.id)}>No</button> 
+            </div>),)}
 
 
           <h2>Show All trips:</h2>
-          <TripList 
-            allTrips={tripState.allTrips} 
-            goToTrip={(item) => this.goToTrip(item)}
+          <TripList
+            allTrips={tripState.allTrips}
+            goToTrip={trip => this.goToTrip(trip)}
             currentUserId={userState.currentUser.id}
-            deleteTrip={(tripId) => this.deleteTrip(tripId)}
+            deleteTrip={tripId => this.deleteTrip(tripId)}
           />
         </div>
 
-       
+
       </div>
-    )
+    );
   }
-
-
-
 }
 
 export default connect(
   state => ({
-      userState: state.userReducer,
-      tripState: state.tripReducer
+    userState: state.userReducer,
+    tripState: state.tripReducer,
   }),
   dispatch => ({
-      actions: bindActionCreators(Object.assign({}, tripActions, userActions), dispatch)
-  })
+    actions: bindActionCreators(Object.assign({}, tripActions, userActions), dispatch),
+  }),
 )(HomePage);

@@ -72,12 +72,13 @@ const getNewTripId = (ownerId) => {
 };
 
 const deleteTrip = (tripId) => {
+  console.log('deleteTrip tripId: ', tripId)
   const query1 = `DELETE FROM users_trips WHERE trip_id = ${tripId}`;
-  const query2 = `DELETE FROM trips WHERE trip_id = ${tripId}`;
+  const query2 = `DELETE FROM trips WHERE id = ${tripId}`;
   return pool.query(query1)
     .then(() => pool.query(query2))
     .catch((err) => {
-      console.error('err in db');
+      console.error('err in db: ', err);
     });
 };
 
@@ -145,6 +146,7 @@ const getInvitations = (email) => {
   INNER JOIN USERS
   ON INVITATIONS.OWNER_ID = USERS.ID
   WHERE USER_EMAIL = '${email}';`;
+  console.log('getInvitations query: ', query);
   return pool.query(query)
     .catch((err) => {
       console.error(err);
@@ -153,6 +155,7 @@ const getInvitations = (email) => {
 
 const deleteInvitation = (email, tripId) => {
   const query = `DELETE FROM INVITATIONS WHERE USER_EMAIL = '${email}' AND TRIP_ID = ${tripId};`;
+  console.log('query for deleting invitation: ', query);
   return pool.query(query)
     .catch((err) => {
       console.error(err);

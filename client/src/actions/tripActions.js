@@ -2,20 +2,21 @@ import ActionTypes from '../constants/ActionTypes';
 import { push } from 'react-router-redux';
 import axios from 'axios';
 
-const getAllTrips = userId => (dispatch, getState) => {
+const getAllTrips = () => (dispatch, getState) => {
+  const userId = getState().userReducer.currentUser.id;
   axios.get('/api/trips', {
     params: {
       userId,
     },
   })
-    .then((res) => {
+    .then(({ data }) => {
       dispatch({
         type: ActionTypes.GET_ALL_TRIPS,
-        code: res.data.rows,
+        code: data.rows,
       });
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };
 
@@ -62,33 +63,33 @@ const deleteTrip = (tripId, userId) => (dispatch, getState) => {
       console.error(err);
     });
 };
-const addMember = (userId, tripId) => (dispatch, getState) => {
-  // console.log('herereeee', userId, tripId)
+const addMember = tripId => (dispatch, getState) => {
+  const userId = getState().userReducer.currentUser.id;    
   axios.post('/api/trip/members', {
     params: {
       userId,
       tripId,
     },
   })
-    .then((data) => {
-    // console.log('data: ', data);
+    .then(({ data }) => {      
       dispatch({
         type: ActionTypes.ADD_MEMBER,
-        member: data.data,
+        member: data,
       });
     });
 };
 
-const getTripMembers = tripId => (dispatch, getState) => {
+const getTripMembers = () => (dispatch, getState) => {
+  const tripId = getState().tripReducer.currentTrip.trip_id;
   axios.get('/api/trip/members', {
     params: {
       tripId,
     },
   })
-    .then((data) => {
+    .then(({ data }) => {
       dispatch({
         type: ActionTypes.GET_TRIP_MEMBERS,
-        members: data.data,
+        members: data,
       });
     })
     .catch((err) => {
@@ -96,7 +97,8 @@ const getTripMembers = tripId => (dispatch, getState) => {
     });
 };
 
-const deleteTripMember = (memberId, tripId) => (dispatch, getState) => {
+const deleteTripMember = memberId => (dispatch, getState) => {
+  const tripId = getState().tripReducer.currentTrip.trip_id;
   axios.delete('/api/trip/members', {
     data: {
       memberId,
@@ -104,7 +106,7 @@ const deleteTripMember = (memberId, tripId) => (dispatch, getState) => {
     },
   })
     .then(() => {
-      dispatch(getTripMembers(tripId));
+      dispatch(getTripMembers());
     })
     .catch((err) => {
       console.error(err);
@@ -112,19 +114,19 @@ const deleteTripMember = (memberId, tripId) => (dispatch, getState) => {
 };
 
 
-const getPendingInvites = (userId, tripId) => (dispatch, getState) => {
+const getPendingInvites = () => (dispatch, getState) => {
+  const userId = getState().userReducer.currentUser.id;
+  const tripId = getState().tripReducer.currentTrip.trip_id;
   axios.get('/api/trip/invite', {
     params: {
       userId,
-      userId,
-      tripId,
       tripId,
     },
   })
-    .then((data) => {
+    .then(({ data }) => {
       dispatch({
         type: ActionTypes.GET_PENDING_INVITES,
-        pendingInvites: data.data,
+        pendingInvites: data,
       });
     })
     .catch((error) => {
@@ -132,26 +134,30 @@ const getPendingInvites = (userId, tripId) => (dispatch, getState) => {
     });
 };
 
-const sendInvite = (email, tripId, ownerId, ownerEmail, firstName, city) => (dispatch, getState) => {
+const sendInvite = toEmail => (dispatch, getState) => {
+  const { trip_id, city, owner_id } = getState().tripReducer.currentTrip;
+  const { email, firstName } = getState().userReducer.currentUser;
   axios.post('/api/trip/invite', {
     params: {
+      toEmail,
+      trip_id,
+      owner_id,
       email,
-      tripId,
-      ownerId,
-      ownerEmail,
       firstName,
       city,
     },
   })
     .then(() => {
-      dispatch(getPendingInvites(ownerId, tripId));
+      dispatch(getPendingInvites());
     })
     .catch((err) => {
       console.error(err);
     });
 };
 
-const deleteInvite = (email, tripId, ownerId) => (dispatch, getState) => {
+const deleteInvite = email => (dispatch, getState) => {
+  const { owner_id } = getState().tripReducer.currentTrip;
+  const tripId = getState().tripReducer.currentTrip.trip_id;
   axios.delete('/api/trip/invite', {
     params: {
       email,
@@ -159,7 +165,7 @@ const deleteInvite = (email, tripId, ownerId) => (dispatch, getState) => {
     },
   })
     .then(() => {
-      dispatch(getPendingInvites(ownerId, tripId));
+      dispatch(getPendingInvites());
     })
     .catch((error) => {
       console.error(error);
@@ -169,14 +175,13 @@ const deleteInvite = (email, tripId, ownerId) => (dispatch, getState) => {
 const getActivitiesForDate = (date, trip) => (dispatch, getState) => {
   axios.get('/api/getActivities', { params: { date, trip } })
     .then((success) => {
-      console.log('got activites!', success.data.rows);
       dispatch({
         type: ActionTypes.GET_ACTIVITIES,
         code: success.data.rows,
       });
     })
     .catch((err) => {
-      console.log('couldnt get activities from db', err);
+      console.error('couldnt get activities from db', err);
     });
 };
 

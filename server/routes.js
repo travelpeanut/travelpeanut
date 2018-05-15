@@ -211,21 +211,21 @@ router.route('/trip/invite')
   .post((req, res) => {
     sgMail.setApiKey(sgAPI);
     const {
-      email, tripId, ownerId, ownerEmail, firstName, city,
+      toEmail, trip_id, owner_id, email, firstName, city,
     } = req.body.params;
 
     axios.get(`https://api.unsplash.com/search/photos/?query=${city}&client_id=${unsplashAPI}`)
       .then((data) => {
         const imgUrl = data.data.results[0].urls.small;
         const msg = {
-          to: email,
-          from: ownerEmail,
+          to: toEmail,
+          from: email,
           subject: 'Message from Travel Peanut',
           text: `${firstName} has invited you to a magical journey`,
           html: `<img src=${imgUrl} /> <br></br> Photo by <a href="https://unsplash.com/@${data.data.results[0].user.username}?utm_source=travel_peanut">${data.data.results[0].user.name}</a> on <a href="https://unsplash.com/?utm_source=travel_peanut&">Unsplash</a>`,
         };
         sgMail.send(msg);
-        db.saveInvite(email, tripId, ownerId)
+        db.saveInvite(toEmail, trip_id, owner_id)
           .then((response) => {
             res.status(201).send(response);
           })
