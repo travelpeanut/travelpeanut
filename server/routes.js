@@ -270,8 +270,14 @@ router.route('/invitations')
 router.route('/addActivity')
   .get()
   .post((req, res) => {
-    console.log(req.body, req.params, req.query)
-    db.addActivity(req.body)
+    let {tripId, activityDate, startTime, activityName, activityType, activityLevel} = req.body.params
+    if (typeof activityLevel === 'undefined'){
+      activityLevel = null
+    }
+    if (typeof activityType === 'undefined'){
+      activityType = null
+    }
+    db.addActivity(tripId, activityDate, startTime, activityName, activityType, activityLevel)
       .then((success) => {
         res.status(200).send(success);
       })

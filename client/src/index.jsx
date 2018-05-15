@@ -80,7 +80,7 @@ ReactDOM.render(
         <PrivateRoute exact path="/home" component={HomePage}/>
         <PrivateRoute exact path="/trip/:name" component={TripMenu}/>
         <PrivateRoute exact path="/trip/:name/itinerary" component={TripItinerary}/>
-        <PrivateRoute exact path="/trip/:name/details" component={TripDetail}/>
+        <PrivateRoute exact path="/trip/:name/details/:dayNumber" component={TripDetail}/>
         <PrivateRoute exact path="/trip/:name/members" component={MembersList}/>
         <PrivateRoute exact path="/trip/:name/discovery" component={Discovery}/>
         <PrivateRoute exact path="/trip/:name/discovery/:category" component={BrowsePlaces}/>
