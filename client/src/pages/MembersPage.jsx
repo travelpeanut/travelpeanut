@@ -8,50 +8,38 @@ class MembersPage extends React.Component {
   constructor(props) {
     super(props);
     this.sendInvite = this.sendInvite.bind(this);
-    this.getTripMembers = this.getTripMembers.bind(this);
     this.deleteTripMember = this.deleteTripMember.bind(this);
-    this.getPendingInvites = this.getPendingInvites.bind(this);
     this.deleteInvite = this.deleteInvite.bind(this);
   }
 
   componentDidMount() {
-    this.getTripMembers();
-    this.getPendingInvites();
+    this.props.actions.getPendingInvites();
+    this.props.actions.getTripMembers();
   }
 
-  sendInvite(email, tripId, ownerId, ownerEmail, firstName, city) {
-    this.props.actions.sendInvite(email, tripId, ownerId, ownerEmail, firstName, city);
-    this.email.value = '';
+  sendInvite(toEmail) {
+    this.props.actions.sendInvite(toEmail);
+    this.toEmail.value = '';
   }
 
-  getPendingInvites() {
-    this.props.actions.getPendingInvites(this.props.userState.currentUser.id, this.props.tripState.currentTrip.trip_id);
+  deleteInvite(email) {
+    this.props.actions.deleteInvite(email);
   }
 
-  deleteInvite(email, tripId, ownerId) {
-    this.props.actions.deleteInvite(email, tripId, ownerId);
-  }
-
-  getTripMembers() {
-    this.props.actions.getTripMembers(this.props.tripState.currentTrip.trip_id);
-  }
-
-  deleteTripMember(memberId, tripId) {
-    this.props.actions.deleteTripMember(memberId, tripId);
+  deleteTripMember(memberId) {
+    this.props.actions.deleteTripMember(memberId);
   }
 
   render() {
-    const { currentTrip, pendingInvites } = this.props.tripState;
+    const { currentTrip, pendingInvites, tripMembers } = this.props.tripState;
     const { currentUser } = this.props.userState;
 
-    const { first_name } = this.props.userState.currentUser;
-    const { tripMembers } = this.props.tripState;
     console.log(this.props.tripState);
     return (
       <div>
         <h1>View/Edit Members Page for {currentTrip.title}</h1>
         <br/><br/>
-        <h3>Owner: {first_name}</h3>
+        <h3>Owner: {currentUser.first_name}</h3>
         <br/><br/>
         <h3>Pending invites</h3>
         <ul>
@@ -61,7 +49,7 @@ class MembersPage extends React.Component {
                 member = {invite.user_email}
                 />
                 <button
-                onClick={() => this.deleteInvite(invite.user_email, currentTrip.trip_id, currentTrip.owner_id)}
+                onClick={() => this.deleteInvite(invite.user_email)}
                 >DELETE INVITATION</button>
               </div>
             ))}
@@ -70,8 +58,8 @@ class MembersPage extends React.Component {
 
         {currentTrip.owner_id === currentUser.id && (<div>
         <h3>Add a member with email</h3>
-        <input type='email' placeholder='email' ref={(email) => { this.email = email; }} />
-        <button onClick={() => this.sendInvite(this.email.value, currentTrip.trip_id, currentTrip.owner_id, currentUser.email, currentUser.first_name, currentTrip.city)}>Send Invite</button>
+        <input type='email' placeholder='email' ref={(toEmail) => { this.toEmail = toEmail; }} />
+        <button onClick={() => this.sendInvite(this.toEmail.value)}>Send Invite</button>
         </div>)}
 
         <br/>
@@ -82,7 +70,7 @@ class MembersPage extends React.Component {
               <Member
               member={member.first_name}
               />
-              <button onClick={() => this.deleteTripMember(member.id, currentTrip.trip_id)}>Delete this member</button>
+              <button onClick={() => this.deleteTripMember(member.id)}>Delete this member</button>
             </div>
             ))}
         </ul>
