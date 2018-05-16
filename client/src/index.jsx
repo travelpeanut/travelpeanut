@@ -5,6 +5,9 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 
+import './styles/main.css'
+import './styles/waffle-grid.min.css'
+
 import createHistory from 'history/createBrowserHistory'
 import {BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom'
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
@@ -24,7 +27,6 @@ import Discovery from './pages/DiscoverPlacesPage.jsx'
 import BrowsePlaces from './pages/BrowsePlacesPage.jsx'
 import AddToItinerary from './pages/AddToItinerary.jsx'
 
-import './styles/main.css'
 import { auth } from '../../firebase/index.js';
 
 const history = createHistory()
@@ -76,7 +78,7 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <div>
         <Route exact path="/" component={LandingPage}/>
-        <Route exact path="/login" component={LoginPage}/>        
+        <Route exact path="/login" component={LoginPage}/>
         <PrivateRoute exact path="/home" component={HomePage}/>
         <PrivateRoute exact path="/trip/:name" component={TripMenu}/>
         <PrivateRoute exact path="/trip/:name/itinerary" component={TripItinerary}/>
