@@ -10,7 +10,8 @@ const loginGoogle = () => (dispatch) => {
 
   auth.signInWithPopup()
     .then((result) => {
-      user = result.user;      
+      user = result.user;
+      console.log('resulttttt', result)
       return user.getIdToken();
     })
     .then((token) => {      
