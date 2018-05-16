@@ -101,16 +101,19 @@ class HomePage extends React.Component {
         
         <div className="home-container">
 
-          <br/><br/>      
-
           <h2>Your Trips</h2>
-          <TripList 
-            allTrips={tripState.allTrips} 
-            goToTrip={(item) => this.goToTrip(item)}
-            currentUserId={userState.currentUser.id}
-            deleteTrip={tripId => this.deleteTrip(tripId)}
-          />
+          <div className="home-container-list">
+            <TripList 
+              allTrips={tripState.allTrips} 
+              goToTrip={(item) => this.goToTrip(item)}
+              currentUserId={userState.currentUser.id}
+              deleteTrip={tripId => this.deleteTrip(tripId)}
+            />
+          </div>
         </div>
+
+
+        <div className="landing-footer">footer content</div>
 
 
       </div>
