@@ -4,11 +4,16 @@ import { bindActionCreators } from 'redux'
 import * as tripActions from '../actions/tripActions.js'
 import moment from 'moment'
 import Chat from './ChatPage.jsx'
+import './styles.css'
 
 class TripItinerary extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      showChat: false
+    }
     this.redirectToDetails = this.redirectToDetails.bind(this)
+    this.toggleChat = this.toggleChat.bind(this)
   }
 
   redirectToDetails(date){
@@ -16,6 +21,12 @@ class TripItinerary extends React.Component {
     let tripId = this.props.tripState.currentTrip.trip_id
     this.props.actions.getActivitiesForDate(date, tripId)
     setTimeout(() => this.props.history.push(`/trip/${tripId}/details`), 500)
+  }
+
+  toggleChat() {
+    this.setState({
+      showChat: !this.state.showChat
+    })
   }
   
   render() {
@@ -34,6 +45,7 @@ class TripItinerary extends React.Component {
       dayArr.push([i, m, date, year, name, fullDate]);
     }
 
+    console.log('showChat: ', this.state.showChat);
     return(
       <div>
        <h1>This is Trip: {currentTrip.title}</h1>
@@ -49,7 +61,11 @@ class TripItinerary extends React.Component {
           )
         })
       }
-      <Chat />
+      {this.state.showChat
+        ? <Chat showChat={this.state.showChat} className="chat-box"/>
+        : <div></div>
+      }
+      <button className="chat-btn" onClick={this.toggleChat}>{this.state.showChat ? 'hide chat' : 'show chat'}</button>
       </div>
     )
   }

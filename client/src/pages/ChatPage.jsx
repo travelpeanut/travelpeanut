@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Infinite from 'react-infinite';
 import Message from '../components/Message.jsx';
 import * as tripActions from '../actions/tripActions';
 import * as chatActions from '../actions/chatActions';
+import './styles.css'
 
 class Chat extends React.Component {
   constructor(props) {
@@ -21,27 +23,29 @@ class Chat extends React.Component {
     this.message.value = '';
   }
 
-
   render() {
     return (
-      <div>
-        <div>
+      <div className="chat-box">        
+
+        <Infinite containerHeight={300} elementHeight={1} displayBottomUpwards >
           {this.props.chatState.messages.map((item) => {
             const key = item[0];
             const { firstName, lastName, imgUrl, message } = item[1];
-            return (
-              <Message
-                key={key}
-                message={message}
-                firstName={firstName}
-                lastName={lastName}
-                imgUrl={imgUrl}/>
+            return (              
+                <Message 
+                  key={key}
+                  message={message}
+                  firstName={firstName}
+                  lastName={lastName}
+                  imgUrl={imgUrl}/>              
             );
           })}
-        </div>
+        </Infinite>
 
-        <input type="text" placeholder="enter message" ref={(message) => { this.message = message; }}/>
-        <button onClick={this.handleSubmitMessage}>Send Message</button>
+        <div>
+          <input type="text" placeholder="enter message" ref={(message) => { this.message = message; }}/>
+          <button className="msg-btn" onClick={this.handleSubmitMessage}>Send Message</button>
+        </div>
 
       </div>
     );
