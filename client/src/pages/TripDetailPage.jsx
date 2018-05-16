@@ -19,6 +19,16 @@ class TripDetail extends React.Component {
     }
   }
   
+  componentDidMount(){
+    let {currentTrip} = this.props.tripState
+    let dayNumber = parseInt(window.location.pathname.split( '/' )[4]);
+    let start = new Date(currentTrip.start_date)
+    let fullDate = moment(start).add(24*dayNumber,'hours').format('MMMM D YYYY');
+    let tripId = currentTrip.trip_id;
+
+    this.props.actions.getActivitiesForDate(fullDate, tripId)
+  }
+
   toggleAddView(){
     let changeView = !this.state.addActivityView;
     this.setState({
@@ -33,7 +43,7 @@ class TripDetail extends React.Component {
     })
   }
 
-  addActivity(activityName, currentTrip){        
+  async addActivity(activityName, currentTrip){        
     let ampm = document.getElementById('AMPM')
     ampm = ampm.options[ampm.selectedIndex].value
     //for some reason can't combine lines 18 and 19 without getting error
@@ -51,24 +61,33 @@ class TripDetail extends React.Component {
       tripId,
       startTime,
       userId,
-      activityType: this.activityType.value,
+      // activityType: this.activityType.value,
       activityDate: fullDate,
     }
-    this.props.actions.addActivityToItinerary(activityData)
+    try {
+      await this.props.actions.addActivityToItinerary(activityData)
+      // await this.render()
+      // await addActivity
+      // await getActivities
+    } catch(err) {
+      console.log('not doing this right: ', err)
+    }
 }
 
 
   render() {
     let {currentTrip} = this.props.tripState
     let dayNumber = parseInt(window.location.pathname.split( '/' )[4]);
+    console.log('getting activiteis for this date...')
     let activitiesForThisDate = this.props.tripState.activitiesForThisDate
+    console.log('activites for this date: ', activitiesForThisDate)
     activitiesForThisDate = activitiesForThisDate.sort((a,b) => {
       let aHour = a.start_time.split(':')[0]
       let aMinute = a.start_time.split(':')[1]
       let bHour = b.start_time.split(':')[0]
       let bMinute = b.start_time.split(':')[1]
       if (aHour === bHour){
-        return aMinute-bMinute
+        return aMinute - bMinute
       } else {
         return aHour - bHour
       }
@@ -94,10 +113,10 @@ class TripDetail extends React.Component {
       return (
         <div>
           <h1>Trip Details: Day {dayNumber+1} in {currentTrip.title}</h1>
-          <button id="addActivity" onClick={this.toggleAddView}>Add Activity</button>
+          <button id="addActivity" onClick={this.toggleAddView}>Cancel</button>
           <input id="activityName" placeholder="Activity Name" ref={activityName => this.activityName = activityName} />
-          <input id="activityType" placeholder="Activity Type" ref={activityType => this.activityType = activityType} />
-          <input id="activityLevel" placeholder="Activity Level" ref={activityLevel => this.activityLevel = activityLevel} />
+          {/* <input id="activityType" placeholder="Activity Type" ref={activityType => this.activityType = activityType} />
+          <input id="activityLevel" placeholder="Activity Level" ref={activityLevel => this.activityLevel = activityLevel} /> */}
           <h4>Time:</h4>
                 <select id="time">
                     <option value="12:00">12:00</option>
