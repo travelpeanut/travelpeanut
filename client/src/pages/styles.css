@@ -1,0 +1,19 @@
+.chat-btn {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.chat-box {
+  display: block;
+  width: 25%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  border: 3px solid black;
+ 
+}
+
+.msg-btn {
+  display: inline;
+}
