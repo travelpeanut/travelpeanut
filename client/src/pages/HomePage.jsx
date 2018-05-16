@@ -15,7 +15,6 @@ class HomePage extends React.Component {
     this.handleCreate = this.handleCreate.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.goToTrip = this.goToTrip.bind(this)
-    this.getAllTrips = this.getAllTrips.bind(this) 
     this.deleteTrip = this.deleteTrip.bind(this)
     this.getInvitations = this.getInvitations.bind(this)
     this.acceptInvitation = this.acceptInvitation.bind(this)
