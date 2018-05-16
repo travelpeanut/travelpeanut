@@ -13,14 +13,14 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props)
     this.handleCreate = this.handleCreate.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.goToTrip = this.goToTrip.bind(this)
-    this.getAllTrips = this.getAllTrips.bind(this) 
-    this.deleteTrip = this.deleteTrip.bind(this)
-    this.getInvitations = this.getInvitations.bind(this)
     this.acceptInvitation = this.acceptInvitation.bind(this)
     this.rejectInvitation = this.rejectInvitation.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleClosePopup = this.handleClosePopup.bind(this)
+    this.goToTrip = this.goToTrip.bind(this)
+    this.deleteTrip = this.deleteTrip.bind(this)
+    this.getInvitations = this.getInvitations.bind(this)
+    // this.getAllTrips = this.getAllTrips.bind(this) 
     this.state = {
       show: 'none',
     };
