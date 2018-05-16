@@ -8,6 +8,8 @@ const TripListHome = ({allTrips, goToTrip, currentUserId, deleteTrip}) => {
           return (
             <div key={i}>
               <p>{item.title}</p>
+              <p>{item.city}</p>
+              <p>{item.country}</p>              
               <button onClick={()=> goToTrip(item)}>Go to Trip</button>
               {item.owner_id === currentUserId ? 
                 <button onClick={() => deleteTrip(item.trip_id)}>Delete</button>

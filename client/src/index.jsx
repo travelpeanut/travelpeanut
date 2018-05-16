@@ -5,6 +5,9 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 
+import './styles/main.css'
+import './styles/waffle-grid.min.css'
+
 import createHistory from 'history/createBrowserHistory'
 import {BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom'
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
@@ -15,7 +18,6 @@ import chatReducer from './reducers/chatReducer.js'
 
 import LandingPage from './pages/LandingPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
-import SignupPage from './pages/SignupPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import TripMenu from './pages/TripMenuPage.jsx'
 import TripItinerary from './pages/TripItineraryPage.jsx'
@@ -24,7 +26,6 @@ import MembersList from './pages/MembersPage.jsx'
 import Discovery from './pages/DiscoverPlacesPage.jsx'
 import BrowsePlaces from './pages/BrowsePlacesPage.jsx'
 
-import './styles/main.css'
 import { auth } from '../../firebase/index.js';
 
 const history = createHistory()
@@ -77,7 +78,6 @@ ReactDOM.render(
       <div>
         <Route exact path="/" component={LandingPage}/>
         <Route exact path="/login" component={LoginPage}/>
-        <Route exact path="/signup" component={SignupPage}/>
         <PrivateRoute exact path="/home" component={HomePage}/>
         <PrivateRoute exact path="/trip/:name" component={TripMenu}/>
         <PrivateRoute exact path="/trip/:name/itinerary" component={TripItinerary}/>

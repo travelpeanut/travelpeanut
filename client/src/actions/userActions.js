@@ -116,7 +116,7 @@ const logOut = () => (dispatch, getState) =>  {
     type: ActionTypes.LOGOUT_USER    
   })
   localStorage.removeItem('userToken');
-  dispatch(push(`/login`));
+  dispatch(push(`/`));
 }
 
 const getInvitations = (email) => (dispatch, getState) => {
