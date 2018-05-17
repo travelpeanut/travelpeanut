@@ -27,13 +27,13 @@ class Chat extends React.Component {
     console.log('Chat mounted')
     const { city, country, title } = this.props.tripState.currentTrip
     return (
-      <div className="chat-box">
+      <div className="chat chat-box">
         <div className="chat-header">
           <span className="chat-title">{`${title} in ${city}`}</span>
           <span className="chat-close" onClick={this.props.toggleChat}>x</span>
-          </div>        
+        </div>        
 
-          <InfiniteScroll loadMore={this.props.actions.getMessages}>
+          <div className="msg-container">
             {this.props.chatState.messages.map((item) => {          
               console.log('messages in chat: ', item[1]);                  
               const key = item[0];
@@ -53,7 +53,7 @@ class Chat extends React.Component {
                 </div>
               );
             })}
-          </InfiniteScroll>
+          </div>
 
         <div className="msg-form">
           <button className="msg-btn" onClick={this.handleSubmitMessage}>Send Message</button>          
