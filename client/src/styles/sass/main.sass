@@ -65,10 +65,10 @@
     &-b
       background-color: rgb(224, 211, 203)
     &-c
-      background-color: rgb(63, 111, 121)
+      // background-color: rgb(255, 126, 96)
   &-footer
-    background-color: rgb(94, 82, 82)
-    height: 300px
+    background-color: rgb(71, 90, 81)
+    height: 220px
 
 .login
   position: fixed
@@ -114,6 +114,8 @@
     margin-left: 35px
 
 .home
+  font-family: 'Work Sans', sans-serif
+  background-color: rgb(252, 249, 244)
   &-hero
     background-image: url('https://images.unsplash.com/photo-1495835788122-ca48931258be?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=acc48b0187b28f7a221362b843f15755&auto=format&fit=crop&w=1950&q=80')
     width: 100%
@@ -129,7 +131,6 @@
       transform: translate(-50%, -50%)
       font-size: 2em
       color: white
-      font-family: 'Work Sans', sans-serif
     &__create
       position: absolute
       right: 35px
@@ -139,15 +140,27 @@
       border-radius: 50%
       background-color: #fe6340
       cursor: pointer
-      -webkit-transition: -webkit-transform .8s ease-in-out;
-      transition:         transform .8s ease-in-out;
+      -webkit-transition: -webkit-transform .8s ease-in-out
+      transition: transform .8s ease-in-out
       img
         transform: rotate(45deg)
         width: 55px
         padding-left: 3px
       &:hover
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
+        -webkit-transform: rotate(360deg)
+        transform: rotate(360deg)
+  &-container
+    color: #3b3838
+    h2
+      text-align: center
+      font-family: 'Playfair Display', serif
+      padding-top: 20px
+      font-size: 40px
+      color: #475a51
+    &-list
+      margin-bottom: 10%
+
+
 
 
 
