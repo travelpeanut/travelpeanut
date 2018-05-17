@@ -193,6 +193,73 @@
       .c-popup__btn--one:hover {
         background-color: #6f716d; }
 
+.chat {
+  width: 33%;
+  bottom: 50px;
+  right: 50px;
+  border: 2px solid black;
+  border-top: none; }
+  .chat-header {
+    width: 100%;
+    border: 2px solid black;
+    border-left: 0;
+    border-right: 0;
+    height: 6%;
+    background-color: #0066ff; }
+  .chat-btn {
+    position: fixed;
+    text-align: center;
+    text-shadow: 2px 2px 4px #000000;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: #0066ff;
+    border-color: #0066ff;
+    color: white;
+    vertical-align: middle;
+    line-height: 1.5;
+    font-size: 2em; }
+  .chat-btn:hover {
+    opacity: 0.75; }
+  .chat-box {
+    display: none;
+    position: fixed;
+    border: 2px solid black;
+    border-top: none;
+    overflow: auto;
+    height: 50%;
+    transition: all 1s ease-in-out; }
+  .chat-close {
+    cursor: pointer;
+    position: absolute;
+    right: 2%;
+    top: 0.5%;
+    color: #cce0ff; }
+  .chat-title {
+    font-size: 125%;
+    position: absolute;
+    left: 4%;
+    color: #e6f0ff; }
+
+.msg {
+  border: 1px solid black; }
+  .msg-form {
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    bottom: 0; }
+  .msg-btn {
+    float: right;
+    margin-top: 180px; }
+  .msg-text {
+    width: 65%;
+    margin-top: 180px;
+    float: left; }
+
+.me {
+  text-align: right; }
+
 * {
   margin: 0; }
 

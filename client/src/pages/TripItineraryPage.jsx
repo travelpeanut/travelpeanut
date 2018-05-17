@@ -2,13 +2,24 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as tripActions from '../actions/tripActions.js'
+import * as chatActions from '../actions/chatActions.js'
 import moment from 'moment'
 import Chat from './ChatPage.jsx'
+import './styles.css'
 
 class TripItinerary extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      showChat: false
+    }
     this.redirectToDetails = this.redirectToDetails.bind(this)
+    this.toggleChat = this.toggleChat.bind(this)
+
+  }
+
+  componentDidMount() {
+    this.props.actions.getMessages()
   }
 
   redirectToDetails(date){
@@ -17,7 +28,13 @@ class TripItinerary extends React.Component {
     this.props.actions.getActivitiesForDate(date, tripId)
     setTimeout(() => this.props.history.push(`/trip/${tripId}/details`), 500)
   }
-  
+
+  toggleChat() {
+    this.setState({
+      showChat: !this.state.showChat
+    })
+  }
+
   render() {
     let {currentTrip} = this.props.tripState
     let start = new Date(currentTrip.start_date)
@@ -49,7 +66,13 @@ class TripItinerary extends React.Component {
           )
         })
       }
-      <Chat />
+      <div>
+        {this.state.showChat
+        ? <Chat showChat={this.state.showChat} toggleChat={this.toggleChat}/>
+        : <span className="chat chat-btn" onClick={this.toggleChat}>+</span>      
+        }
+      </div>
+      
       </div>
     )
   }
@@ -61,6 +84,6 @@ export default connect(
       tripState: state.tripReducer,
   }),
   dispatch => ({
-      actions: bindActionCreators( tripActions , dispatch)
+      actions: bindActionCreators( Object.assign({}, tripActions, chatActions) , dispatch)
   })
 )(TripItinerary);
