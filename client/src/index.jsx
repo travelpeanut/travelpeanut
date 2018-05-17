@@ -1,9 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
+
+import { persistStore, persistReducer, persistCombineReducers } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import { PersistGate } from 'redux-persist/integration/react'
+import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
+
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import './styles/main.css'
 import './styles/waffle-grid.min.css'
@@ -32,6 +39,12 @@ import { auth } from '../../firebase/index.js';
 const history = createHistory()
 const middleware = routerMiddleware(history)
 
+const persistConfig = {
+  key: 'root',
+  storage,
+  stateReconciler: hardSet
+}
+
 const rootReducer = combineReducers({
   userReducer,
   tripReducer,
@@ -39,10 +52,19 @@ const rootReducer = combineReducers({
   router: routerReducer
 })
 
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
 const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk, middleware)
+  persistedReducer,
+  undefined,
+  compose(
+    applyMiddleware(thunk, middleware),
+    composeWithDevTools()
+  )
+  // composeWithDevTools(applyMiddleware(thunk, middleware))
 )
+
+const persistor = persistStore(store)
 
 const authStatus = {
   ifLoggedIn: function(){
@@ -75,20 +97,22 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 ReactDOM.render(
   <div>
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <div>
-        <Route exact path="/" component={LandingPage}/>
-        <Route exact path="/login" component={LoginPage}/>
-        <PrivateRoute exact path="/home" component={HomePage}/>
-        <PrivateRoute exact path="/trip/:name" component={TripMenu}/>
-        <PrivateRoute exact path="/trip/:name/itinerary" component={TripItinerary}/>
-        <PrivateRoute exact path="/trip/:name/details" component={TripDetail}/>
-        <PrivateRoute exact path="/trip/:name/members" component={MembersList}/>
-        <PrivateRoute exact path="/trip/:name/discovery" component={Discovery}/>
-        <PrivateRoute exact path="/trip/:name/discovery/:category" component={BrowsePlaces}/>
-        <PrivateRoute exact path="/trip/:name/discovery/:category/:placeName/addToItinerary" component={AddToItinerary}/>
-      </div>
-    </ConnectedRouter>
+    <PersistGate loading={null} persistor={persistor}>
+      <ConnectedRouter history={history}>
+        <div>
+          <Route exact path="/" component={LandingPage}/>
+          <Route exact path="/login" component={LoginPage}/>
+          <PrivateRoute exact path="/home" component={HomePage}/>
+          <PrivateRoute exact path="/trip/:name" component={TripMenu}/>
+          <PrivateRoute exact path="/trip/:name/itinerary" component={TripItinerary}/>
+          <PrivateRoute exact path="/trip/:name/details" component={TripDetail}/>
+          <PrivateRoute exact path="/trip/:name/members" component={MembersList}/>
+          <PrivateRoute exact path="/trip/:name/discovery" component={Discovery}/>
+          <PrivateRoute exact path="/trip/:name/discovery/:category" component={BrowsePlaces}/>
+          <PrivateRoute exact path="/trip/:name/discovery/:category/:placeName/addToItinerary" component={AddToItinerary}/>
+        </div>
+      </ConnectedRouter>
+    </PersistGate>
   </Provider>
   </div>,
   document.getElementById('app')
