@@ -1,0 +1,69 @@
+.chat
+  width: 33%  
+  bottom: 50px
+  right: 50px  
+  border: 2px solid black  
+  border-top: none
+  &-header    
+    width: 100%
+    border: 2px solid black
+    border-left: 0
+    border-right: 0
+    height: 6%
+    background-color:  #0066ff
+  &-btn 
+    position: fixed
+    text-align: center
+    text-shadow: 2px 2px 4px #000000;
+    cursor: pointer
+    border-radius: 50%
+    width: 50px
+    height: 50px
+    background-color:  #0066ff
+    border-color:  #0066ff
+    color: white
+    vertical-align: middle
+    line-height: 1.5
+    font-size: 2em
+  &-btn:hover
+    opacity: 0.75
+  &-box 
+    display: none  
+    position: fixed    
+    border: 2px solid black
+    border-top: none
+    overflow: auto
+    height: 50%
+    transition: all 1s ease-in-out
+  &-close    
+    cursor: pointer
+    position: absolute
+    right: 2%
+    top: 0.5%
+    color: #cce0ff
+  &-title
+    font-size: 125%
+    position: absolute
+    left: 4%
+    color: #e6f0ff
+
+    
+.msg
+  border: 1px solid black
+  &-form
+    width: 100%
+    height: 20px
+    position: absolute
+    bottom: 0
+  &-btn     
+    float: right
+    margin-top: 180px    
+  &-text    
+    width: 65%
+    margin-top: 180px
+    float: left
+
+.me
+  text-align: right
+
+.them
