@@ -5,7 +5,6 @@ import * as tripActions from '../actions/tripActions.js'
 import * as chatActions from '../actions/chatActions.js'
 import moment from 'moment'
 import Chat from './ChatPage.jsx'
-import './styles.css'
 
 class TripItinerary extends React.Component {
   constructor(props) {
