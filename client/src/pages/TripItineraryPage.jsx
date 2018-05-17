@@ -11,11 +11,13 @@ class TripItinerary extends React.Component {
     this.redirectToDetails = this.redirectToDetails.bind(this)
   }
 
-  redirectToDetails(date, dayNumber){
+  async redirectToDetails(date, dayNumber){
     let {currentTrip} = this.props.tripState
     let tripId = this.props.tripState.currentTrip.trip_id
-    this.props.actions.getActivitiesForDate(date, tripId)
-    setTimeout(() => this.props.history.push(`/trip/${tripId}/details/${dayNumber}`), 500)
+    await this.props.actions.getActivitiesForDate(date, tripId)
+    await console.log('awaiting')
+    await this.props.history.push(`/trip/${tripId}/details/${dayNumber}`)
+    // setTimeout(() => this.props.history.push(`/trip/${tripId}/details/${dayNumber}`), 500)
   }
   
   render() {

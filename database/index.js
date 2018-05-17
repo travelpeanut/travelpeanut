@@ -184,6 +184,15 @@ const getActivites = (activityData) => {
     });
 };
 
+const updateActivity = (newActivity) => {
+  console.log('updating db')
+  // const query = `UPDATE activities SET WHERE id = ${newActivity.id}`
+  // return pool.query(query)
+  //   .catch(err => {
+  //     console.log('couldnt update table:', err)
+  //   });
+}
+
 exports.addNewUser = addNewUser;
 exports.getTripsByUser = getTripsByUser;
 exports.checkLogin = checkLogin;

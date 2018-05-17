@@ -185,6 +185,27 @@ const getActivitiesForDate = (date, trip) => (dispatch, getState) => {
     });
 };
 
+const addActivityToItinerary = placeData => (dispatch, getState) => {
+  console.log('place and time to add:', placeData);
+  axios.post('/api/addActivity', { params: placeData })
+    .then(() => {
+      console.log('data and tripid:', placeData.activityDate, placeData.tripId)
+      dispatch(getActivitiesForDate(placeData.activityDate, placeData.tripId));
+      console.log('saved activity to db');
+    })
+    .catch((err) => {
+      console.log('couldnt save activity:', err);
+    });
+};
+
+const updateActivity = (activityId, newActivity) => (dispatch, getState) => {
+  console.log('activityId:', activityId)
+  console.log('new activity:', newActivity)
+  axios.post('/api/updateActivity', {params: {activityId, newActivity}})
+  .then(() => {
+    dispatch(getActivitiesForDate())
+  })
+}
 
 module.exports = {
   createTrip,
@@ -198,4 +219,5 @@ module.exports = {
   getTripMembers,
   deleteTripMember,
   getActivitiesForDate,
+  addActivityToItinerary
 };

@@ -298,4 +298,16 @@ router.route('/getActivities')
       });
   });
 
+router.route('/updateActivity')
+  .post((req, res) => {
+    db.updateActivity(req.query)
+    .then(() => {
+      res.status(200).send()
+    })
+    .catch(err => {
+      console.log('couldnt update activity:', err)
+      res.status(400).send(err)
+    })
+  })
+
 module.exports = router;

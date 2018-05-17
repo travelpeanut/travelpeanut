@@ -50,21 +50,11 @@ const stagePlace = place => (dispatch, getState) => {
   });
 };
 
-const addActivityToItinerary = placeData => (dispatch, getState) => {
-  console.log('place and time to add:', placeData);
-  axios.post('/api/addActivity', { params: placeData })
-    .then(() => {
-      console.log('saved activity to db');
-    })
-    .catch((err) => {
-      console.log('couldnt save activity:', err);
-    });
-};
+
 
 module.exports = {
   getCoordinatesByCity,
   getNearbyPlacesByType,
   createTrip,
-  stagePlace,
-  addActivityToItinerary,
+  stagePlace
 };
