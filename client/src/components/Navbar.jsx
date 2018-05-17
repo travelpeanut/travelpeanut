@@ -18,7 +18,11 @@ class Navbar extends React.Component {
   }
 
   handleRedirect(){
-    this.props.history.push('/home')
+    if(this.props.ifLoginPage){
+      this.props.history.push('/')
+    } else {
+      this.props.history.push('/home')
+    }
   }
 
   handleLogout(){
