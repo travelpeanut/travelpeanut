@@ -10,7 +10,7 @@ import storage from 'redux-persist/lib/storage'
 import { PersistGate } from 'redux-persist/integration/react'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 
-import { composeWithDevTools } from 'redux-devtools-extension';
+// import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 import './styles/main.css'
 import './styles/waffle-grid.min.css'
@@ -59,7 +59,7 @@ const store = createStore(
   undefined,
   compose(
     applyMiddleware(thunk, middleware),
-    composeWithDevTools()
+    // composeWithDevTools()
   )
   // composeWithDevTools(applyMiddleware(thunk, middleware))
 )

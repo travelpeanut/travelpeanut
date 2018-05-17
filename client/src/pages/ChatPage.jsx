@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Infinite from 'react-infinite';
-import InfiniteScroll from 'react-infinite-scroller';
+// import Infinite from 'react-infinite';
+// import InfiniteScroll from 'react-infinite-scroller';
 import Message from '../components/Message.jsx';
 import * as tripActions from '../actions/tripActions';
 import * as chatActions from '../actions/chatActions';
