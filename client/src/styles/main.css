@@ -246,17 +246,12 @@
     width: 100%;
     position: absolute;
     bottom: 0; }
-  .msg-btn {
-    float: right;
-    margin-top: 180px; }
   .msg-text {
-    width: 65%;
-    margin-top: 180px;
-    float: left; }
+    width: 65%; }
   .msg-container {
-    height: 320px;
+    height: 305px;
     display: block;
-    overflow: scroll; }
+    overflow: auto; }
 
 .me {
   text-align: right; }
