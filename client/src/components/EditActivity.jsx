@@ -4,41 +4,77 @@ import { bindActionCreators } from 'redux'
 import Logo from '../styles/img/peanut.png'
 import * as tripActions from '../actions/tripActions.js'
 import moment from 'moment';
+import _ from 'underscore';
 
 class EditActivity extends React.Component{
   constructor(props) {
     super(props)
     this.updateActivity = this.updateActivity.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    // this.changeText = this.changeText.bind(this)
+    this.editActivity = this.editActivity.bind(this)
+    this.updateName = this.updateName.bind(this)
+    this.updateTime = this.updateTime.bind(this)
+    this.updateAMPM = this.updateAMPM.bind(this)
+    this.cancelEdit = this.cancelEdit.bind(this)
+    this.deleteActivity = this.deleteActivity.bind(this)
+    this.state = {
+      selectValue: '',
+      newName: this.props.activity.description,
+      newAMPM: moment(this.props.activity.start_time, 'hh:mm:ss').format('A'),
+      newTime: moment(this.props.activity.start_time, 'hh:mm:ss').format('h:mm')
+    }
   }
   
   updateActivity(){
     tripActions.updateActivity(activityInfo)
   }
 
-  handleClick(){
-    this.updateActivity()
+  deleteActivity(){
+    const deleteObj = {
+      id: this.props.activity.id,
+      dateOfActivity: this.props.activity.date_of_activity,
+      tripId: this.props.activity.trip_id
+    }
+    this.props.actions.deleteActivity(deleteObj)
   }
 
-  addActivity(activityDetails){
-    const { activity_level, comment_id, date_of_activity, down_vote, id, trip_id, type, up_vote } = activityDetails
-    let startTime = document.getElementById('time').options[time.selectedIndex].value;
-    let ampm = document.getElementById('AMPM')
-    ampm = ampm.options[ampm.selectedIndex].value
-    startTime = startTime.concat(' '+ampm);
-    const activityData = Object.assign(activityDetails, {})
-    this.props.actions.addActivityToItinerary(activityData)
-}
+  editActivity(activityDetails){
+    const { activity_level, comment_id, date_of_activity, down_vote, id, trip_id, type, up_vote } = activityDetails;
+    const newActivityName = this.state.newName
+    let startTime = this.state.newTime
+    const newAMPM = this.state.newAMPM
+    startTime = startTime.concat(' '+newAMPM);
+    var newData = {
+      id,
+      startTime,
+      newActivityName,
+      dateOfActivity: date_of_activity,
+      tripId: trip_id,
+    } 
+    this.props.actions.updateActivity(newData)
+    this.props.showEdit(this.props.key)
+  }
 
-  // changeText(){
-  //   let x = document.getElementById("activityName")
-  //   var defaultVal = x.defaultValue;
-  //   var currentVal = x.value;
-  //   if (defaultVal == currentVal){
+  cancelEdit(){
+    this.props.showEdit(this.props.key)
+  }
 
-  //   }
-  // }
+  updateName(e) {
+    this.setState({
+      newName: e.target.value
+    })
+  }
+
+  updateTime(e){
+    this.setState({
+      newTime: e.target.value
+    })
+  }
+
+  updateAMPM(e){
+    this.setState({
+      newAMPM: e.target.value
+    })
+  }
 
   render(){
     const { activity_level, comment_id, date_of_activity, description, down_vote, id, start_time, trip_id, type, up_vote } = this.props.activity
@@ -47,10 +83,10 @@ class EditActivity extends React.Component{
     return(
       <div>
         <div>New Activity: 
-          <input id="activityName" defaultValue={description} ref={activityName => this.activityName = activityName} />
+          <input id="changeActivityName" value={this.state.newName} onChange={this.updateName} />
         </div>
         <div>New Time:
-        <select id="time">
+        <select value={this.state.optionValue} onChange={this.updateTime} id="changeTime">
           <option value={selectedTime}>{selectedTime}</option>
                     <option value="12:00">12:00</option>
                     <option value="12:15">12:15</option>
@@ -101,13 +137,14 @@ class EditActivity extends React.Component{
                     <option value="11:15">11:15</option>
                     <option value="11:45">11:45</option>
                 </select>
-                <select id="AMPM">
+                <select id="newAMPM" onChange={this.updateAMPM}>
                 <option value={selectedAMPM}>{selectedAMPM}</option>
                     <option value="AM">AM</option>
                     <option value="PM">PM</option>
                 </select>
-                <button onClick={() => {updateActivity({activity_level, comment_id, date_of_activity, down_vote, id, trip_id, type, up_vote})}}>save</button>
-                <button>cancel</button>
+                <button onClick={() => {this.editActivity({activity_level, comment_id, date_of_activity, down_vote, id, trip_id, type, up_vote})}}>save</button>
+                <button onClick={this.cancelEdit}>cancel</button>
+                <button onClick={this.deleteActivity} >delete</button>
                 {console.log('heres the activity youre trying to edit:', this.props.activity)}
         </div>
       </div>

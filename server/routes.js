@@ -300,14 +300,27 @@ router.route('/getActivities')
 
 router.route('/updateActivity')
   .post((req, res) => {
-    db.updateActivity(req.query)
-    .then(() => {
-      res.status(200).send()
+    console.log('req body params:', req.body.params)
+    let {id, startTime, newActivityName} = req.body.params
+    db.updateActivity(id, startTime, newActivityName)
+    .then((success) => {
+      res.status(200).send(success)
     })
     .catch(err => {
       console.log('couldnt update activity:', err)
       res.status(400).send(err)
     })
+  })
+  .delete((req, res) => {
+    console.log('req dot query:', req.query.id)
+    db.deleteActivity(req.query.id)
+      .then((success) => {
+        res.status(200).send(success)
+      })
+      .catch(err => {
+        console.log('couldnt delete in route:', err)
+        res.status(400).send(err)
+      })
   })
 
 module.exports = router;

@@ -198,12 +198,32 @@ const addActivityToItinerary = placeData => (dispatch, getState) => {
     });
 };
 
-const updateActivity = (activityId, newActivity) => (dispatch, getState) => {
-  console.log('activityId:', activityId)
-  console.log('new activity:', newActivity)
-  axios.post('/api/updateActivity', {params: {activityId, newActivity}})
+const updateActivity = newData => (dispatch, getState) => {
+  console.log('newData is...', newData);
+  const {id, startTime, newActivityName, dateOfActivity, tripId } = newData;
+  // console.log('id, start time, and newname:', id, startTime, newActivityName)
+  console.log('date and tripid:', dateOfActivity, tripId)
+
+
+  axios.post('/api/updateActivity', {params: {id, startTime, newActivityName}})
   .then(() => {
-    dispatch(getActivitiesForDate())
+    dispatch(getActivitiesForDate(dateOfActivity, tripId))
+    console.log('dispatched after updating');
+  })
+  .catch(err => {
+    console.log('couldnt update activity:', err)
+  })
+}
+
+const deleteActivity = deleteData => (dispatch, getState) => {
+  const {id, dateOfActivity, tripId} = deleteData
+  console.log('id to delete, dateofactivity, tripid:', id, dateOfActivity, tripId)
+  axios.delete('/api/updateActivity', {params: {id}})
+  .then(() => {
+    dispatch(getActivitiesForDate(dateOfActivity, tripId))
+  })
+  .catch(err => {
+    console.log('couldnt delete activity:', err)
   })
 }
 
@@ -219,5 +239,7 @@ module.exports = {
   getTripMembers,
   deleteTripMember,
   getActivitiesForDate,
-  addActivityToItinerary
+  addActivityToItinerary,
+  updateActivity,
+  deleteActivity
 };

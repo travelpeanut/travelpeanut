@@ -19,7 +19,7 @@ class TripDetail extends React.Component {
       activityType: '',
       activityLevel: '',
       showEdit: false,
-      editKeys: []
+      editActivityKey: null
     }
   }
   
@@ -38,48 +38,41 @@ class TripDetail extends React.Component {
   }
 
   showEdit(key){
-    let keyArr = this.state.editKeys.slice();
-    if (keyArr.includes(key)){
-      keyArr.splice(keyArr.indexOf(key), 1)
+    let editKey = this.state.editActivityKey
+    console.log('editkey:', editKey)
+    if (key === editKey){
+      editKey = null;
+      console.log('key was editKey, changed to null')
     } else {
-      keyArr.push(key)
+      editKey = key
+      console.log('key was not editKey, changed editKey to: ', editKey)
     }
     this.setState({
-      editKeys: keyArr
+      editActivityKey: editKey
     })
   }
 
-  async addActivity(currentTrip){        
+  addActivity(activityName, currentTrip){
     let ampm = document.getElementById('AMPM')
     ampm = ampm.options[ampm.selectedIndex].value
-    //for some reason can't combine lines 18 and 19 without getting error
-    let tripId = currentTrip.trip_id;
-    // let activityDate = document.getElementById("date").options[date.selectedIndex].value;
-    const activityName = document.getElementById('activityName').options[activityName.selectedIndex].value;
-    console.log('activity name is...', activityName)
     let startTime = document.getElementById('time').options[time.selectedIndex].value;
     startTime = startTime.concat(' '+ampm);
-    //can I define ampm and startTime in one line?
-    let userId = this.props.userState.currentUser.id
-    let start = new Date(currentTrip.start_date)
-    let dayNumber = parseInt(window.location.pathname.split( '/' )[4]);
+
+    const userId = this.props.userState.currentUser.id
+    const start = new Date(currentTrip.start_date)
+    const dayNumber = parseInt(window.location.pathname.split( '/' )[4]);
     let fullDate = moment(start).add(24*dayNumber,'hours').format('MMMM D YYYY');
-    let activityData = {
+
+    const activityData = {
       activityName,
-      tripId,
+      tripId: currentTrip.trip_id,
       startTime,
       userId,
       // activityType: this.activityType.value,
       activityDate: fullDate,
     }
-    try {
-      await this.props.actions.addActivityToItinerary(activityData)
-      // await this.render()
-      // await addActivity
-      // await getActivities
-    } catch(err) {
-      console.log('not doing this right: ', err)
-    }
+
+    this.props.actions.addActivityToItinerary(activityData)
 }
 
 
@@ -164,24 +157,23 @@ class TripDetail extends React.Component {
                   <option value="PM">PM</option>
               </select>
 
-              <button onClick={() => this.addActivity(this.props.tripState.currentTrip)}>Add!</button>
+              <button onClick={() => this.addActivity(this.activityName.value, this.props.tripState.currentTrip)}>Add!</button>
         {//tripId activityDate, startTime, activityName, activityType, activityLevel
         }
         <br />
         <hr />
         {activitiesForThisDate.map((activity, key) => {
-          console.log('rendering activities')
-          console.log('this.state.editKeys:', this.state.editKeys)
-          console.log('this.state.editKeys.inclues(key)', this.state.editKeys.includes(key))
+          // console.log('rendering activities')
+          // console.log('this.state.editKeys:', this.state.editKeys)
+          // console.log('this.state.editKeys.inclues(key)', this.state.editKeys.includes(key))
           return (
             <div key={activity.id}>
               <p>{moment(activity.start_time, 'HH:mm:ss').format('h:mm a')}</p>
               <div>{unescape(activity.description)}</div>
               <button onClick={() => this.showEdit(key)} >edit</button>
-              <button onClick={this.showEdit} >delete</button>
               <button>upvote</button>
               <button>downvote</button>
-              {this.state.editKeys.includes(key) ? <EditActivity activity={activity} addActivity={this.addActivity}/> : null}
+              {this.state.editActivityKey === key ? <EditActivity activity={activity} showEdit={this.showEdit} key={key} addActivity={this.addActivity}/> : null}
               <hr />
             </div>
           )
