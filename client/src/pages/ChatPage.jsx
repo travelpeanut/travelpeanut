@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Infinite from 'react-infinite';
-import InfiniteScroll from 'react-infinite-scroller';
+// import Infinite from 'react-infinite';
+// import InfiniteScroll from 'react-infinite-scroller';
 import Message from '../components/Message.jsx';
 import * as tripActions from '../actions/tripActions';
 import * as chatActions from '../actions/chatActions';
@@ -12,19 +12,18 @@ class Chat extends React.Component {
     super(props);
     this.handleSubmitMessage = this.handleSubmitMessage.bind(this);
   }
-
-  // componentDidMount() {
-  //   this.props.actions.getMessages();
-  // }
-
+  
   handleSubmitMessage() {
-    const message = this.message.value;
-    this.props.actions.sendMessage(message);
-    this.message.value = '';
+    let message = this.message.value;
+    if (message.length !== 0) {
+      this.props.actions.sendMessage(message);
+      this.message.value = '';
+    } else {
+      alert('please enter a chat message!')
+    }
   }
 
-  render() {
-    console.log('Chat mounted')
+  render() {    
     const { city, country, title } = this.props.tripState.currentTrip
     return (
       <div className="chat chat-box">
@@ -34,8 +33,7 @@ class Chat extends React.Component {
         </div>        
 
           <div className="msg-container">
-            {this.props.chatState.messages.map((item) => {          
-              console.log('messages in chat: ', item[1]);                  
+            {this.props.chatState.messages.map((item) => {                        
               const key = item[0];
               const { firstName, lastName, imgUrl, message, user_id } = item[1];
               const currentUserId = this.props.userState.currentUser.id
@@ -56,8 +54,8 @@ class Chat extends React.Component {
           </div>
 
         <div className="msg-form">
-          <button className="msg-btn" onClick={this.handleSubmitMessage}>Send Message</button>          
           <input className="msg-text" type="text" placeholder="enter message" ref={(message) => { this.message = message; }}/>          
+          <button className="msg-btn" onClick={this.handleSubmitMessage}>Send Message</button>          
         </div>
 
       </div>
