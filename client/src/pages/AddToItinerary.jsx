@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as discoverActions from '../actions/discoveryActions.js'
+import * as tripActions from '../actions/tripActions.js'
 import axios from 'axios';
 import moment from 'moment';
 
@@ -130,6 +131,6 @@ export default connect(
       userState: state.userReducer
     }),
     dispatch => ({
-      actions: bindActionCreators(discoverActions, dispatch)
+      actions: bindActionCreators(Object.assign({}, tripActions, discoverActions), dispatch)
     })
   )(AddToItinerary);

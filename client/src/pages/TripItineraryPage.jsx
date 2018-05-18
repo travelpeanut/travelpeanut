@@ -5,6 +5,7 @@ import * as tripActions from '../actions/tripActions.js'
 import * as chatActions from '../actions/chatActions.js'
 import moment from 'moment'
 import Chat from './ChatPage.jsx'
+import gapi from 'gapi-client'
 
 class TripItinerary extends React.Component {
   constructor(props) {
@@ -14,7 +15,36 @@ class TripItinerary extends React.Component {
     }
     this.redirectToDetails = this.redirectToDetails.bind(this)
     this.toggleChat = this.toggleChat.bind(this)
+    this.exportItinerary = this.exportItinerary.bind(this)
+  }
 
+  exportItinerary() {
+    this.props.actions.exportItinerary(localStorage.getItem('accessToken'))
+
+
+    // gapi.load('client', {callback: function() {gapi.client.init({
+    //   apiKeyf: 'AIzaSyBCRrBpDOeycW-y13E3yEZrfhxt-6NX2Ck',
+    //   client_id: '712830463027-cni4cud2aoiblkjhmob17qeoti0ts5ft.apps.googleusercontent.com',
+    //   discoveryDocs: [
+    //         'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'
+    //       ],
+    //   scope: 'https://www.googleapis.com/auth/calendar'
+    // })
+    // .then(() => gapi.client.setToken({access_token: localStorage.getItem('accessToken')})
+    // )
+    // .then(() => {console.log(gapi.client.getToken())})
+    // .then(() => {
+    //   gapi.client.calendar.events.list({
+    //     calendarId: 'primary',
+    //     timeMin: (new Date()).toISOString(),
+    //     maxResults: 10,
+    //     singleEvents: true,
+    //     orderBy: 'startTime',
+    //   })
+    //   .then((response) => {
+    //     console.log(response)
+    //   })
+    // })}})
   }
 
   componentDidMount() {
@@ -51,7 +81,6 @@ class TripItinerary extends React.Component {
       let fullDate = moment(day).format('MMMM D YYYY')
       dayArr.push([dayNumber, m, date, year, name, fullDate]);
     }
-
     return(
       <div>
        <h1>This is Trip: {currentTrip.title}</h1>
@@ -74,6 +103,10 @@ class TripItinerary extends React.Component {
         }
       </div>
       
+      <Chat />
+      <button onClick={this.exportItinerary}
+      >Export Itinerary To Google Calendar
+      </button>
       </div>
     )
   }

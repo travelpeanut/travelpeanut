@@ -91,3 +91,13 @@ CREATE TABLE invitations (
  owner_id INTEGER NOT NULL,
  UNIQUE (user_email, trip_id, owner_id)
  );
+
+DROP TABLE IF EXISTS activities_votes;
+
+CREATE TABLE activities_votes (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  activity_id INTEGER NOT NULL,
+  vote BOOLEAN NOT NULL,
+  UNIQUE (user_id, activity_id)
+);
