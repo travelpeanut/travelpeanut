@@ -3,42 +3,17 @@ import { push } from 'react-router-redux';
 import ActionTypes from '../constants/ActionTypes';
 import { auth } from '../../../firebase';
 
-
-const checkLogin = input => (dispatch, getState) => {
-  // ping the database with the login
-  // see if the username exists
-  // if it does not exist, throw an alert message
-  // if the password does not match, alert the password is not matching
-  // if the password matches, dispatch an action to change the state
-  axios.get('/api/login', {
-    params: input,
-  })
-    .then((data) => {
-      Promise.resolve(dispatch({
-        type: ActionTypes.CHECK_LOGIN,
-        payload: data.data,
-      }))
-        .then(() => dispatch(push('/home')));
-    })
-    .catch((error) => {
-      window.alert('Incorrect Username or Password. Please try again!');
-    });
-};
-
-const loginGoogle = () => (dispatch) => {
-  console.log('actions log goog');
+const loginGoogle = () => (dispatch) => {  
   let user;
   let data;
   let imgUrl;
 
   auth.signInWithPopup()
     .then((result) => {
-      user = result.user;
-      // const token = result.credential.accessToken
+      user = result.user;      
       return user.getIdToken();
     })
-    .then((token) => {
-      console.log('actions==========', token);
+    .then((token) => {      
       const strToken = token.toString();
 
       const base64Url = token.split('.')[1];
@@ -72,28 +47,12 @@ const loginGoogle = () => (dispatch) => {
       dispatch(push('/home'));
     })
     .catch((err) => {
-      console.log('sign in err: ', err);
+      console.error('sign in err: ', err);
     });
 };
 
 const goToLogin = () => (dispatch, getState) => {
   dispatch(push('/login'));
-
-
-  // const state = getState();
-  // console.log('state',state)
-
-  // axios.get('/hotels')
-  // .then((response) => {
-  //   console.log(response)
-  //   dispatch({
-  //     type: ActionTypes.GET_HOTELS_LIST,
-  //     code: response
-  //   })
-  // })
-  // .catch((err) => {
-  //   console.log(err);
-  // })
 };
 
 const goToSignup = () => (dispatch, getState) => {
@@ -106,12 +65,11 @@ const signUp = data => (dispatch, getState) => {
       dispatch(push('/login'));
     })
     .catch((err) => {
-      console.log('ERROR IN signUp function: ', err);
+      console.error('ERROR IN signUp function: ', err);
     });
 };
 
-const logOut = () => (dispatch, getState) => {
-  console.log('calling logOut');
+const logOut = () => (dispatch, getState) => {  
   dispatch({
     type: ActionTypes.LOGOUT_USER,
   });
@@ -120,16 +78,13 @@ const logOut = () => (dispatch, getState) => {
 }
 
 const getInvitations = () => (dispatch, getState) => {
-  const { email } = getState().userReducer.currentUser;
-  console.log('email', email);
-  // pings the server -> database
+  const { email } = getState().userReducer.currentUser;  
   axios.get('/api/invitations', {
     params: {
       email,
     },
   })
-    .then(({ data }) => {
-      console.log('data in getInvitations: ', data);
+    .then(({ data }) => {      
       dispatch({
         type: ActionTypes.GET_INVITATIONS,
         invitations: data,
@@ -137,9 +92,7 @@ const getInvitations = () => (dispatch, getState) => {
     });
 };
 
-const acceptInvitation = (email, tripId) => (dispatch, getState) => {
-  console.log('accepting invication email: ', email)
-  console.log('accepting invication tripId: ', tripId)
+const acceptInvitation = (email, tripId) => (dispatch, getState) => {    
   axios.delete('/api/invitations', {
     params: {
       email,
@@ -163,7 +116,7 @@ const rejectInvitation = (email, tripId) => (dispatch, getState) => {
 module.exports = {
   goToLogin,
   loginGoogle,
-  checkLogin,
+  // checkLogin,
   signUp,
   goToSignup,
   logOut,

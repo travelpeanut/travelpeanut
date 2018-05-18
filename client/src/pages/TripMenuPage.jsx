@@ -13,17 +13,18 @@ class TripMenu extends React.Component {
 
   }
 
-  redirectItinerary(type){
-    let {user_id} = this.props.tripState.currentTrip
+  redirectItinerary(type){    
+    let { trip_id } = this.props.tripState.currentTrip
+    // let {user_id} = this.props.tripState.currentTrip
     switch(type){
       case 'itinerary':
-        this.props.history.push(`/trip/${user_id}/itinerary`)
+        this.props.history.push(`/trip/${trip_id}/itinerary`)
         break
       case 'discover':
-        this.props.history.push(`/trip/${user_id}/discovery`)
+        this.props.history.push(`/trip/${trip_id}/discovery`)
         break
       case 'members':
-        this.props.history.push(`/trip/${user_id}/members`)
+        this.props.history.push(`/trip/${trip_id}/members`)
         break
       default:
         break

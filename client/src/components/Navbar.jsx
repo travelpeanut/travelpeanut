@@ -2,8 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as userActions from '../actions/userActions.js';
+import * as tripActions from '../actions/tripActions.js';
 import Logo from '../styles/img/peanut.png'
 import Invitation from '../components/Invitation.jsx'
+
 
 
 class Navbar extends React.Component {
@@ -12,6 +14,8 @@ class Navbar extends React.Component {
     this.handleRedirect = this.handleRedirect.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
     this.toggleNotifyBox = this.toggleNotifyBox.bind(this)
+    this.handleAccept = this.handleAccept.bind(this)
+    this.handleReject = this.handleReject.bind(this)
     this.state = {
       show: 'none'
     }
@@ -30,13 +34,23 @@ class Navbar extends React.Component {
   }
 
   toggleNotifyBox(){
-    console.log('clicked')
     let showStatus = this.state.show === 'none' ? 'block' : 'none'
     console.log(showStatus)
     this.setState({
       show: showStatus
     })
   }
+
+  handleAccept(email, tripId) {
+    Promise.resolve(this.props.actions.acceptInvitation(email, tripId))
+      .then(() => this.props.actions.addMember(tripId))
+      .then(() => this.props.actions.getAllTrips())
+  }
+
+  handleReject(email, tripId) {
+    this.props.actions.rejectInvitation(email, tripId)
+  }
+  
 
   render() {
     let {currentUser, invitations} = this.props.userState
@@ -64,8 +78,8 @@ class Navbar extends React.Component {
                       <Invitation
                         invitation={invitation}
                       />
-                      <button onClick={() => this.acceptInvitation(userState.currentUser.email, invitation.id, userState.currentUser.id)}>Yes</button>
-                      <button onClick={() => this.rejectInvitation(userState.currentUser.email, invitation.id, userState.currentUser.id)}>No</button> 
+                      <button onClick={() => this.handleAccept(currentUser.email, invitation.id)}>Yes</button>
+                      <button onClick={() => this.handleReject(currentUser.email, invitation.id)}>No</button> 
                       </div>
                     )}) 
                     : <span>No pending invitations!</span>
@@ -97,7 +111,7 @@ export default connect(
       userState: state.userReducer,
   }),
   dispatch => ({
-      actions: bindActionCreators( userActions , dispatch)
+      actions: bindActionCreators(Object.assign({}, tripActions, userActions), dispatch)
   })
 )(Navbar);
 
