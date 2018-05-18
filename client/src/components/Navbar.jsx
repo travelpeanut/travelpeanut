@@ -64,8 +64,8 @@ class Navbar extends React.Component {
                       <Invitation
                         invitation={invitation}
                       />
-                      <button onClick={() => this.acceptInvitation(userState.currentUser.email, invitation.id, userState.currentUser.id)}>Yes</button>
-                      <button onClick={() => this.rejectInvitation(userState.currentUser.email, invitation.id, userState.currentUser.id)}>No</button> 
+                      <button onClick={() => this.props.actions.acceptInvitation(currentUser.email, invitation.id, currentUser.id)}>Yes</button>
+                      <button onClick={() => this.props.actions.rejectInvitation(currentUser.email, invitation.id, currentUser.id)}>No</button> 
                       </div>
                     )}) 
                     : <span>No pending invitations!</span>
