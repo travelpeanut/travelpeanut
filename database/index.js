@@ -184,6 +184,25 @@ const getActivites = (activityData) => {
     });
 };
 
+const updateActivity = (id, startTime, activityName) => {
+  console.log('id, startTime, activityName:', id, startTime, activityName);
+  console.log('updating db')
+  const query = `UPDATE activities SET description = '${activityName}', start_time='${startTime}' WHERE id = ${id};`
+  console.log('query: ', query)
+  return pool.query(query)
+    .catch(err => {
+      console.log('couldnt update table:', err)
+    });
+}
+
+const deleteActivity = (id) => {
+  const query = `DELETE FROM activities WHERE id = ${id};`
+  return pool.query(query)
+    .catch(err => {
+      console.log('issue with db query:', err)
+    });
+}
+
 exports.addNewUser = addNewUser;
 exports.getTripsByUser = getTripsByUser;
 exports.checkLogin = checkLogin;
@@ -202,3 +221,5 @@ exports.getInvitations = getInvitations;
 exports.deleteInvitation = deleteInvitation;
 exports.addActivity = addActivity;
 exports.getActivites = getActivites;
+exports.updateActivity = updateActivity;
+exports.deleteActivity = deleteActivity;
