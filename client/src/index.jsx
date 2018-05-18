@@ -97,7 +97,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 ReactDOM.render(
   <div>
   <Provider store={store}>
-<<<<<<< HEAD
     <ConnectedRouter history={history}>
       <div>
         <Route exact path="/" component={LandingPage}/>
@@ -112,24 +111,6 @@ ReactDOM.render(
         <PrivateRoute exact path="/trip/:name/discovery/:category/:placeName/addToItinerary" component={AddToItinerary}/>
       </div>
     </ConnectedRouter>
-=======
-    <PersistGate loading={null} persistor={persistor}>
-      <ConnectedRouter history={history}>
-        <div>
-          <Route exact path="/" component={LandingPage}/>
-          <Route exact path="/login" component={LoginPage}/>
-          <PrivateRoute exact path="/home" component={HomePage}/>
-          <PrivateRoute exact path="/trip/:name" component={TripMenu}/>
-          <PrivateRoute exact path="/trip/:name/itinerary" component={TripItinerary}/>
-          <PrivateRoute exact path="/trip/:name/details" component={TripDetail}/>
-          <PrivateRoute exact path="/trip/:name/members" component={MembersList}/>
-          <PrivateRoute exact path="/trip/:name/discovery" component={Discovery}/>
-          <PrivateRoute exact path="/trip/:name/discovery/:category" component={BrowsePlaces}/>
-          <PrivateRoute exact path="/trip/:name/discovery/:category/:placeName/addToItinerary" component={AddToItinerary}/>
-        </div>
-      </ConnectedRouter>
-    </PersistGate>
->>>>>>> c98ecebe8f8937c95c65d7b717b60a799092be5a
   </Provider>
   </div>,
   document.getElementById('app')
