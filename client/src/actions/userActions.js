@@ -38,57 +38,8 @@ const loginGoogle = () => (dispatch) => {
       console.log(result.credential.accessToken)
       localStorage.setItem('accessToken', result.credential.accessToken)
       return user.getIdToken();
-      // return result.credential.accessToken;
     })
     .then((token) => {
-      // gapi.load('client', {callback: function() {gapi.client.init({
-      //     apiKeyf: config.apiKey,
-      //     client_id: config.clientId,
-      //     discoveryDocs: config.discoveryDocs,
-      //     scope: config.scopes.join(" ")
-      //   })
-      //   console.log(gapi.client.getToken())})
-      // }
-      // })
-
-
-
-      // setTimeout(function() {console.log('gapiii', gapi)
-      // gapi.client.setToken({access_token: token})
-      // console.log(gapi.client.getToken())
-      // gapi.client.calendar.events.list({
-      //   calendarId: 'primary',
-      //   timeMin: (new Date()).toISOString(),
-      //   maxResults: 10,
-      //   singleEvents: true,
-      //   orderBy: 'startTime',
-      // })
-      // var resource = {
-      //   "summary": "Appointment",
-      //   "location": "Somewhere",
-      //   "start": {
-      //     'dateTime': '2018-05-28T17:00:00-07:00',
-      //     'timeZone': 'America/Los_Angeles'              
-      //   },
-      //   "end": {
-      //     'dateTime': '2018-05-28T17:00:00-07:00',
-      //     'timeZone': 'America/Los_Angeles'
-      //   }
-      // };
-      // console.log(resource)
-      // var request = gapi.client.calendar.events.insert({
-      //   'calendarId': 'primary',
-      //   'resource': resource
-      // });
-      // request.execute(function(resp) {
-      //   console.log(resp);
-      // })      
-      // .then((response) => console.log(response))
-      // .catch((error) => console.error(error))
-    // }, 1000)
-    // })
-    
-
       console.log('actions==========', token);
       const strToken = token.toString();
 

@@ -20,7 +20,6 @@ class HomePage extends React.Component {
     this.goToTrip = this.goToTrip.bind(this)
     this.deleteTrip = this.deleteTrip.bind(this)
     this.getInvitations = this.getInvitations.bind(this)
-    // this.getAllTrips = this.getAllTrips.bind(this) 
     this.state = {
       show: 'none',
     };
