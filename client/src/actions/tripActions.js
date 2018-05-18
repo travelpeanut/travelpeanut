@@ -183,45 +183,38 @@ const getActivitiesForDate = (date, trip) => (dispatch, getState) => {
     });
 };
 
-const addActivityToItinerary = placeData => (dispatch, getState) => {
-  console.log('place and time to add:', placeData);
+const addActivityToItinerary = placeData => (dispatch, getState) => {  
   axios.post('/api/addActivity', { params: placeData })
-    .then(() => {
-      console.log('data and tripid:', placeData.activityDate, placeData.tripId)
-      dispatch(getActivitiesForDate(placeData.activityDate, placeData.tripId));
-      console.log('saved activity to db');
+    .then(() => {      
+      dispatch(getActivitiesForDate(placeData.activityDate, placeData.tripId));      
     })
     .catch((err) => {
-      console.log('couldnt save activity:', err);
+      console.error('couldnt save activity:', err);
     });
 };
 
-const updateActivity = newData => (dispatch, getState) => {
-  console.log('newData is...', newData);
+const updateActivity = newData => (dispatch, getState) => {  
   const {id, startTime, newActivityName, dateOfActivity, tripId } = newData;
-  // console.log('id, start time, and newname:', id, startTime, newActivityName)
-  console.log('date and tripid:', dateOfActivity, tripId)
+//   
 
 
   axios.post('/api/updateActivity', {params: {id, startTime, newActivityName}})
   .then(() => {
-    dispatch(getActivitiesForDate(dateOfActivity, tripId))
-    console.log('dispatched after updating');
+    dispatch(getActivitiesForDate(dateOfActivity, tripId))    
   })
   .catch(err => {
-    console.log('couldnt update activity:', err)
+    console.error('couldnt update activity:', err)
   })
 }
 
 const deleteActivity = deleteData => (dispatch, getState) => {
-  const {id, dateOfActivity, tripId} = deleteData
-  console.log('id to delete, dateofactivity, tripid:', id, dateOfActivity, tripId)
+  const {id, dateOfActivity, tripId} = deleteData  
   axios.delete('/api/updateActivity', {params: {id}})
   .then(() => {
     dispatch(getActivitiesForDate(dateOfActivity, tripId))
   })
   .catch(err => {
-    console.log('couldnt delete activity:', err)
+    console.error('couldnt delete activity:', err)
   })
 }
 
