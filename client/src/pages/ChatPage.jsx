@@ -15,7 +15,6 @@ class Chat extends React.Component {
   
   handleSubmitMessage() {
     let message = this.message.value;
-    // if the message is blank, send an empty string to firebase to keep styling consistent
     if (message.length !== 0) {
       this.props.actions.sendMessage(message);
       this.message.value = '';
