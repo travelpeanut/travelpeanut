@@ -5,7 +5,6 @@ import * as tripActions from '../actions/tripActions.js'
 import * as chatActions from '../actions/chatActions.js'
 import moment from 'moment'
 import Chat from './ChatPage.jsx'
-import gapi from 'gapi-client'
 
 class TripItinerary extends React.Component {
   constructor(props) {
@@ -20,31 +19,6 @@ class TripItinerary extends React.Component {
 
   exportItinerary() {
     this.props.actions.exportItinerary(localStorage.getItem('accessToken'))
-
-
-    // gapi.load('client', {callback: function() {gapi.client.init({
-    //   apiKeyf: 'AIzaSyBCRrBpDOeycW-y13E3yEZrfhxt-6NX2Ck',
-    //   client_id: '712830463027-cni4cud2aoiblkjhmob17qeoti0ts5ft.apps.googleusercontent.com',
-    //   discoveryDocs: [
-    //         'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'
-    //       ],
-    //   scope: 'https://www.googleapis.com/auth/calendar'
-    // })
-    // .then(() => gapi.client.setToken({access_token: localStorage.getItem('accessToken')})
-    // )
-    // .then(() => {console.log(gapi.client.getToken())})
-    // .then(() => {
-    //   gapi.client.calendar.events.list({
-    //     calendarId: 'primary',
-    //     timeMin: (new Date()).toISOString(),
-    //     maxResults: 10,
-    //     singleEvents: true,
-    //     orderBy: 'startTime',
-    //   })
-    //   .then((response) => {
-    //     console.log(response)
-    //   })
-    // })}})
   }
 
   componentDidMount() {
