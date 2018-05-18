@@ -1,11 +1,9 @@
 import React from 'react';
 
-const Member = ({member}) => {
-  return (
+const Member = ({ member }) => (
     <li>
      {member}
      </li>
-  )
-}
+);
 
 export default Member;

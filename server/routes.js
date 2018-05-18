@@ -4,8 +4,11 @@ const { addNewUser } = require('../database/index');
 const axios = require('axios');
 const { sgAPI, unsplashAPI } = require('../config.js');
 const { API, GOOGLE_PLACES } = require('../config.js');
+const {CLIENT_ID, CLIENT_SECRET, REDIRECT_URIS} = require('../config.js')
 const sgMail = require('@sendgrid/mail');
 const _ = require('underscore');
+const {google} = require('googleapis');
+const calendar = google.calendar('v3');
 
 router.route('/login')
   .get((req, res) => {
@@ -322,5 +325,37 @@ router.route('/updateActivity')
         res.status(400).send(err)
       })
   })
+router.route('/itinerary')
+  .post((req, res) => {
+    console.log('herererere')
+    const {accessToken} = req.body.params
+    console.log(accessToken)
+    let oauth = new google.auth.OAuth2(
+      CLIENT_ID, CLIENT_SECRET, REDIRECT_URIS[0]);
+    oauth.setCredentials({access_token: accessToken});
+    console.log(oauth)
+    //make a database call to pull the activities
+    let resource = {
+        "summary": "Appointment",
+        "location": "Somewhere",
+        "start": {
+          'dateTime': '2018-05-28T17:00:00',
+          'timeZone': 'America/Los_Angeles'              
+        },
+        "end": {
+          'dateTime': '2018-05-28T18:00:00',
+          'timeZone': 'America/Los_Angeles'
+        }
+      };
+      console.log(resource)
+      calendar.events.insert({
+        'calendarId': 'primary',
+        'auth': oauth,
+        'resource': resource
+      })     
+      .then((response) => res.json(response.data))
+      .catch((error) => res.sendStatus(400))
+})
+
 
 module.exports = router;

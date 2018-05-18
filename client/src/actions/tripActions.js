@@ -1,6 +1,7 @@
 import ActionTypes from '../constants/ActionTypes';
 import { push } from 'react-router-redux';
 import axios from 'axios';
+import gapi from 'gapi-client';
 
 const getAllTrips = () => (dispatch, getState) => {
   const userId = getState().userReducer.currentUser.id;
@@ -218,6 +219,19 @@ const deleteActivity = deleteData => (dispatch, getState) => {
   })
 }
 
+const exportItinerary = (accessToken) => (dispatch, getState) => {
+  console.log('access tokennnn', accessToken)
+  axios.post('/api/itinerary', {
+    params: {
+      accessToken: accessToken
+    }
+  })
+  .then((data) => {
+    console.log(data)
+  })
+}
+
+
 module.exports = {
   createTrip,
   getAllTrips,
@@ -232,5 +246,6 @@ module.exports = {
   getActivitiesForDate,
   addActivityToItinerary,
   updateActivity,
-  deleteActivity
+  deleteActivity,
+  exportItinerary,
 };
