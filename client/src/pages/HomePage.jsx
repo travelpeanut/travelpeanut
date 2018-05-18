@@ -60,7 +60,6 @@ class HomePage extends React.Component {
       startDate: this.startDate.value,
       endDate: this.endDate.value,
       province: '',
-      // ownerId needs to come from login state. hard coded right now
       ownerId: this.props.userState.currentUser.id
     }
     this.props.actions.createTrip(data)
@@ -86,10 +85,11 @@ class HomePage extends React.Component {
   }
 
 
-  render() {
-    console.log('this is trip state:', this.props.userState);    
+  render() {    
     let {userState} = this.props
     let {tripState} = this.props
+    console.log('tripState: ', tripState)
+    console.log('userState: ', userState)
     return(
       <div className="home">
         <Navbar {...this.props} ifLoginPage={false} />

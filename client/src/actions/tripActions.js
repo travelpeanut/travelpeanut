@@ -21,16 +21,14 @@ const getAllTrips = () => (dispatch, getState) => {
 };
 
 
-const createTrip = data => (dispatch, getState) => {
-  // console.log('in actions:', data)
+const createTrip = data => (dispatch, getState) => {  
   dispatch({
     type: ActionTypes.CREATE_TRIP,
     code: data,
   });
   axios.post('/api/newTrip', data)
     .then(() => axios.get('/api/tripId', { params: { id: data.ownerId } }))
-    .then((response) => {
-      // console.log('got new trip id: ', response);
+    .then((response) => {      
       const newTripId = response.data.id;
       return axios.post('/api/usersByTrips', {
         newTripId,
@@ -46,12 +44,12 @@ const createTrip = data => (dispatch, getState) => {
   dispatch(push('/home'));
 };
 
-const setCurrentTrip = item => (dispatch, getState) => {
+const setCurrentTrip = item => (dispatch, getState) => {  
   dispatch({
     type: ActionTypes.SET_CURRENT_TRIP,
     code: item,
   });
-  dispatch(push(`/trip/${item.user_id}`));
+  dispatch(push(`/trip/${item.trip_id}`));
 };
 
 const deleteTrip = (tripId, userId) => (dispatch, getState) => {
