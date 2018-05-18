@@ -76,8 +76,6 @@ class TripItinerary extends React.Component {
         : <span className="chat chat-btn" onClick={this.toggleChat}>+</span>      
         }
       </div>
-      
-      <Chat />
       <button onClick={this.exportItinerary}
       >Export Itinerary To Google Calendar
       </button>
