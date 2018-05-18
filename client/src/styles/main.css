@@ -193,6 +193,69 @@
       .c-popup__btn--one:hover {
         background-color: #6f716d; }
 
+.chat {
+  width: 25%;
+  bottom: 0;
+  right: 10px;
+  border: 2px solid black;
+  border-top: none; }
+  .chat-header {
+    width: 100%;
+    border: 2px solid black;
+    border-left: 0;
+    border-right: 0;
+    height: 6%;
+    background-color: #0066ff; }
+  .chat-btn {
+    position: fixed;
+    text-align: center;
+    text-shadow: 2px 2px 4px #000000;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: #0066ff;
+    border-color: #0066ff;
+    color: white;
+    vertical-align: middle;
+    line-height: 1.5;
+    font-size: 2em; }
+  .chat-btn:hover {
+    opacity: 0.75; }
+  .chat-box {
+    position: fixed;
+    border: 2px solid black;
+    border-top: none;
+    height: 350px;
+    transition: all 1s ease-in-out; }
+  .chat-close {
+    cursor: pointer;
+    position: absolute;
+    right: 2%;
+    top: 0.5%;
+    color: #cce0ff; }
+  .chat-title {
+    font-size: 125%;
+    position: absolute;
+    left: 4%;
+    color: #e6f0ff; }
+
+.msg {
+  border: 1px solid black; }
+  .msg-form {
+    width: 100%;
+    position: absolute;
+    bottom: 0; }
+  .msg-text {
+    width: 65%; }
+  .msg-container {
+    height: 305px;
+    display: block;
+    overflow: auto; }
+
+.me {
+  text-align: right; }
+
 * {
   margin: 0; }
 
@@ -256,11 +319,9 @@
     height: 500px; }
     .landing-content-b {
       background-color: #e0d3cb; }
-    .landing-content-c {
-      background-color: #3f6f79; }
   .landing-footer {
-    background-color: #5e5252;
-    height: 300px; }
+    background-color: #475a51;
+    height: 220px; }
 
 .login {
   position: fixed;
@@ -300,40 +361,52 @@
     width: 20%;
     margin-left: 35px; }
 
-.home-hero {
-  background-image: url("https://images.unsplash.com/photo-1495835788122-ca48931258be?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=acc48b0187b28f7a221362b843f15755&auto=format&fit=crop&w=1950&q=80");
-  width: 100%;
-  height: 400px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative; }
-  .home-hero__text {
-    position: absolute;
-    top: 47%;
-    left: 23%;
-    transform: translate(-50%, -50%);
-    font-size: 2em;
-    color: white;
-    font-family: 'Work Sans', sans-serif; }
-  .home-hero__create {
-    position: absolute;
-    right: 35px;
-    bottom: 23px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: #fe6340;
-    cursor: pointer;
-    -webkit-transition: -webkit-transform .8s ease-in-out;
-    transition: transform .8s ease-in-out; }
-    .home-hero__create img {
-      transform: rotate(45deg);
-      width: 55px;
-      padding-left: 3px; }
-    .home-hero__create:hover {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg); }
+.home {
+  font-family: 'Work Sans', sans-serif;
+  background-color: #fcf9f4; }
+  .home-hero {
+    background-image: url("https://images.unsplash.com/photo-1495835788122-ca48931258be?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=acc48b0187b28f7a221362b843f15755&auto=format&fit=crop&w=1950&q=80");
+    width: 100%;
+    height: 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative; }
+    .home-hero__text {
+      position: absolute;
+      top: 47%;
+      left: 23%;
+      transform: translate(-50%, -50%);
+      font-size: 2em;
+      color: white; }
+    .home-hero__create {
+      position: absolute;
+      right: 35px;
+      bottom: 23px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #fe6340;
+      cursor: pointer;
+      -webkit-transition: -webkit-transform .8s ease-in-out;
+      transition: transform .8s ease-in-out; }
+      .home-hero__create img {
+        transform: rotate(45deg);
+        width: 55px;
+        padding-left: 3px; }
+      .home-hero__create:hover {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg); }
+  .home-container {
+    color: #3b3838; }
+    .home-container h2 {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      padding-top: 20px;
+      font-size: 40px;
+      color: #475a51; }
+    .home-container-list {
+      margin-bottom: 10%; }
 
 .navbar {
   position: absolute;
