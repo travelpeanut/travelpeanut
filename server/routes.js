@@ -270,8 +270,14 @@ router.route('/invitations')
 router.route('/addActivity')
   .get()
   .post((req, res) => {
-    console.log(req.body, req.params, req.query)
-    db.addActivity(req.body)
+    let {tripId, activityDate, startTime, activityName, activityType, activityLevel} = req.body.params
+    if (typeof activityLevel === 'undefined'){
+      activityLevel = null
+    }
+    if (typeof activityType === 'undefined'){
+      activityType = null
+    }
+    db.addActivity(tripId, activityDate, startTime, activityName, activityType, activityLevel)
       .then((success) => {
         res.status(200).send(success);
       })
@@ -291,5 +297,30 @@ router.route('/getActivities')
         res.status(400).send(err);
       });
   });
+
+router.route('/updateActivity')
+  .post((req, res) => {
+    console.log('req body params:', req.body.params)
+    let {id, startTime, newActivityName} = req.body.params
+    db.updateActivity(id, startTime, newActivityName)
+    .then((success) => {
+      res.status(200).send(success)
+    })
+    .catch(err => {
+      console.log('couldnt update activity:', err)
+      res.status(400).send(err)
+    })
+  })
+  .delete((req, res) => {
+    console.log('req dot query:', req.query.id)
+    db.deleteActivity(req.query.id)
+      .then((success) => {
+        res.status(200).send(success)
+      })
+      .catch(err => {
+        console.log('couldnt delete in route:', err)
+        res.status(400).send(err)
+      })
+  })
 
 module.exports = router;
