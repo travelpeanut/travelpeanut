@@ -18,7 +18,7 @@ class EditActivity extends React.Component{
     this.deleteActivity = this.deleteActivity.bind(this)
     this.state = {
       selectValue: '',
-      newName: this.props.activity.description,
+      newName: unescape(this.props.activity.description),
       newAMPM: moment(this.props.activity.start_time, 'hh:mm:ss').format('A'),
       newTime: moment(this.props.activity.start_time, 'hh:mm:ss').format('h:mm')
     }

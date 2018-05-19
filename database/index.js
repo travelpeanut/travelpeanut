@@ -203,6 +203,33 @@ const deleteActivity = (id) => {
     });
 }
 
+const upVoteActivity = (activityId, userId) => {
+  let query = `INSERT INTO activities_votes (user_Id, activity_id, vote) values (${userId}, ${activityId}, true);` 
+  console.log('query string:', query)
+  return pool.query(query)
+  .catch(err => {
+    console.log('issue with db query:', err)
+    query = `UPDATE activities_votes SET vote = true WHERE user_id=${userId} AND activity_id=${activityId};`
+    return pool.query(query)
+  })
+  .catch(err => {
+    console.log('couldnt update to upvote:', err)
+  })
+}
+
+const downVoteActivity = (activityId, userId) => {
+  const query = `INSERT INTO activities_votes (user_Id, activity_id, vote) values (${userId}, ${activityId}, false);` 
+  return pool.query(query)
+  .catch(err => {
+    console.log('issue with db query:', err)
+    query = `UPDATE activities_votes SET vote = false WHERE user_id=${userId} AND activity_id=${activityId};`
+    return pool.query(query)
+  })
+  .catch(err => {
+    console.log('couldnt update to downvote:', err)
+  })
+}
+
 exports.addNewUser = addNewUser;
 exports.getTripsByUser = getTripsByUser;
 exports.checkLogin = checkLogin;
@@ -223,3 +250,5 @@ exports.addActivity = addActivity;
 exports.getActivites = getActivites;
 exports.updateActivity = updateActivity;
 exports.deleteActivity = deleteActivity;
+exports.downVoteActivity = downVoteActivity;
+exports.upVoteActivity = upVoteActivity;
