@@ -203,8 +203,8 @@ const deleteActivity = (id) => {
     });
 }
 
-const upVoteActivity = (activityId, userId) => {
-  let query = `INSERT INTO activities_votes (user_Id, activity_id, vote) values (${userId}, ${activityId}, true);` 
+const upVoteActivity = (activityId, userId, tripId) => {
+  let query = `INSERT INTO activities_votes (user_id, activity_id, vote, trip_id) values (${userId}, ${activityId}, true, ${tripId});` 
   console.log('query string:', query)
   return pool.query(query)
   .catch(err => {
@@ -217,8 +217,8 @@ const upVoteActivity = (activityId, userId) => {
   })
 }
 
-const downVoteActivity = (activityId, userId) => {
-  const query = `INSERT INTO activities_votes (user_Id, activity_id, vote) values (${userId}, ${activityId}, false);` 
+const downVoteActivity = (activityId, userId, tripId) => {
+  const query = `INSERT INTO activities_votes (user_id, activity_id, vote, trip_id) values (${userId}, ${activityId}, false, ${tripId});` 
   return pool.query(query)
   .catch(err => {
     console.log('issue with db query:', err)
@@ -228,6 +228,10 @@ const downVoteActivity = (activityId, userId) => {
   .catch(err => {
     console.log('couldnt update to downvote:', err)
   })
+}
+
+const getVotes = (tripId) => {
+  const query = ``
 }
 
 exports.addNewUser = addNewUser;

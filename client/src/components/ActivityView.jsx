@@ -15,7 +15,6 @@ class ActivityView extends React.Component{
         this.getVotes = this.getVotes.bind(this)
         this.state = {
             showEdit: false,
-            upVotesDnVotes: [],
         }
     }
 
@@ -52,14 +51,15 @@ class ActivityView extends React.Component{
     }
 
     getVotes(){
-        // this.props.actions.getVotes
-        //how should we get votes?
+
+        this.props.actions.getVotes
+        
     }
 
     render(){
         const activity = this.props.activity;
-        const upVotes = this.state.upVotesDnVotes[0];
-        const downVotes = this.state.upVotesDnVotes[1];
+        // const upVotes = this.state.upVotesDnVotes[0];
+        // const downVotes = this.state.upVotesDnVotes[1];
         return(
             <div>
               <p>{moment(activity.start_time, "HH:mm:ss").format("h:mm a")}</p>

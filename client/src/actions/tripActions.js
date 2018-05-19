@@ -232,7 +232,7 @@ const exportItinerary = (accessToken) => (dispatch, getState) => {
 
 const upVote = upVoteData => (dispatch, getState) => {
   const {activityId, userId, tripId, activityDate} = upVoteData
-  axios.post('/api/upVoteActivity', {params: {activityId, userId}})
+  axios.post('/api/upVoteActivity', {params: {activityId, userId, tripId}})
   .then(() => {
     dispatch(getActivitiesForDate(activityDate, tripId))
   })
@@ -243,13 +243,18 @@ const upVote = upVoteData => (dispatch, getState) => {
 
 const downVote = downVoteData => (dispatch, getState) => {
   const {activityId, userId, tripId, activityDate} = downVoteData
-  axios.post('/api/downVoteActivity', {params: {activityId, userId}})
+  axios.post('/api/downVoteActivity', {params: {activityId, userId, tripId}})
   .then(() => {
     dispatch(getActivitiesForDate(activityDate, tripId))
   })
   .catch(err => {
     console.log('couldnt downVote activity:', err)
   })
+}
+
+const getVotesForDate = tripData => () => {
+  const {tripId, activityDate} = tripData
+  axios.post('/api/getVotes')
 }
 
 module.exports = {

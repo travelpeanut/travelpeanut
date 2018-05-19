@@ -100,8 +100,6 @@ class TripDetail extends React.Component {
       <div>
         <h1>Trip Details: Day {dayNumber+1} in {currentTrip.title}</h1>
         <input id="activityName" placeholder="Activity Name" ref={activityName => this.activityName = activityName} />
-        {/* <input id="activityType" placeholder="Activity Type" ref={activityType => this.activityType = activityType} />
-        <input id="activityLevel" placeholder="Activity Level" ref={activityLevel => this.activityLevel = activityLevel} /> */}
         <h4>Time:</h4>
               <select id="time">
                   <option value="12:00">12:00</option>
