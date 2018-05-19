@@ -51,11 +51,11 @@ class EditActivity extends React.Component{
       tripId: trip_id,
     } 
     this.props.actions.updateActivity(newData)
-    this.props.showEdit(this.props.key)
+    this.props.toggleEdit()
   }
 
   cancelEdit(){
-    this.props.showEdit(this.props.key)
+    this.props.toggleEdit()
   }
 
   updateName(e) {
