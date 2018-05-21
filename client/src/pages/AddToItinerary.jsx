@@ -54,7 +54,6 @@ class AddToItinerary extends React.Component{
                 <h3>Add To Itinerary: {tripState.placeToAdd.name}</h3>
                 <h4>Day:</h4>
                 <select id="date">
-                    {console.log('dayArr is...', dayArr)}
                     {dayArr.map((info, key) => {
                         return (
                             <option key={info[0]} value={info[3]}>Day {info[0]+1}, {info[2]}, {info[1]}</option>

@@ -24,7 +24,6 @@ class CreateTripPopup extends React.Component {
       endDate: this.endDate.value,
       ownerId: this.props.userState.currentUser.id
     }
-    console.log('data', data)
     this.props.actions.createTrip(data)
   }
 

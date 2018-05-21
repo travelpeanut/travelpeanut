@@ -12,7 +12,6 @@ class TripDetail extends React.Component {
   constructor(props) {
     super(props)
     this.toggleAddView = this.toggleAddView.bind(this)
-    this.updateValue = this.updateValue.bind(this)
     this.showEdit = this.showEdit.bind(this)
     this.state = {
       addActivityView: false,
@@ -30,28 +29,20 @@ class TripDetail extends React.Component {
       addActivityView: changeView 
     })
   }
-  
-  updateValue(stateName){
-    let value = this.state.stateName
-    this.setState({
-      stateName: value
-    })
-  }
 
-  showEdit(key){
-    let editKey = this.state.editActivityKey
-    console.log('editkey:', editKey)
-    if (key === editKey){
-      editKey = null;
-      console.log('key was editKey, changed to null')
+  showEdit(index){
+    let editKey = this.state.editActivityKey    
+    if (index === editKey){
+      editKey = null;      
     } else {
-      editKey = key
-      console.log('key was not editKey, changed editKey to: ', editKey)
+      editKey = index      
     }
     this.setState({
       editActivityKey: editKey
     })
   }
+
+  
 
   addActivity(activityName, currentTrip){
     let ampm = document.getElementById('AMPM')
@@ -62,7 +53,7 @@ class TripDetail extends React.Component {
     const userId = this.props.userState.currentUser.id
     const start = new Date(currentTrip.start_date)
     const dayNumber = parseInt(window.location.pathname.split( '/' )[4]);
-    let fullDate = moment(start).add(24*dayNumber,'hours').format('MMMM D YYYY');
+    let fullDate = moment(start).add(24*(dayNumber-1),'hours').format('MMMM D YYYY');
 
     const activityData = {
       activityName,
@@ -79,10 +70,8 @@ class TripDetail extends React.Component {
 
   render() {
     let {currentTrip} = this.props.tripState
-    let dayNumber = parseInt(window.location.pathname.split( '/' )[4]);
-    console.log('getting activiteis for this date...')
-    let activitiesForThisDate = this.props.tripState.activitiesForThisDate
-    console.log('activites for this date: ', activitiesForThisDate)
+    let dayNumber = parseInt(window.location.pathname.split( '/' )[4]);    
+    let activitiesForThisDate = this.props.tripState.activitiesForThisDate    
     activitiesForThisDate = activitiesForThisDate.sort((a,b) => {
       let aHour = a.start_time.split(':')[0]
       let aMinute = a.start_time.split(':')[1]
@@ -157,14 +146,11 @@ class TripDetail extends React.Component {
               </select>
 
               <button onClick={() => this.addActivity(this.activityName.value, this.props.tripState.currentTrip)}>Add!</button>
-        {//tripId activityDate, startTime, activityName, activityType, activityLevel
-        }
+        
         <br />
         <hr />
-        {activitiesForThisDate.map((activity, key) => {
-          // console.log('rendering activities')
-          // console.log('this.state.editKeys:', this.state.editKeys)
-          // console.log('this.state.editKeys.inclues(key)', this.state.editKeys.includes(key))
+        {activitiesForThisDate.map((activity, index) => {
+          console.log('index in activitiesForThisDate: ', index);
           return (
             <div key={activity.id}>
               <ActivityView activity={activity}/>
