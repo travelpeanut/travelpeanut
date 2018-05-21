@@ -362,7 +362,6 @@ router.route('/itinerary')
       .catch((error) => res.sendStatus(400))
 })
 
-<<<<<<< HEAD
   router.route('/upVoteActivity')
     .post((req, res) => {
       console.log('req body params:', req.body.params)
@@ -399,11 +398,5 @@ router.route('/itinerary')
     let {tripId} = req.query
     db.getvotes
   })
-=======
-router.route('/discoveryPhotos')
-  .get((req, res) => {
-  })
-
->>>>>>> refactor
 
 module.exports = router;

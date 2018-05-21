@@ -153,17 +153,7 @@ class TripDetail extends React.Component {
           console.log('index in activitiesForThisDate: ', index);
           return (
             <div key={activity.id}>
-<<<<<<< HEAD
               <ActivityView activity={activity}/>
-=======
-              <p>{moment(activity.start_time, 'HH:mm:ss').format('h:mm a')}</p>
-              <div>{unescape(activity.description)}</div>
-              <button onClick={() => this.showEdit(index)} >edit</button>
-              <button>upvote</button>
-              <button>downvote</button>
-              {this.state.editActivityKey === index ? <EditActivity activity={activity} showEdit={this.showEdit} key={key} addActivity={this.addActivity}/> : null}
-              <hr />
->>>>>>> refactor
             </div>
           )
         })}
