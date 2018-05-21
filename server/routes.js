@@ -163,7 +163,12 @@ router.route('/getNearbyPlacesByType')
           outArr = outArr.concat(placeData[i]);
         }
         outArr = _.uniq(outArr, false, place => place.id);
-        res.status(200).send(outArr);
+        outArr.sort((a,b) => {
+          return b.rating - a.rating
+        });
+        let results = outArr.slice(0,9 )
+        console.log('results: ', results, results.length)
+        res.status(200).send(results);
       })
       .catch((err) => {
         console.log('couldnt get all places in server:', err);

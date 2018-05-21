@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
 import ActionTypes from '../constants/ActionTypes';
+import { GOOGLE_PLACES } from '../../../config'
 
 const getCoordinatesByCity = cityAndState => (dispatch, getState) => {
   // console.log('in discoveryActions: ', cityAndState)
@@ -16,9 +17,7 @@ const getCoordinatesByCity = cityAndState => (dispatch, getState) => {
     });
 };
 
-const getNearbyPlacesByType = (types, coordinates) => (dispatch, getState) => {
-  // console.log('in getNearbyPlacesByType. type: ', types, 'coordinates:', coordinates)
-  // console.log('types is...', types)
+const getNearbyPlacesByType = (types, coordinates) => (dispatch, getState) => {  
   axios.get('/api/getNearbyPlacesByType', { params: [types, coordinates.lat, coordinates.lng] })
     .then((nearbyPlaces) => {
       // console.log('got ALL nearby places: ', nearbyPlaces)
@@ -50,11 +49,24 @@ const stagePlace = place => (dispatch, getState) => {
   });
 };
 
+const getPlacesPhotos = photoReference => (dispatch, getState) => {
+  console.log('getting photos for this reference: ', photoReference)
+  const photoURL = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${GOOGLE_PLACES}`
+  axios.get(photoURL)
+    .then((response) => {
+      console.log('response.data from getPlacesPhotos: ', response.data)
+      dispatch({
+        type: ActionTypes.GET_PLACES_PHOTOS,
+        payload: photoReference
+      })
+    })
+}
 
 
 module.exports = {
   getCoordinatesByCity,
   getNearbyPlacesByType,
   createTrip,
-  stagePlace
+  stagePlace,
+  getPlacesPhotos
 };

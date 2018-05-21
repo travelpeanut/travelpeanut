@@ -33,6 +33,7 @@ import MembersList from './pages/MembersPage.jsx'
 import Discovery from './pages/DiscoverPlacesPage.jsx'
 import BrowsePlaces from './pages/BrowsePlacesPage.jsx'
 import AddToItinerary from './pages/AddToItinerary.jsx'
+import Places from './components/Places.jsx'
 
 import { auth } from '../../firebase/index.js';
 
@@ -108,6 +109,7 @@ ReactDOM.render(
         <PrivateRoute exact path="/trip/:name/members" component={MembersList}/>
         <PrivateRoute exact path="/trip/:name/discovery" component={Discovery}/>
         <PrivateRoute exact path="/trip/:name/discovery/:category" component={BrowsePlaces}/>
+        <PrivateRoute exact path="/trip/:name/discovery/:category" component={Places}/>
         <PrivateRoute exact path="/trip/:name/discovery/:category/:placeName/addToItinerary" component={AddToItinerary}/>
       </div>
     </ConnectedRouter>
