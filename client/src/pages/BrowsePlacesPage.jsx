@@ -41,8 +41,7 @@ class BrowsePlaces extends React.Component {
               photoReference={place.reference}
               lat={place.geometry.location.lat}
               lng={place.geometry.location.lng}
-              />
-           
+            />           
             )
           })}
       </div>

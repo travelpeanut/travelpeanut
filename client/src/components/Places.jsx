@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
-import GOOGLE_PLACES from '../../../config'
+import { GOOGLE_PLACES, unsplashAPI } from '../../../config'
 import * as discoveryActions from '../actions/discoveryActions.js'
 
 class Places extends React.Component {
@@ -11,6 +11,11 @@ class Places extends React.Component {
     }
     this.addToItenerary = this.addToItenerary.bind(this)
     this.redirectAddPlace = this.redirectAddPlace.bind(this)
+    this.getPhotos = this.getPhotos.bind(this)
+  }
+
+  componentDidMount() {
+    this.getPhotos();
   }
 
   addToItenerary() {
@@ -26,6 +31,11 @@ class Places extends React.Component {
     let tripCity = this.props.tripState.currentTrip.city.trim()
     let discoverType = window.location.pathname.split(`/`)[4];
     this.props.history.push(`/trip/${tripCity}/discovery/${discoverType}/${placeName}/addToItinerary`)
+  }
+
+  getPhotos() {
+    const reference = this.props.photoReference
+    this.props.actions.getPlacesPhotos(reference)
   }
 
   render() {

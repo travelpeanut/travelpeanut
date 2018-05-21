@@ -362,5 +362,9 @@ router.route('/itinerary')
       .catch((error) => res.sendStatus(400))
 })
 
+router.route('/discoveryPhotos')
+  .get((req, res) => {
+  })
+
 
 module.exports = router;

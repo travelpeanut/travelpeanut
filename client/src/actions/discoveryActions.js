@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
 import ActionTypes from '../constants/ActionTypes';
-import { GOOGLE_PLACES } from '../../../config'
+import { GOOGLE_PLACES, unsplashAPI } from '../../../config'
 
 const getCoordinatesByCity = cityAndState => (dispatch, getState) => {
   // console.log('in discoveryActions: ', cityAndState)
@@ -49,10 +49,9 @@ const stagePlace = place => (dispatch, getState) => {
   });
 };
 
-const getPlacesPhotos = photoReference => (dispatch, getState) => {
-  console.log('getting photos for this reference: ', photoReference)
-  const photoURL = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${GOOGLE_PLACES}`
-  axios.get(photoURL)
+const getPlacesPhotos = place => (dispatch, getState) => {
+  console.log('getting photos for this place: ', place)
+  axios.get('api/discoveryPhotos')
     .then((response) => {
       console.log('response.data from getPlacesPhotos: ', response.data)
       dispatch({
