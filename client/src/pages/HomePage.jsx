@@ -87,8 +87,6 @@ class HomePage extends React.Component {
   render() {    
     let {userState} = this.props
     let {tripState} = this.props
-    console.log('tripState: ', tripState)
-    console.log('userState: ', userState)
     return(
       <div className="home">
         <Navbar {...this.props} ifLoginPage={false} />

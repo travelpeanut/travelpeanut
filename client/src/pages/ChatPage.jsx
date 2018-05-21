@@ -38,17 +38,14 @@ class Chat extends React.Component {
               const { firstName, lastName, imgUrl, message, user_id } = item[1];
               const currentUserId = this.props.userState.currentUser.id
               return (                           
-                <div className={currentUserId === user_id
-                  ? "me msg"
-                  : "them msg"}
-                  key={key}>
-                  <div>
-                    {firstName}
-                  </div>
-                  <div>
-                    {message}
-                  </div>                
-                </div>
+                <Message
+                  key={key} 
+                  firstName={firstName}
+                  message={message}
+                  imgUrl={imgUrl}
+                  currentUserId={currentUserId}
+                  user_id={user_id}
+                />                         
               );
             })}
           </div>
