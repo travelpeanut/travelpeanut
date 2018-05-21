@@ -357,5 +357,41 @@ router.route('/itinerary')
       .catch((error) => res.sendStatus(400))
 })
 
+  router.route('/upVoteActivity')
+    .post((req, res) => {
+      console.log('req body params:', req.body.params)
+      let {activityId, userId, tripId} = req.body.params
+      db.upVoteActivity(activityId, userId, tripId)
+      .then((success) => {
+        console.log('updated votes', success)
+        res.status(200).send(success)
+      })
+      .catch(err => {
+        console.log('couldnt update activity votes:', err)
+        res.status(400).send(err)
+      })
+    })
+
+  router.route('/downVoteActivity')
+  .post((req, res) => {
+    console.log('req body params:', req.body.params)
+    let {activityId, userId, tripId} = req.body.params
+    db.upVoteActivity(activityId, userId, tripId)
+    .then((success) => {
+      console.log('updated votes', success)
+      res.status(200).send(success)
+    })
+    .catch(err => {
+      console.log('couldnt update activity votes:', err)
+      res.status(400).send(err)
+    })
+  })
+
+  router.route('/getVotes')
+  .get((req,res) => {
+    console.og('req.query for votes:', req.query)
+    let {tripId} = req.query
+    db.getvotes
+  })
 
 module.exports = router;

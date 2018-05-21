@@ -18,7 +18,7 @@ class EditActivity extends React.Component{
     this.deleteActivity = this.deleteActivity.bind(this)
     this.state = {
       selectValue: '',
-      newName: this.props.activity.description,
+      newName: unescape(this.props.activity.description),
       newAMPM: moment(this.props.activity.start_time, 'hh:mm:ss').format('A'),
       newTime: moment(this.props.activity.start_time, 'hh:mm:ss').format('h:mm')
     }
@@ -51,11 +51,11 @@ class EditActivity extends React.Component{
       tripId: trip_id,
     } 
     this.props.actions.updateActivity(newData)
-    this.props.showEdit(this.props.key)
+    this.props.toggleEdit()
   }
 
   cancelEdit(){
-    this.props.showEdit(this.props.key)
+    this.props.toggleEdit()
   }
 
   updateName(e) {

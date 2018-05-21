@@ -6,6 +6,7 @@ import * as discoverActions from '../actions/discoveryActions.js'
 import EditActivity from '../components/EditActivity.jsx';
 
 import moment from 'moment';
+import ActivityView from '../components/ActivityView.jsx';
 
 class TripDetail extends React.Component {
   constructor(props) {
@@ -99,8 +100,6 @@ class TripDetail extends React.Component {
       <div>
         <h1>Trip Details: Day {dayNumber+1} in {currentTrip.title}</h1>
         <input id="activityName" placeholder="Activity Name" ref={activityName => this.activityName = activityName} />
-        {/* <input id="activityType" placeholder="Activity Type" ref={activityType => this.activityType = activityType} />
-        <input id="activityLevel" placeholder="Activity Level" ref={activityLevel => this.activityLevel = activityLevel} /> */}
         <h4>Time:</h4>
               <select id="time">
                   <option value="12:00">12:00</option>
@@ -168,13 +167,7 @@ class TripDetail extends React.Component {
           // console.log('this.state.editKeys.inclues(key)', this.state.editKeys.includes(key))
           return (
             <div key={activity.id}>
-              <p>{moment(activity.start_time, 'HH:mm:ss').format('h:mm a')}</p>
-              <div>{unescape(activity.description)}</div>
-              <button onClick={() => this.showEdit(key)} >edit</button>
-              <button>upvote</button>
-              <button>downvote</button>
-              {this.state.editActivityKey === key ? <EditActivity activity={activity} showEdit={this.showEdit} key={key} addActivity={this.addActivity}/> : null}
-              <hr />
+              <ActivityView activity={activity}/>
             </div>
           )
         })}
