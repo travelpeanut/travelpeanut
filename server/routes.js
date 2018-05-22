@@ -9,6 +9,7 @@ const sgMail = require('@sendgrid/mail');
 const _ = require('underscore');
 const {google} = require('googleapis');
 const calendar = google.calendar('v3');
+const moment = require('moment')
 
 router.route('/login')
   .get((req, res) => {
@@ -322,30 +323,54 @@ router.route('/updateActivity')
   })
 router.route('/itinerary')
   .post((req, res) => {
-    const {accessToken} = req.body.params
+    const {accessToken, tripId, city} = req.body.params
+    console.log(req.body.params)
     let oauth = new google.auth.OAuth2(
       CLIENT_ID, CLIENT_SECRET, REDIRECT_URIS[0]);
     oauth.setCredentials({access_token: accessToken});
     //make a database call to pull the activities
-    let resource = {
-        "summary": "Appointment",
-        "location": "Somewhere",
-        "start": {
-          'dateTime': '2018-05-28T17:00:00',
-          'timeZone': 'America/Los_Angeles'              
-        },
-        "end": {
-          'dateTime': '2018-05-28T18:00:00',
-          'timeZone': 'America/Los_Angeles'
+    db.getAllActivities(tripId)
+    .then(({rows}) => {
+      const EventsToExport = []
+      rows.forEach((activity, i) => {
+        const hour = moment(activity.start_time, 'hh:mm:ss').hour()
+        const minute = moment(activity.start_time, 'hh:mm:ss').minute()
+        let resource = {
+          "summary": activity.description,
+          "location": city, 
+          "start": {
+            "dateTime": moment(activity.date_of_activity, 'YYYY-MM-DD').toDate()
+            // 'dateTime': '2018-05-28T17:00:00',
+            // 'timeZone': 'America/Los_Angeles'
+          },
+          "end": {
+            // 'dateTime': '2018-05-28T18:00:00',
+            // 'timeZone': 'America/Los_Angeles'
+            "dateTime": moment(activity.date_of_activity, 'YYYY-MM-DD').hour(hour).minute(minute).toDate()
+          }
         }
-      };
-      calendar.events.insert({
-        'calendarId': 'primary',
-        'auth': oauth,
-        'resource': resource
-      })     
-      .then((response) => res.json(response.data))
-      .catch((error) => res.sendStatus(400))
+        EventsToExport.push(calendar.events.insert({
+          'calendarId': 'primary',
+          'auth': oauth,
+          'resource': resource
+        }))
+        Promise.all(EventsToExport)
+      })
+    })
+    .then(() => res.sendStatus(201))
+    .catch((error) => res.sendStatus(400))
+    // let resource = {
+    //     "summary": "Appointment",
+    //     "location": "Somewhere",
+    //     "start": {
+    //       'dateTime': '2018-05-28T17:00:00',
+    //       'timeZone': 'America/Los_Angeles'              
+    //     },
+    //     "end": {
+    //       'dateTime': '2018-05-28T18:00:00',
+    //       'timeZone': 'America/Los_Angeles'
+    //     }
+    //   };
 })
 
   router.route('/upVoteActivity')
