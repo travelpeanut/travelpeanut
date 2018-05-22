@@ -11,11 +11,6 @@ class Places extends React.Component {
     }
     this.addToItenerary = this.addToItenerary.bind(this)
     this.redirectAddPlace = this.redirectAddPlace.bind(this)
-    this.getPhotos = this.getPhotos.bind(this)
-  }
-
-  componentDidMount() {
-    this.getPhotos();
   }
 
   addToItenerary() {
@@ -33,12 +28,8 @@ class Places extends React.Component {
     this.props.history.push(`/trip/${tripCity}/discovery/${discoverType}/${placeName}/addToItinerary`)
   }
 
-  getPhotos() {
-    const reference = this.props.photoReference
-    this.props.actions.getPlacesPhotos(reference)
-  }
-
   render() {
+    console.log('places component: ', this.props.name)
     return (
       <div>
         <h3>{this.props.name}</h3>

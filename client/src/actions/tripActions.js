@@ -169,12 +169,13 @@ const deleteInvite = email => (dispatch, getState) => {
     });
 };
 
-const getActivitiesForDate = (date, trip) => (dispatch, getState) => {
-  axios.get('/api/getActivities', { params: { date, trip } })
-    .then((success) => {
+const getActivitiesForDate = (activityDate) => (dispatch, getState) => {
+  const tripId = getState().tripReducer.currentTrip.trip_id
+  axios.get('/api/activities', { params: { activityDate, tripId, } })
+    .then(({data}) => {
       dispatch({
         type: ActionTypes.GET_ACTIVITIES,
-        code: success.data.rows,
+        activities: data.rows,
       });
     })
     .catch((err) => {
@@ -182,10 +183,16 @@ const getActivitiesForDate = (date, trip) => (dispatch, getState) => {
     });
 };
 
-const addActivityToItinerary = placeData => (dispatch, getState) => {  
-  axios.post('/api/addActivity', { params: placeData })
+const addActivityToItinerary = activityData => (dispatch, getState) => {  
+  const tripId = getState().tripReducer.currentTrip.trip_id
+  const activity = {
+    ...activityData,
+    tripId,
+  }
+
+  axios.post('/api/activities', { params: activity })
     .then(() => {      
-      dispatch(getActivitiesForDate(placeData.activityDate, placeData.tripId));      
+      dispatch(getActivitiesForDate(activity.activityDate));      
     })
     .catch((err) => {
       console.error('couldnt save activity:', err);
@@ -215,7 +222,6 @@ const deleteActivity = deleteData => (dispatch, getState) => {
 }
 
 const exportItinerary = (accessToken) => (dispatch, getState) => {
-  // console.log('access tokennnn', accessToken)
   axios.post('/api/itinerary', {
     params: {
       accessToken: accessToken
@@ -268,6 +274,14 @@ const getVotesForTrip = tripData => (dispatch, getState) => {
   })
 }
 
+const clearActivities = () => (dispatch, getState) => {
+  dispatch({
+    type: ActionTypes.CLEAR_ACTIVITIES,
+    activities: []
+  })  
+
+}
+
 module.exports = {
   createTrip,
   getAllTrips,
@@ -287,4 +301,5 @@ module.exports = {
   upVote,
   downVote,
   getVotesForTrip,
+  clearActivities,
 };

@@ -61,13 +61,19 @@ const tripReducer = (state = initialState, action) => {
         placeToAdd: action.code,
       });
     case 'GET_ACTIVITIES':
-      return Object.assign({}, state, {
-        activitiesForThisDate: action.code,
-      });
+      return {
+        ...state,
+        activitiesForThisDate: action.activities,
+      };      
     case 'GET_VOTES':
       return {
         ...state,
         votesForThisDate: action.votes
+      };
+    case 'CLEAR_ACTIVITIES':
+      return {
+        ...state,
+        activitiesForThisDate: action.activities
       }
     default:
       return Object.assign({}, state);

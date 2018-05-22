@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as tripActions from '../actions/tripActions.js';
 import * as discoverActions from '../actions/discoveryActions.js';
+import Comments from './Comments.jsx'
 
 class ActivityView extends React.Component{
     constructor(props){
@@ -64,19 +65,20 @@ class ActivityView extends React.Component{
         }
         return(
             <div>
-              <p>{moment(activity.start_time, "HH:mm:ss").format("h:mm a")}</p>
-              <div>{unescape(activity.description)}</div>
-              <button onClick={() => this.upVote(activity.id, activity.date_of_activity)}>upvote</button>
-              <button onClick={() => this.downVote(activity.id, activity.date_of_activity)}>downvote</button>
-              <button onClick={this.toggleEdit} > Edit </button>
+                <p>{moment(activity.start_time, "HH:mm:ss").format("h:mm a")}</p>
+                <div>{unescape(activity.description)}</div>
+                <button onClick={() => this.upVote(activity.id, activity.date_of_activity)}>upvote</button>
+                <button onClick={() => this.downVote(activity.id, activity.date_of_activity)}>downvote</button>
+                <button onClick={this.toggleEdit} > Edit </button>
                 {this.state.showEdit ? <EditActivity
-                  activity={activity}
-                  toggleEdit={this.toggleEdit}
+                    activity={activity}
+                    toggleEdit={this.toggleEdit}
                 />
                 : null }
                 <div>Upvotes: {upvoteCount}</div>
                 <div>Downvotes: {downvoteCount}</div>
               <hr />
+                <Comments activity={activity}/>
             </div>
         )
     }

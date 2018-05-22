@@ -8,7 +8,7 @@ const getMessages = () => (dispatch, getState) => {
   // console.log('getting messages for this tripId: ', trip_id)
   fbDb.child(`${trip_id}/messages`)
     .on('value', (snapshot) => {
-      let messages = snapshot.val();
+      let messages = snapshot.val() || {};
       messages = Object.keys(messages).map(key => [key, messages[key]]);
       dispatch({
         type: ActionTypes.GET_CHAT_MESSAGES,
