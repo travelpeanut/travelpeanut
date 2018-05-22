@@ -166,8 +166,7 @@ router.route('/getNearbyPlacesByType')
         outArr.sort((a,b) => {
           return b.rating - a.rating
         });
-        let results = outArr.slice(0,9 )
-        console.log('results: ', results, results.length)
+        let results = outArr.slice(0,9)
         res.status(200).send(results);
       })
       .catch((err) => {
@@ -275,17 +274,21 @@ router.route('/invitations')
       });
   });
 
-router.route('/addActivity')
-  .get()
+router.route('/activities')  
+  .get((req, res) => {
+    const { tripId, activityDate} = req.query
+    db.getActivites(tripId, activityDate)
+      .then((activities) => {
+        res.status(200).send(activities);
+      })
+      .catch((err) => {
+        console.error('couldnt get activities:', err);
+        res.status(400).send(err);
+      });
+  })
   .post((req, res) => {
-    let {tripId, activityDate, startTime, activityName, activityType, activityLevel} = req.body.params
-    if (typeof activityLevel === 'undefined'){
-      activityLevel = null
-    }
-    if (typeof activityType === 'undefined'){
-      activityType = null
-    }
-    db.addActivity(tripId, activityDate, startTime, activityName, activityType, activityLevel)
+    let {tripId, activityDate, startTime, activityName} = req.body.params    
+    db.addActivity(tripId, activityDate, startTime, activityName)
       .then((success) => {
         res.status(200).send(success);
       })
@@ -294,51 +297,35 @@ router.route('/addActivity')
       });
   });
 
-router.route('/getActivities')
-  .get((req, res) => {
-    db.getActivites(req.query)
-      .then((activities) => {
-        res.status(200).send(activities);
-      })
-      .catch((err) => {
-        console.error('couldnt get activities:', err);
-        res.status(400).send(err);
-      });
-  });
 
 router.route('/updateActivity')
   .post((req, res) => {
-    console.log('req body params:', req.body.params)
     let {id, startTime, newActivityName} = req.body.params
     db.updateActivity(id, startTime, newActivityName)
     .then((success) => {
       res.status(200).send(success)
     })
     .catch(err => {
-      console.log('couldnt update activity:', err)
+      console.error('couldnt update activity:', err)
       res.status(400).send(err)
     })
   })
   .delete((req, res) => {
-    console.log('req dot query:', req.query.id)
     db.deleteActivity(req.query.id)
       .then((success) => {
         res.status(200).send(success)
       })
       .catch(err => {
-        console.log('couldnt delete in route:', err)
+        console.error('couldnt delete in route:', err)
         res.status(400).send(err)
       })
   })
 router.route('/itinerary')
   .post((req, res) => {
-    console.log('herererere')
     const {accessToken} = req.body.params
-    console.log(accessToken)
     let oauth = new google.auth.OAuth2(
       CLIENT_ID, CLIENT_SECRET, REDIRECT_URIS[0]);
     oauth.setCredentials({access_token: accessToken});
-    console.log(oauth)
     //make a database call to pull the activities
     let resource = {
         "summary": "Appointment",
@@ -352,7 +339,6 @@ router.route('/itinerary')
           'timeZone': 'America/Los_Angeles'
         }
       };
-      console.log(resource)
       calendar.events.insert({
         'calendarId': 'primary',
         'auth': oauth,
@@ -364,37 +350,32 @@ router.route('/itinerary')
 
   router.route('/upVoteActivity')
     .post((req, res) => {
-      console.log('req body params:', req.body.params)
       let {activityId, userId, tripId} = req.body.params
       db.upVoteActivity(activityId, userId, tripId)
       .then((success) => {
-        console.log('updated votes', success)
         res.status(200).send(success)
       })
       .catch(err => {
-        console.log('couldnt update activity votes:', err)
+        console.error('couldnt update activity votes:', err)
         res.status(400).send(err)
       })
     })
 
   router.route('/downVoteActivity')
   .post((req, res) => {
-    console.log('req body params:', req.body.params)
     let {activityId, userId, tripId} = req.body.params
     db.upVoteActivity(activityId, userId, tripId)
     .then((success) => {
-      console.log('updated votes', success)
       res.status(200).send(success)
     })
     .catch(err => {
-      console.log('couldnt update activity votes:', err)
+      console.error('couldnt update activity votes:', err)
       res.status(400).send(err)
     })
   })
 
   router.route('/getVotes')
   .get((req,res) => {
-    console.og('req.query for votes:', req.query)
     let {tripId} = req.query
     db.getvotes
   })
