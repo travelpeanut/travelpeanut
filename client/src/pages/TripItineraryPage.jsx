@@ -29,7 +29,6 @@ class TripItinerary extends React.Component {
     let {currentTrip} = this.props.tripState
     let tripId = this.props.tripState.currentTrip.trip_id
     await this.props.actions.getActivitiesForDate(date, tripId)
-    await console.log('awaiting')
     await this.props.history.push(`/trip/${tripId}/details/${dayNumber}`)
     // setTimeout(() => this.props.history.push(`/trip/${tripId}/details/${dayNumber}`), 500)
   }
