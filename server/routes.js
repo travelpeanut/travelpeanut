@@ -332,13 +332,13 @@ router.route('/updateActivity')
   })
 router.route('/itinerary')
   .post((req, res) => {
-    console.log('herererere')
+    // console.log('herererere')
     const {accessToken} = req.body.params
-    console.log(accessToken)
+    // console.log(accessToken)
     let oauth = new google.auth.OAuth2(
       CLIENT_ID, CLIENT_SECRET, REDIRECT_URIS[0]);
     oauth.setCredentials({access_token: accessToken});
-    console.log(oauth)
+    // console.log(oauth)
     //make a database call to pull the activities
     let resource = {
         "summary": "Appointment",
@@ -352,7 +352,7 @@ router.route('/itinerary')
           'timeZone': 'America/Los_Angeles'
         }
       };
-      console.log(resource)
+      // console.log(resource)
       calendar.events.insert({
         'calendarId': 'primary',
         'auth': oauth,
@@ -364,11 +364,9 @@ router.route('/itinerary')
 
   router.route('/upVoteActivity')
     .post((req, res) => {
-      console.log('req body params:', req.body.params)
       let {activityId, userId, tripId} = req.body.params
       db.upVoteActivity(activityId, userId, tripId)
       .then((success) => {
-        console.log('updated votes', success)
         res.status(200).send(success)
       })
       .catch(err => {
@@ -379,11 +377,9 @@ router.route('/itinerary')
 
   router.route('/downVoteActivity')
   .post((req, res) => {
-    console.log('req body params:', req.body.params)
     let {activityId, userId, tripId} = req.body.params
-    db.upVoteActivity(activityId, userId, tripId)
+    db.downVoteActivity(activityId, userId, tripId)
     .then((success) => {
-      console.log('updated votes', success)
       res.status(200).send(success)
     })
     .catch(err => {
@@ -392,11 +388,17 @@ router.route('/itinerary')
     })
   })
 
-  router.route('/getVotes')
+  router.route('/votes')
   .get((req,res) => {
-    console.og('req.query for votes:', req.query)
     let {tripId} = req.query
-    db.getvotes
+    db.getVotes(tripId)
+    .then(data => {
+      console.log('just got alll the votes!!!!!')
+      res.status(200).send(data)
+    })
+    .catch(err => {
+      console.log('couldnt get response from db:', err)
+    })
   })
 
 module.exports = router;

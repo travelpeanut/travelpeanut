@@ -26,7 +26,7 @@ const tripReducer = (state = initialState, action) => {
         allTrips: action.code,
       });
     case 'SET_CURRENT_TRIP':
-      console.log(action.code);
+      // console.log(action.code);
       return Object.assign({}, state, {
         currentTrip: action.code,
       });
