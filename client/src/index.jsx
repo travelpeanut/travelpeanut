@@ -22,6 +22,7 @@ import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-ro
 import userReducer from './reducers/userReducer.js'
 import tripReducer from './reducers/tripReducer.js'
 import chatReducer from './reducers/chatReducer.js'
+import commentReducer from './reducers/commentReducer.js'
 
 import LandingPage from './pages/LandingPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
@@ -33,7 +34,6 @@ import MembersList from './pages/MembersPage.jsx'
 import Discovery from './pages/DiscoverPlacesPage.jsx'
 import BrowsePlaces from './pages/BrowsePlacesPage.jsx'
 import AddToItinerary from './pages/AddToItinerary.jsx'
-import Places from './components/Places.jsx'
 
 import { auth } from '../../firebase/index.js';
 
@@ -50,6 +50,7 @@ const rootReducer = combineReducers({
   userReducer,
   tripReducer,
   chatReducer,
+  commentReducer,
   router: routerReducer
 })
 
@@ -109,7 +110,6 @@ ReactDOM.render(
         <PrivateRoute exact path="/trip/:name/members" component={MembersList}/>
         <PrivateRoute exact path="/trip/:name/discovery" component={Discovery}/>
         <PrivateRoute exact path="/trip/:name/discovery/:category" component={BrowsePlaces}/>
-        <PrivateRoute exact path="/trip/:name/discovery/:category" component={Places}/>
         <PrivateRoute exact path="/trip/:name/discovery/:category/:placeName/addToItinerary" component={AddToItinerary}/>
       </div>
     </ConnectedRouter>

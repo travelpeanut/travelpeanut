@@ -25,7 +25,6 @@ const checkLogin = input => (dispatch, getState) => {
 };
 
 const loginGoogle = () => (dispatch) => {
-  console.log('actions log goog');
   let user;
   let data;
   let imgUrl;
@@ -33,14 +32,11 @@ const loginGoogle = () => (dispatch) => {
   auth.signInWithPopup()
     .then((result) => {
       user = result.user;
-      console.log('resulttttt', result)
       // const token = result.credential.accessToken
-      console.log(result.credential.accessToken)
       localStorage.setItem('accessToken', result.credential.accessToken)
       return user.getIdToken();
     })
     .then((token) => {
-      console.log('actions==========', token);
       const strToken = token.toString();
 
       const base64Url = token.split('.')[1];

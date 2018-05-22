@@ -31,8 +31,7 @@ const getNearbyPlacesByType = (types, coordinates) => (dispatch, getState) => {
     });
 };
 
-const createTrip = data => (dispatch, getState) => {
-  console.log('in actions:', data);
+const createTrip = data => (dispatch, getState) => {  
   dispatch({
     type: ActionTypes.CREATE_TRIP,
     code: data,
@@ -41,19 +40,16 @@ const createTrip = data => (dispatch, getState) => {
   dispatch(push(`/trip/${data.name}`));
 };
 
-const stagePlace = place => (dispatch, getState) => {
-  console.log('clicked on this place:', place);
+const stagePlace = place => (dispatch, getState) => {  
   dispatch({
     type: ActionTypes.STAGE_PLACE_FOR_ITINERARY,
     code: place,
   });
 };
 
-const getPlacesPhotos = place => (dispatch, getState) => {
-  console.log('getting photos for this place: ', place)
+const getPlacesPhotos = place => (dispatch, getState) => {  
   axios.get('api/discoveryPhotos')
-    .then((response) => {
-      console.log('response.data from getPlacesPhotos: ', response.data)
+    .then((response) => {      
       dispatch({
         type: ActionTypes.GET_PLACES_PHOTOS,
         payload: photoReference

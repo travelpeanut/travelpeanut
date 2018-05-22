@@ -12,7 +12,6 @@ class BrowsePlaces extends React.Component {
   }
 
   componentWillMount(){
-    console.log('props in BrowsePlaces: ', this.props)
     let places = this.props.tripState.nearbyPlaces
     let categoryName = window.location.pathname.split( '/' )[4];
     this.render, 5000;
@@ -27,10 +26,11 @@ class BrowsePlaces extends React.Component {
    
   render() {
     let places = this.props.tripState.nearbyPlaces
-    console.log('places: ', places)
+    console.log('places.data: ', places.data)          
+
     return(
       <div className="">
-        {typeof places.data !== 'undefined' && places.data.map((place, key) => {          
+        {places.data.map((place, key) => {
           return (
             <Places
               {...this.props} 

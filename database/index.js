@@ -169,11 +169,9 @@ const deleteInvitation = (email, tripId) => {
     });
 };
 
-const addActivity = (tripId, activityDate, startTime, activityName, activityType, activityLevel) => {
+const addActivity = (tripId, activityDate, startTime, activityName) => {
   // const { tripId, activityDate, startTime, activityName } = activityData.params;
-  activityType = activityType || null;
-  activityLevel = activityLevel || null;
-  const query = `INSERT INTO activities (trip_id, description, type, activity_level, date_of_activity, start_time) values (${tripId}, '${escape(activityName)}', ${activityType}, ${activityLevel}, '${activityDate}', '${startTime}');`;
+  const query = `INSERT INTO activities (trip_id, description, date_of_activity, start_time) values (${tripId}, '${escape(activityName)}', '${activityDate}', '${startTime}');`;
   console.log(query)
   return pool.query(query)
     .catch((err) => {
@@ -181,10 +179,8 @@ const addActivity = (tripId, activityDate, startTime, activityName, activityType
     });
 };
 
-const getActivites = (activityData) => {
-  const tripId = activityData.trip;
-  const activityDate = activityData.date;
-  const query = `SELECT * FROM activities WHERE date_of_activity='${activityDate}' AND trip_id=${tripId}`;
+const getActivites = (tripId, activityDate) => {  
+  const query = `SELECT * FROM activities WHERE date_of_activity='${activityDate}' AND trip_id=${tripId} order by start_time asc`;
   return pool.query(query)
     .catch((err) => {
       console.error('couldnt get activities:', err);      
