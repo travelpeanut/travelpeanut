@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Arima+Madurai|Playfair+Display|Work+Sans");
+@import url("https://fonts.googleapis.com/css?family=Arima+Madurai|Playfair+Display|Work+Sans:200,300,400");
 @-webkit-keyframes popupBcgFadeIn {
   from {
     background: rgba(0, 0, 0, 0); } }
@@ -49,7 +49,7 @@
   align-items: center;
   width: 100%;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
   color: #fff;
   text-align: center;
   -webkit-animation-name: popupBcgFadeIn;
@@ -84,13 +84,14 @@
 .c-popup {
   position: relative;
   width: 500px;
-  height: 300px;
-  margin: 15% auto;
-  background-color: #b2b3af;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  border-radius: 10px;
+  height: 380px;
+  margin: 12% auto;
+  padding: 40px;
+  background-color: #F0F0F0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
   -webkit-animation-name: popupEnter;
   -webkit-animation-duration: 0.3s;
   -webkit-animation-timing-function: ease-out;
@@ -119,79 +120,11 @@
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */ }
-  .c-popup__info {
-    height: 75%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; }
-    .c-popup__info--title {
-      margin: 0;
-      padding: 0 6%;
-      font-size: 17px;
-      line-height: 20px;
-      width: 70%;
-      align-self: center;
-      text-align: center;
-      padding-bottom: 7px;
-      border-bottom: 1px solid white; }
-    .c-popup__info--paragraph {
-      margin-top: 8px;
-      padding: 0 10%;
-      font-size: 12px;
-      line-height: 16px;
-      font-weight: 300;
-      width: 90%;
-      align-self: center; }
-    .c-popup__info .text--white {
-      color: white; }
-  .c-popup__btns {
-    display: flex;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 25%;
-    font-size: 15px; }
-  .c-popup__btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    border: none;
-    color: white;
-    text-align: center;
-    cursor: pointer;
-    -ms-transition: all 0.5s ease 0s;
-    -webkit-transition: all 0.5s ease 0s;
-    transition: all 0.5s ease 0s; }
-    .c-popup__btn--left {
-      width: 50%;
-      background: #8c8e8b;
-      -webkit-border-radius: 0 0 0 10px;
-      -moz-border-radius: 0 0 0 10px;
-      -ms-border-radius: 0 0 0 10px;
-      border-radius: 0 0 0 10px; }
-      .c-popup__btn--left:hover {
-        background-color: #727571; }
-    .c-popup__btn--right {
-      width: 50%;
-      background: #9d9f9b;
-      -webkit-border-radius: 0 0 10px 0;
-      -moz-border-radius: 0 0 10px 0;
-      -ms-border-radius: 0 0 10px 0;
-      border-radius: 0 0 10px 0; }
-      .c-popup__btn--right:hover {
-        background-color: #6f716d; }
-    .c-popup__btn--one {
-      width: 100%;
-      background: #9d9f9b;
-      -webkit-border-radius: 0 0 10px 10px;
-      -moz-border-radius: 0 0 10px 10px;
-      -ms-border-radius: 0 0 10px 10px;
-      border-radius: 0 0 10px 10px; }
-      .c-popup__btn--one:hover {
-        background-color: #6f716d; }
+  .c-popup h3 {
+    color: #444;
+    padding-bottom: 35px;
+    font-weight: 200;
+    font-size: 1.6em; }
 
 .chat {
   width: 25%;
@@ -261,8 +194,85 @@
 .me {
   text-align: right; }
 
+.c-tripHome {
+  border-radius: 2px;
+  margin-bottom: 30px;
+  background-color: #F0F0F0;
+  color: #666; }
+  .c-tripHome img {
+    max-width: 375px; }
+  .c-tripHome h3 {
+    font-weight: 300;
+    font-size: 2em; }
+  .c-tripHome p {
+    font-size: 20px;
+    font-weight: 100;
+    margin-bottom: 10%; }
+  .c-tripHome-location {
+    font-size: 23px;
+    font-weight: 200; }
+
+.grid {
+  max-width: 100% !important; }
+
+.c-input-basic {
+  width: 200px;
+  outline: none;
+  padding: 9px;
+  border-radius: 2px;
+  border: 1px;
+  margin-bottom: 20px; }
+
+.c-input:active, .c-input:focus {
+  border-color: blue; }
+
+.draw-border {
+  box-shadow: inset 0 0 0 2px #58afd1;
+  color: #58afd1;
+  transition: color 0.25s 0.08333s;
+  position: relative; }
+  .draw-border::before, .draw-border::after {
+    border: 0 solid transparent;
+    box-sizing: border-box;
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: 0;
+    right: 0; }
+  .draw-border::before {
+    border-bottom-width: 2px;
+    border-left-width: 2px; }
+  .draw-border::after {
+    border-top-width: 2px;
+    border-right-width: 2px; }
+  .draw-border:hover {
+    color: #fe8c73; }
+    .draw-border:hover::before, .draw-border:hover::after {
+      border-color: #fe8c73;
+      transition: border-color 0s, width 0.25s, height 0.25s;
+      width: 100%;
+      height: 100%; }
+    .draw-border:hover::before {
+      transition-delay: 0s, 0s, 0.25s; }
+    .draw-border:hover::after {
+      transition-delay: 0s, 0.25s, 0s; }
+
+.btn-tran {
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1.5;
+  font-size: 16px;
+  padding: 0.6em 2em;
+  letter-spacing: 0.05rem;
+  width: 200px;
+  margin-top: 13px; }
+
 * {
-  margin: 0; }
+  margin: 0;
+  font-family: 'Work Sans', sans-serif; }
 
 .landing {
   background-color: #fcf9f4; }
@@ -325,8 +335,8 @@
     .landing-content-b {
       background-color: #e0d3cb; }
   .landing-footer {
-    background-color: #475a51;
-    height: 220px; }
+    background-color: #ffffff;
+    height: 180px; }
 
 .login {
   position: fixed;
@@ -368,7 +378,7 @@
 
 .home {
   font-family: 'Work Sans', sans-serif;
-  background-color: #fcf9f4; }
+  background-color: #ffffff; }
   .home-hero {
     background-image: url("https://images.unsplash.com/photo-1495835788122-ca48931258be?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=acc48b0187b28f7a221362b843f15755&auto=format&fit=crop&w=1950&q=80");
     width: 100%;
@@ -406,12 +416,41 @@
     color: #3b3838; }
     .home-container h2 {
       text-align: center;
-      font-family: 'Playfair Display', serif;
       padding-top: 20px;
       font-size: 40px;
-      color: #475a51; }
+      font-weight: 300;
+      color: #444; }
     .home-container-list {
-      margin-bottom: 10%; }
+      margin: 6% 22%; }
+
+@media only screen and (max-device-width: 480px) {
+  .home-container-list {
+    margin: 3% 3%; } }
+
+.tripmenu {
+  font-weight: 300;
+  background: #F0F0F0; }
+  .tripmenu-grid {
+    width: 1200px !important;
+    max-width: 78% !important; }
+    .tripmenu-grid h2 {
+      margin: 30px auto;
+      font-size: 40px;
+      font-weight: 300;
+      color: #444; }
+  .tripmenu-category {
+    width: 350px;
+    height: 400px;
+    background: #fff; }
+    .tripmenu-category img {
+      max-width: 350px; }
+    .tripmenu-category h3 {
+      font-weight: 200;
+      font-size: 25px;
+      text-align: center;
+      margin-top: 15px; }
+    .tripmenu-category button {
+      margin: 50px 21%; }
 
 .navbar {
   position: absolute;

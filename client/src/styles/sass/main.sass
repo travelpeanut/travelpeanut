@@ -1,7 +1,8 @@
-@import "components/mixins", "components/animation", "typographyColors", "components/popup", "components/chat"
+@import "components/mixins", "components/animation", "typographyColors", "components/popup", "components/chat",  "components/components", "components/buttons"
 
 *
   margin: 0
+  font-family: 'Work Sans', sans-serif
 
 .landing
   background-color: rgb(252, 249, 244)
@@ -67,8 +68,9 @@
     &-c
       // background-color: rgb(255, 126, 96)
   &-footer
-    background-color: rgb(71, 90, 81)
-    height: 220px
+    // background-color: rgb(71, 90, 81)
+    background-color: #ffffff
+    height: 180px
 
 .login
   position: fixed
@@ -115,7 +117,8 @@
 
 .home
   font-family: 'Work Sans', sans-serif
-  background-color: rgb(252, 249, 244)
+  background-color: #ffffff
+  // background-color: rgb(252, 249, 244)
   &-hero
     background-image: url('https://images.unsplash.com/photo-1495835788122-ca48931258be?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=acc48b0187b28f7a221362b843f15755&auto=format&fit=crop&w=1950&q=80')
     width: 100%
@@ -153,16 +156,44 @@
     color: #3b3838
     h2
       text-align: center
-      font-family: 'Playfair Display', serif
+      // font-family: 'Playfair Display', serif
       padding-top: 20px
       font-size: 40px
-      color: #475a51
+      font-weight: 300
+      color: #444
+      // color: #475a51
     &-list
-      margin-bottom: 10%
+      margin: 6% 22%
+
+@media #{$phone}
+  .home-container-list
+    margin: 3% 3%
 
 
-
-
+.tripmenu
+  font-weight: 300
+  background: #F0F0F0
+  &-grid
+    width: 1200px !important
+    max-width: 78% !important
+    h2
+      margin: 30px auto
+      font-size: 40px
+      font-weight: 300
+      color: #444
+  &-category
+    width: 350px
+    height: 400px
+    background: #fff
+    img
+      max-width: 350px
+    h3
+      font-weight: 200
+      font-size: 25px
+      text-align: center
+      margin-top: 15px
+    button
+      margin: 50px 21%
 
 
 .navbar

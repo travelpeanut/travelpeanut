@@ -87,7 +87,7 @@ class HomePage extends React.Component {
 
 
   render() {
-    console.log('this is trip state:', this.props.userState);    
+    console.log('this is trip state:', this.props.tripState);    
     let {userState} = this.props
     let {tripState} = this.props
     return(

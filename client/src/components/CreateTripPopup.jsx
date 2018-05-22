@@ -36,20 +36,26 @@ class CreateTripPopup extends React.Component {
     return (
       <div className="c-popup--overlay" style={{'display':`${this.props.show}`}}>
         <div className="c-popup">
+
+          <h3>Create Trip</h3>
           <div>
-            <input type="text" placeholder="Trip Name" ref={name => this.name = name }/>
+            <input className="c-input-basic" type="text" placeholder="Trip Name" ref={name => this.name = name }/>
             <br/>
-            <input type="text" placeholder="City" ref={city => this.city = city}/>
+            <input className="c-input-basic" type="text" placeholder="City" ref={city => this.city = city}/>
             <br/>
-            <input type="text" placeholder="Country" ref={country => this.country = country}/>
+            <input className="c-input-basic" type="text" placeholder="Country" ref={country => this.country = country}/>
             <br/>
-            <input type="date" placeholder="Start Date" ref={startDate => this.startDate = startDate}/>
+            <input className="c-input-basic" type="date" placeholder="Start Date" ref={startDate => this.startDate = startDate}/>
             <br/>
-            <input type="date" placeholder="End Date" ref={endDate => this.endDate = endDate}/>
+            <input className="c-input-basic" type="date" placeholder="End Date" ref={endDate => this.endDate = endDate}/>
             <br/>          
             <button onClick={this.closePopup}>Cancel</button>
             <button onClick={this.handleSubmit}>Submit</button>
           </div>
+
+
+         
+
 
           <div className="c-popup__btns">
               
