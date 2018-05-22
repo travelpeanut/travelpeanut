@@ -275,7 +275,7 @@ router.route('/trip/invite')
           <table align=left border=0 cellpadding=0 cellspacing=0 style=max-width:100%;min-width:100% width=100% class=mcnTextContentContainer>
           <tbody><tr>
           <td valign=top class=mcnTextContent style=padding-top:0;padding-right:18px;padding-bottom:9px;padding-left:18px>
-          <h2 class=null>${firstName} has invited on a trip to ${city}!</h2>
+          <h2 class=null>${firstName} has invited you to travel to ${city}!</h2>
           </td>
           </tr>
           </tbody></table>
@@ -322,7 +322,7 @@ router.route('/trip/invite')
           <table align=left border=0 cellpadding=0 cellspacing=0 style=max-width:100%;min-width:100% width=100% class=mcnTextContentContainer>
           <tbody><tr>
           <td valign=top class=mcnTextContent style=padding-top:0;padding-right:18px;padding-bottom:9px;padding-left:18px>
-          <p>${firstName} has invited you to a trip&nbsp;to ${city}!&nbsp;You can communicate with your travel mates, discover&nbsp;new places, and help plan your trip. Get started by accepting the invite and getting started all through Travel Peanut!</p>
+          <p>${firstName} has invited you to a trip&nbsp;to ${city}!&nbsp;You can send messages to your travel mates, discover&nbsp;new places, and help plan your trip. Get started by accepting the invite and getting started all through Travel Peanut!</p>
           </td>
           </tr>
           </tbody></table>
