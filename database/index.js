@@ -9,6 +9,13 @@ const pool = new pg.Pool({
   database: config.DATABASE,
 });
 
+pool.on('connect', (client) => {
+  console.log('successfully connected', client)
+})
+
+pool.on('error', (trouble) => {
+  console.log('trouble connecting', trouble)
+})
 
 // ============
 // Helper Functions
