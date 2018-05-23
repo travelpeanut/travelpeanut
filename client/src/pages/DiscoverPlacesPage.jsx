@@ -33,6 +33,10 @@ class Discovery extends React.Component {
     this.props.actions.getNearbyPlacesByType(placeTypes, tripLocation)
   }
 
+  getPlacesreviews() {
+    
+  }
+
   redirectDiscover(type){
     let tripName = window.location.pathname.split('/')[2];
     switch(type){

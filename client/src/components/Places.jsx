@@ -38,7 +38,7 @@ class Places extends React.Component {
       <div>
 
         <div>
-          <a href={this.state.place.url}>{this.state.place.name}</a>
+          <a href={this.state.place.url} target="_blank">{this.state.place.name}</a>
           <h4>{this.state.place.location.display_address[0].concat(this.state.place.location.display_address[1])}</h4>
           <div>phone number: {this.state.place.display_phone}</div>      
           <span>rating: {this.state.place.rating} || </span>
