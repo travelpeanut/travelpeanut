@@ -73,8 +73,7 @@ class MembersPage extends React.Component {
               </div>
 
               <div className="col col-2-of-4">
-                <h3>Owner: {currentUser.first_name}</h3>
-                <h3>Member List:</h3>
+                <h3>Current Members:</h3>
 
                 {tripMembers.map((member, index) => (
                   <div className="members-container-listItem" key={index}>
