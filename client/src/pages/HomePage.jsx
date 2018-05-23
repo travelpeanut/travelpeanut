@@ -87,6 +87,8 @@ class HomePage extends React.Component {
   render() {    
     let {userState} = this.props
     let {tripState} = this.props
+    console.log('userState', userState)
+    console.log('tripState', tripState)
     return(
       <div className="home">
         <Navbar {...this.props} ifLoginPage={false} />
@@ -128,18 +130,3 @@ export default connect(
     actions: bindActionCreators(Object.assign({}, tripActions, userActions), dispatch),
   }),
 )(HomePage);
-
-
-
-
-// {userState.invitations && userState.invitations.map((invitation, index) => {
-//   return (
-//   <div key={index}>
-//   <Invitation
-//     invitation={invitation}
-//   />
-//   <button onClick={() => this.acceptInvitation(userState.currentUser.email, invitation.id, userState.currentUser.id)}>Yes</button>
-//   <button onClick={() => this.rejectInvitation(userState.currentUser.email, invitation.id, userState.currentUser.id)}>No</button> 
-//   </div>)
-// }
-// )}        

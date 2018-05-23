@@ -160,7 +160,6 @@ const getInvitations = (email) => {
 
 const deleteInvitation = (email, tripId) => {
   const query = `DELETE FROM INVITATIONS WHERE USER_EMAIL = '${email}' AND TRIP_ID = ${tripId};`;
-  console.log('query for deleting invitation: ', query);
   return pool.query(query)
     .catch((err) => {
       console.error(err);
@@ -170,7 +169,6 @@ const deleteInvitation = (email, tripId) => {
 const addActivity = (tripId, activityDate, startTime, activityName) => {
   // const { tripId, activityDate, startTime, activityName } = activityData.params;
   const query = `INSERT INTO activities (trip_id, description, date_of_activity, start_time) values (${tripId}, '${escape(activityName)}', '${activityDate}', '${startTime}');`;
-  console.log(query)
   return pool.query(query)
     .catch((err) => {
       console.error('couldnt insert activity:', err);
@@ -187,17 +185,14 @@ const getActivites = (tripId, activityDate) => {
 
 const getAllActivities = (tripId) => {
   const query = `SELECT * FROM activities WHERE trip_id=${tripId} order by start_time asc`;
-  console.log(query)
   return pool.query(query)
     .catch((err) => {
       console.error('couldnt get activities:', err);      
     });
 };
 
-const updateActivity = (id, startTime, activityName) => {
-  console.log('id, startTime, activityName:', id, startTime, activityName);
-  console.log('updating db')
-  let query = `UPDATE activities SET description = '${activityName}', start_time='${startTime}' WHERE id = ${id};`
+const updateActivity = (activityId, activityName, startTime) => {
+  const query = `UPDATE activities SET description = '${activityName}', start_time='${startTime}' WHERE id = ${activityId};`
   console.log('query: ', query)
   return pool.query(query)
     .catch(err => {
@@ -205,8 +200,8 @@ const updateActivity = (id, startTime, activityName) => {
     });
 }
 
-const deleteActivity = (id) => {
-  let query = `DELETE FROM activities WHERE id = ${id};`
+const deleteActivity = (activityId) => {
+  const query = `DELETE FROM activities WHERE id = ${activityId};`
   return pool.query(query)
     .catch(err => {
       console.error('issue with db query:', err)
@@ -214,7 +209,7 @@ const deleteActivity = (id) => {
 }
 
 const upVoteActivity = (activityId, userId, tripId) => {
-  let query = `INSERT INTO activities_votes (user_id, activity_id, vote, trip_id) values (${userId}, ${activityId}, true, ${tripId});`   
+  const query = `INSERT INTO activities_votes (user_id, activity_id, vote, trip_id) values (${userId}, ${activityId}, true, ${tripId});`   
   return pool.query(query)
   .catch(err => {    
     query = `UPDATE activities_votes SET vote = true WHERE user_id=${userId} AND activity_id=${activityId};`
@@ -234,7 +229,7 @@ const upVoteActivity = (activityId, userId, tripId) => {
 }
 
 const downVoteActivity = (activityId, userId, tripId) => {
-  let query = `INSERT INTO activities_votes (user_id, activity_id, vote, trip_id) values (${userId}, ${activityId}, false, ${tripId});` 
+  const query = `INSERT INTO activities_votes (user_id, activity_id, vote, trip_id) values (${userId}, ${activityId}, false, ${tripId});` 
   console.log('query for downvoting!: ', query)
   return pool.query(query)
   .catch(err => {
@@ -257,7 +252,7 @@ const downVoteActivity = (activityId, userId, tripId) => {
 
 const getVotes = (tripId) => {
   console.log('tripid at query:', tripId)
-  let query = `SELECT * FROM activities_votes WHERE trip_id = ${tripId};`
+  const query = `SELECT * FROM activities_votes WHERE trip_id = ${tripId};`
   return pool.query(query)
   .catch(err => {
     console.log('issue with db query:', err)
