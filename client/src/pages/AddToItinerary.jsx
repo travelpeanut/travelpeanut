@@ -8,11 +8,11 @@ import moment from 'moment';
 
 class AddToItinerary extends React.Component{
     constructor(props){
-        super(props)
+        super(props)        
         this.addActivity = this.addActivity.bind(this)
     }
 
-    addActivity(activityName, currentTrip){        
+    async addActivity(activityName, currentTrip){        
         let tripId = currentTrip.trip_id;        
         //should probably refactor to just be currentTrip.tripId        
         let activityDate = document.getElementById("date").options[date.selectedIndex].value;
@@ -30,12 +30,14 @@ class AddToItinerary extends React.Component{
             startTime,
             activityName
         }
-        this.props.actions.addActivityToItinerary(activityData)
+        await this.props.actions.addActivityToItinerary(activityData)                
+        const activityDateFixed = moment(activityDate, 'MMMM D YYYY').format('YYYY-MM-DD')                
+        const day = moment(activityDateFixed).diff(moment(currentTrip.start_date.slice(0,10)),'days') + 1
+        // this.props.history.push(`/trip/${tripId}/details/${day}`)        
     }
 
     render(){
         let {tripState} = this.props
-        // console.log('currentTrip is: ', tripState.currentTrip)
         let start = new Date(tripState.currentTrip.start_date)
         let end = new Date(tripState.currentTrip.end_date)
         let dayCount = Math.round(Math.abs((end.getTime() - start.getTime())/(24*60*60*1000)))

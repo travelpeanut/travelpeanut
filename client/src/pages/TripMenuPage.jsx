@@ -11,6 +11,10 @@ class TripMenu extends React.Component {
     this.redirectItinerary = this.redirectItinerary.bind(this)
   }
 
+  componentDidMount() {
+    console.log('tripState in TripMenuPage: ', this.props.tripState)
+  }
+
   redirectItinerary(type){    
     let { trip_id } = this.props.tripState.currentTrip
     this.props.history.push(`/trip/${trip_id}/${type}`)

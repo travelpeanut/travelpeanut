@@ -72,7 +72,7 @@ class TripItinerary extends React.Component {
       </button>
 
       </div>
-    )
+    )  
   }
 }
 

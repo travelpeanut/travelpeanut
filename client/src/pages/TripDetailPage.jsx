@@ -25,7 +25,7 @@ class TripDetail extends React.Component {
     this.getVotes = this.getVotes.bind(this)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getActivities()    
   }  
   
@@ -72,6 +72,7 @@ class TripDetail extends React.Component {
   }
 
   render() {
+    console.log('tripState in TripDetailPage: ', this.props.tripState)
     const tripStartDate = this.props.tripState.currentTrip.start_date
     const start = moment(tripStartDate, 'YYYY-MM-DD').format('YYYY-MM-DD hh:mm a')    
     const time = [];
@@ -83,6 +84,7 @@ class TripDetail extends React.Component {
     }
 
     const activities = this.props.tripState.activitiesForThisDate
+    console.log('activities in TripDetailPage: ', activities)
     return(
       <div>
         <h1>trip details for day: {this.props.location.day}</h1>

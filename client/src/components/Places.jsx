@@ -53,7 +53,7 @@ class Places extends React.Component {
         <button className="btn-tran draw-border" onClick={this.addToItenerary}>add to trip</button>
 
         <div className="photos-container">
-          <LazyLoad>
+          <LazyLoad height={300} once={true} offset={200}>
             <iframe className="photos-photo google-map" src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_PLACES}&q=${this.state.place.name}`}></iframe>
           </LazyLoad>
         </div>        
