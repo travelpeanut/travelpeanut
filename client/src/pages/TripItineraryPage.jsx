@@ -73,47 +73,6 @@ class TripItinerary extends React.Component {
 
       </div>
     )
-  //   let {currentTrip} = this.props.tripState
-  //   let start = new Date(currentTrip.start_date)
-  //   let end = new Date(currentTrip.end_date)
-  //   let dayCount = Math.round(Math.abs((end.getTime() - start.getTime())/(24*60*60*1000)))
-  //   let dayArr = [];
-  //   for(var dayNumber = 1; dayNumber <= dayCount+1; dayNumber++){
-  //     let day = moment(start).add(24*(dayNumber-1),'hours');
-  //     let date = moment(day).date()
-  //     let month = moment(day).month()+1
-  //     let year = moment(day).year()
-  //     let dayOfWeek = moment(day).format('dddd')
-  //     let fullDate = moment(day).format('MMMM D YYYY')
-  //     dayArr.push({dayNumber, month, date, year, dayOfWeek, fullDate})
-  //   }
-  //   return(
-  //     <div>
-  //      <h1>This is Trip: {currentTrip.title}</h1>
-
-  //     {
-  //       dayArr.map((item, dayNumber) => {
-  //         return(
-  //           <div key={dayNumber}>
-  //             <p>{item.dayOfWeek} - Day {item.dayNumber} </p>
-  //             <p>{item.month}/{item.date}/{item.year} </p>
-  //             <button onClick={() => this.redirectToDetails(item.fullDate, dayNumber+1)}>View Details</button>
-  //           </div>
-  //         )
-  //       })
-  //     }
-  //     <div>
-  //       {this.state.showChat
-  //       ? <Chat showChat={this.state.showChat} toggleChat={this.toggleChat}/>
-  //       : <span className="chat chat-btn" onClick={this.toggleChat}>+</span>      
-  //       }
-  //     </div>
-  //     <button onClick={this.exportItinerary}
-  //     >Export Itinerary To Google Calendar
-  //     </button>
-  //     </div>
-  //   )
-  // }
   }
 }
 

@@ -199,9 +199,10 @@ const addActivityToItinerary = activityData => (dispatch, getState) => {
     });
 };
 
-const updateActivity = newData => (dispatch, getState) => {  
-  const {id, startTime, newActivityName, dateOfActivity, tripId } = newData;
-  axios.post('/api/updateActivity', {params: {id, startTime, newActivityName}})
+const updateActivity = (activityId, activityName, dateOfActivity, startTime) => (dispatch, getState) => {  
+  const tripId = getState().tripReducer.currentTrip.trip_id
+  console.log(activityId, activityName, dateOfActivity, startTime)
+  axios.patch('/api/activities', {params: {activityId, activityName, startTime}})
   .then(() => {
     dispatch(getActivitiesForDate(dateOfActivity, tripId))    
   })
@@ -210,9 +211,9 @@ const updateActivity = newData => (dispatch, getState) => {
   })
 }
 
-const deleteActivity = deleteData => (dispatch, getState) => {
-  const {id, dateOfActivity, tripId} = deleteData  
-  axios.delete('/api/updateActivity', {params: {id}})
+const deleteActivity = (activityId, dateOfActivity) => (dispatch, getState) => {
+  const tripId = getState().tripReducer.currentTrip.trip_id
+  axios.delete('/api/activities', {params: {activityId}})
   .then(() => {
     dispatch(getActivitiesForDate(dateOfActivity, tripId))
   })

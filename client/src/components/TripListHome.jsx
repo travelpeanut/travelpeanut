@@ -2,13 +2,12 @@ import React from 'react'
 import moment from 'moment'
 
 const TripListHome = ({allTrips, goToTrip, currentUserId, deleteTrip}) => {
-
   return (
     <div>
       {
         allTrips.map((item, i) => {
-          let startDate = moment(item.start_date).subtract(10, 'days').calendar();
-          let endDate = moment(item.end_date).subtract(10, 'days').calendar();
+          let startDate = moment(item.start_date).calendar();
+          let endDate = moment(item.end_date).calendar();
 
           return (
 

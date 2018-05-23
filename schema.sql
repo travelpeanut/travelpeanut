@@ -98,6 +98,7 @@ CREATE TABLE activities_votes (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   activity_id INTEGER NOT NULL,
+  trip_id INTEGER NOT NULL,
   vote BOOLEAN NOT NULL,
-  UNIQUE (user_id, activity_id)
+  UNIQUE (user_id, activity_id, trip_id)
 );

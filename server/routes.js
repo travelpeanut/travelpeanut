@@ -772,13 +772,10 @@ router.route('/activities')
       .catch((err) => {
         res.status(400).send(err);
       });
-  });
-
-
-router.route('/updateActivity')
-  .post((req, res) => {
-    let {id, startTime, newActivityName} = req.body.params
-    db.updateActivity(id, startTime, newActivityName)
+  })
+  .patch((req, res) => {
+    const {activityId, activityName, startTime} = req.body.params
+    db.updateActivity(activityId, activityName, startTime)
     .then((success) => {
       res.status(200).send(success)
     })
@@ -788,7 +785,8 @@ router.route('/updateActivity')
     })
   })
   .delete((req, res) => {
-    db.deleteActivity(req.query.id)
+    const {activityId} = req.query
+    db.deleteActivity(activityId)
       .then((success) => {
         res.status(200).send(success)
       })
@@ -797,6 +795,8 @@ router.route('/updateActivity')
         res.status(400).send(err)
       })
   })
+
+
 router.route('/itinerary')
   .post((req, res) => {
     const {accessToken, tripId, city} = req.body.params
