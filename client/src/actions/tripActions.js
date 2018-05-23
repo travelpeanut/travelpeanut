@@ -222,13 +222,14 @@ const deleteActivity = deleteData => (dispatch, getState) => {
 }
 
 const exportItinerary = (accessToken) => (dispatch, getState) => {
+  const tripId = getState().tripReducer.currentTrip.trip_id
+  const city = getState().tripReducer.currentTrip.city
   axios.post('/api/itinerary', {
     params: {
-      accessToken: accessToken
+      accessToken: accessToken,
+      tripId: tripId,
+      city: city,
     }
-  })
-  .then((data) => {
-    console.log(data)
   })
 }
 

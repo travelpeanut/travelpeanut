@@ -79,16 +79,16 @@ class TripDetail extends React.Component {
   }
 
   getActivities() {
-    const date = moment(this.props.location.dateOfDayOfWeek,'MMM Do YYYY').format('YYYY-MM-DD')    
+    const date = moment(this.props.location.dateOfDayOfWeek, 'MMM Do YYYY').format('YYYY-MM-DD')    
     this.props.actions.getActivitiesForDate(date)
   }
 
   render() {
     const tripStartDate = this.props.tripState.currentTrip.start_date
-    const start = moment(tripStartDate).format('YYYY-MM-DD hh:mm a')    
+    const start = moment(tripStartDate, 'YYYY-MM-DD').format('YYYY-MM-DD hh:mm a')    
     const time = [];
     for (let i = 0; i < 96; i++) {
-      time.push(moment(start).add(15*(i), 'minutes').format('hh:mm a'))
+      time.push(moment(start, 'YYYY-MM-DD hh:mm a').add(15*(i), 'minutes').format('hh:mm a'))
     }    
     const activities = this.props.tripState.activitiesForThisDate
     return(

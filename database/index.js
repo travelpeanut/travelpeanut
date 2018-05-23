@@ -9,13 +9,13 @@ const pool = new pg.Pool({
   database: config.DATABASE,
 });
 
-pool.on('connect', (client) => {
-  console.log('successfully connected', client)
-})
+// pool.on('connect', (client) => {
+//   console.log('successfully connected', client)
+// })
 
-pool.on('error', (trouble) => {
-  console.log('trouble connecting', trouble)
-})
+// pool.on('error', (trouble) => {
+//   console.log('trouble connecting', trouble)
+// })
 
 // ============
 // Helper Functions
@@ -187,6 +187,16 @@ const getActivites = (tripId, activityDate) => {
     });
 };
 
+const getAllActivities = (tripId) => {
+  const query = `SELECT * FROM activities WHERE trip_id=${tripId} order by start_time asc`;
+  console.log(query)
+  return pool.query(query)
+    .catch((err) => {
+      console.error('couldnt get activities:', err);      
+    });
+};
+
+
 const updateActivity = (id, startTime, activityName) => {
   console.log('id, startTime, activityName:', id, startTime, activityName);
   console.log('updating db')
@@ -282,3 +292,4 @@ exports.deleteActivity = deleteActivity;
 exports.downVoteActivity = downVoteActivity;
 exports.upVoteActivity = upVoteActivity;
 exports.getVotes = getVotes;
+exports.getAllActivities = getAllActivities;
