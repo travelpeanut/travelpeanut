@@ -111,7 +111,6 @@ const deleteTripMember = memberId => (dispatch, getState) => {
     });
 };
 
-
 const getPendingInvites = () => (dispatch, getState) => {
   const userId = getState().userReducer.currentUser.id;
   const tripId = getState().tripReducer.currentTrip.trip_id;
@@ -202,9 +201,6 @@ const addActivityToItinerary = activityData => (dispatch, getState) => {
 
 const updateActivity = newData => (dispatch, getState) => {  
   const {id, startTime, newActivityName, dateOfActivity, tripId } = newData;
-//   
-
-
   axios.post('/api/updateActivity', {params: {id, startTime, newActivityName}})
   .then(() => {
     dispatch(getActivitiesForDate(dateOfActivity, tripId))    
@@ -240,8 +236,11 @@ const exportItinerary = (accessToken) => (dispatch, getState) => {
 const upVote = upVoteData => (dispatch, getState) => {
   const {activityId, userId, tripId, activityDate} = upVoteData
   axios.post('/api/upVoteActivity', {params: {activityId, userId, tripId}})
-  .then(() => {
-    dispatch(getActivitiesForDate(activityDate, tripId))
+  .then((data) => {
+    dispatch({
+      type: ActionTypes.GET_VOTES,
+      votes: data
+    })
   })
   .catch(err => {
     console.log('couldnt upVote activity:', err)
@@ -251,17 +250,29 @@ const upVote = upVoteData => (dispatch, getState) => {
 const downVote = downVoteData => (dispatch, getState) => {
   const {activityId, userId, tripId, activityDate} = downVoteData
   axios.post('/api/downVoteActivity', {params: {activityId, userId, tripId}})
-  .then(() => {
-    dispatch(getActivitiesForDate(activityDate, tripId))
+  .then((data) => {
+    dispatch({
+      type: ActionTypes.GET_VOTES,
+      votes: data
+    })
   })
   .catch(err => {
     console.log('couldnt downVote activity:', err)
   })
 }
 
-const getVotesForDate = tripData => () => {
-  const {tripId, activityDate} = tripData
-  axios.post('/api/getVotes')
+const getVotesForTrip = tripData => (dispatch, getState) => {
+  const {tripId} = tripData
+  axios.get('/api/votes', {params: {tripId}})
+  .then(data => {
+    dispatch({
+      type: ActionTypes.GET_VOTES,
+      votes: data
+    })
+  })
+  .catch(err => {
+    console.log('couldnt get votes:', err)
+  })
 }
 
 const clearActivities = () => (dispatch, getState) => {
@@ -290,5 +301,6 @@ module.exports = {
   exportItinerary,
   upVote,
   downVote,
+  getVotesForTrip,
   clearActivities,
 };

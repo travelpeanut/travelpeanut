@@ -200,7 +200,7 @@ const getAllActivities = (tripId) => {
 const updateActivity = (id, startTime, activityName) => {
   console.log('id, startTime, activityName:', id, startTime, activityName);
   console.log('updating db')
-  const query = `UPDATE activities SET description = '${activityName}', start_time='${startTime}' WHERE id = ${id};`
+  let query = `UPDATE activities SET description = '${activityName}', start_time='${startTime}' WHERE id = ${id};`
   console.log('query: ', query)
   return pool.query(query)
     .catch(err => {
@@ -209,7 +209,7 @@ const updateActivity = (id, startTime, activityName) => {
 }
 
 const deleteActivity = (id) => {
-  const query = `DELETE FROM activities WHERE id = ${id};`
+  let query = `DELETE FROM activities WHERE id = ${id};`
   return pool.query(query)
     .catch(err => {
       console.log('issue with db query:', err)
@@ -221,30 +221,52 @@ const upVoteActivity = (activityId, userId, tripId) => {
   console.log('query string:', query)
   return pool.query(query)
   .catch(err => {
-    console.log('issue with db query:', err)
+    console.log('couldnt Insert, trying update...:', err)
     query = `UPDATE activities_votes SET vote = true WHERE user_id=${userId} AND activity_id=${activityId};`
     return pool.query(query)
   })
   .catch(err => {
     console.log('couldnt update to upvote:', err)
   })
+  .then(() => {
+    console.log('can i reach this?')
+    query = `SELECT * FROM activities_votes WHERE trip_id = ${tripId};`
+    return pool.query(query)
+  })
+  .catch(err => {
+    console.log('issue with db query:', err)
+  })
 }
 
 const downVoteActivity = (activityId, userId, tripId) => {
-  const query = `INSERT INTO activities_votes (user_id, activity_id, vote, trip_id) values (${userId}, ${activityId}, false, ${tripId});` 
+  let query = `INSERT INTO activities_votes (user_id, activity_id, vote, trip_id) values (${userId}, ${activityId}, false, ${tripId});` 
+  console.log('query for downvoting!: ', query)
   return pool.query(query)
   .catch(err => {
-    console.log('issue with db query:', err)
+    console.log('Couldnt Insert, trying update...:', err)
     query = `UPDATE activities_votes SET vote = false WHERE user_id=${userId} AND activity_id=${activityId};`
     return pool.query(query)
   })
   .catch(err => {
-    console.log('couldnt update to downvote:', err)
+    console.log('couldnt Update to downvote:', err)
+  })
+  .then(() => {
+    console.log('can i reach this?')
+    query = `SELECT * FROM activities_votes WHERE trip_id = ${tripId};`
+    return pool.query(query)
+  })
+  .catch(err => {
+    console.log('issue with db query:', err)
   })
 }
 
 const getVotes = (tripId) => {
-  const query = ``
+  console.log('tripid at query:', tripId)
+  let query = `SELECT * FROM activities_votes WHERE trip_id = ${tripId};`
+  return pool.query(query)
+  .catch(err => {
+    console.log('issue with db query:', err)
+  })
 }
 
 exports.addNewUser = addNewUser;
@@ -269,4 +291,5 @@ exports.updateActivity = updateActivity;
 exports.deleteActivity = deleteActivity;
 exports.downVoteActivity = downVoteActivity;
 exports.upVoteActivity = upVoteActivity;
+exports.getVotes = getVotes;
 exports.getAllActivities = getAllActivities;

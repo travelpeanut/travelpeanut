@@ -18,14 +18,16 @@ class TripDetail extends React.Component {
       activityType: '',
       activityLevel: '',
       showEdit: false,
-      editActivityKey: null,
+      editActivityKey: null, 
       activities: [],
+      votesForThisDay: [],
       // currentDate: moment(this.props.location.dateOfDayOfWeek,'MMM Do YYYY').format('YYYY-MM-DD')
     }
     this.toggleAddView = this.toggleAddView.bind(this)
     this.showEdit = this.showEdit.bind(this)
     this.getActivities = this.getActivities.bind(this)
     this.addActivity = this.addActivity.bind(this)
+    this.getVotes = this.getVotes.bind(this)
   }
 
   componentDidMount() {
@@ -53,6 +55,15 @@ class TripDetail extends React.Component {
     this.setState({
       editActivityKey: editKey
     })
+  }
+
+  getVotes(tripId){
+    console.log('tripId:', tripId)
+    this.props.actions.getVotesForTrip(tripId)     
+    this.setState({
+      votesForThisDay: this.props.tripState.votesData
+    })
+    // this.props.actions.getVotes
   }
 
   addActivity(){    
