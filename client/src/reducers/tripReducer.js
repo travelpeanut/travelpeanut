@@ -34,10 +34,10 @@ const tripReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         tripCoordinates: action.code,
       });
-    case 'STORE_NEARBY_PLACES':
-      return Object.assign({}, state, {
-        nearbyPlaces: action.code,
-      });
+    // case 'STORE_NEARBY_PLACES':
+    //   return Object.assign({}, state, {
+    //     nearbyPlaces: action.code,
+    //   });
     case 'ADD_MEMBER':
       return {
         ...state,

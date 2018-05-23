@@ -4,7 +4,7 @@ const { addNewUser } = require('../database/index');
 const axios = require('axios');
 const { sgAPI, unsplashAPI } = require('../config.js');
 const { API, GOOGLE_PLACES } = require('../config.js');
-const {CLIENT_ID, CLIENT_SECRET, REDIRECT_URIS} = require('../config.js')
+const {CLIENT_ID, CLIENT_SECRET, REDIRECT_URIS, YELP_API_KEY} = require('../config.js')
 const sgMail = require('@sendgrid/mail');
 const _ = require('underscore');
 const {google} = require('googleapis');
@@ -155,24 +155,42 @@ router.route('/getCoordinates')
 
 router.route('/getNearbyPlacesByType')
   .get((req, res) => {
-    Promise.all(req.query[0].map(type => axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${req.query[1]},${req.query[2]}&radius=1500&type=${type}&key=${GOOGLE_PLACES}`)))
-      .then((places) => {
-        const placeData = places.map(received => received.data.results);
-        let outArr = [];
-        for (let i = 0; i < placeData.length; i++) {
-          outArr = outArr.concat(placeData[i]);
-        }
-        outArr = _.uniq(outArr, false, place => place.id);
-        outArr.sort((a,b) => {
-          return b.rating - a.rating
-        });
-        let results = outArr.slice(0,9)
-        res.status(200).send(results);
+    console.log('req.query: ', req.query)
+    const searchQuery = req.query.types
+    const searchLocation = req.query.location
+    const url = `https://api.yelp.com/v3/businesses/search?term=${searchQuery}&location=${searchLocation}&sort_by=rating&limit=15`
+    const options = {
+      headers: {
+        Authorization: YELP_API_KEY
+      }
+    }
+
+    axios.get(url, options)
+      .then(({data}) => {
+        console.log('response from yelpAPI: ', data)
+        res.send(data.businesses)
       })
       .catch((err) => {
-        console.log('couldnt get all places in server:', err);
-        res.status(400).send(err);
-      });
+        console.error('err from yelp: ', err)
+      })
+    // Promise.all(req.query[0].map(type => axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${req.query[1]},${req.query[2]}&radius=1500&type=${type}&key=${GOOGLE_PLACES}`)))
+    //   .then((places) => {
+    //     const placeData = places.map(received => received.data.results);
+    //     let outArr = [];
+    //     for (let i = 0; i < placeData.length; i++) {
+    //       outArr = outArr.concat(placeData[i]);
+    //     }
+    //     outArr = _.uniq(outArr, false, place => place.id);
+    //     outArr.sort((a,b) => {
+    //       return b.rating - a.rating
+    //     });
+    //     let results = outArr.slice(0,9)
+    //     res.status(200).send(results);
+    //   })
+    //   .catch((err) => {
+    //     console.log('couldnt get all places in server:', err);
+    //     res.status(400).send(err);
+    //   });
   });
 
 router.route('/trip/members')

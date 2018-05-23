@@ -17,13 +17,13 @@ const getCoordinatesByCity = cityAndState => (dispatch, getState) => {
     });
 };
 
-const getNearbyPlacesByType = (types, coordinates) => (dispatch, getState) => {  
-  axios.get('/api/getNearbyPlacesByType', { params: [types, coordinates.lat, coordinates.lng] })
-    .then((nearbyPlaces) => {
-      // console.log('got ALL nearby places: ', nearbyPlaces)
+const getNearbyPlacesByType = (types, location) => (dispatch, getState) => {  
+  axios.get('/api/getNearbyPlacesByType', { params: {types, location,}})
+    .then(({ data }) => {
+      console.log('got ALL nearby places: ', data)
       dispatch({
         type: ActionTypes.STORE_NEARBY_PLACES,
-        code: nearbyPlaces,
+        places: data,
       });
     })
     .catch((err) => {
