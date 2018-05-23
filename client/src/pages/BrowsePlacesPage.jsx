@@ -12,9 +12,9 @@ class BrowsePlaces extends React.Component {
   }
 
   componentWillMount(){
-    let places = this.props.tripState.nearbyPlaces
-    let categoryName = window.location.pathname.split( '/' )[4];
-    this.render, 5000;
+    // console.log('this.props.discoveryState: ', this.props.discoveryState)
+    // console.log('places: ', places)
+    // let categoryName = window.location.pathname.split( '/' )[4];
   }
 
   redirectAddPlace(place){
@@ -25,22 +25,16 @@ class BrowsePlaces extends React.Component {
   }
    
   render() {
-    let places = this.props.tripState.nearbyPlaces
-    console.log('places.data: ', places.data)          
+    const places = this.props.discoveryState.places
 
     return(
       <div className="">
-        {places.data.map((place, key) => {
+        {places.map((place, key) => {
           return (
             <Places
-              {...this.props} 
+              {...this.props}
               key={place.id}
-              place={place}
-              name={place.name}
-              vicinity={place.vicinity}
-              photoReference={place.reference}
-              lat={place.geometry.location.lat}
-              lng={place.geometry.location.lng}
+              place={place}               
             />           
             )
           })}
@@ -52,6 +46,7 @@ class BrowsePlaces extends React.Component {
 export default connect(
     state => ({
         tripState: state.tripReducer,
+        discoveryState: state.discoveryReducer,
     }),
     dispatch => ({
         actions: bindActionCreators( discoveryActions , dispatch)
