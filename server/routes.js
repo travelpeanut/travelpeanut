@@ -208,13 +208,14 @@ router.route('/trip/members')
 
 router.route('/trip/invite')
   .get((req, res) => {
-    const { userId, tripId } = req.query;
-    db.getPendingInvites(userId, tripId)
+    const { tripId } = req.query;
+    db.getPendingInvites(tripId)
       .then((data) => {
+        console.log('get response', data)
         res.json(data.rows);
       });
   })
-  .post((req, res) => {
+  .post((req, res) => { 
     sgMail.setApiKey(sgAPI);
     const {
       toEmail, trip_id, owner_id, email, firstName, city,
@@ -223,6 +224,7 @@ router.route('/trip/invite')
     axios.get(`https://api.unsplash.com/search/photos/?query=${city}&client_id=${unsplashAPI}`)
       .then((data) => {
         const imgUrl = data.data.results[0].urls.small;
+        console.log("======!===", imgUrl)
         const msg = {
           to: toEmail,
           from: email,
@@ -712,7 +714,7 @@ router.route('/trip/invite')
             res.status(201).send(response);
           })
           .catch((err) => {
-            console.error(err);
+            console.error('ERROR!!!', err);
           });
       });
   })
