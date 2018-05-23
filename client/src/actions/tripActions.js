@@ -1,6 +1,7 @@
 import ActionTypes from '../constants/ActionTypes';
 import { push } from 'react-router-redux';
 import axios from 'axios';
+import moment from 'moment'
 
 const getAllTrips = () => (dispatch, getState) => {
   const userId = getState().userReducer.currentUser.id;
@@ -176,25 +177,32 @@ const getActivitiesForDate = (activityDate) => (dispatch, getState) => {
       dispatch({
         type: ActionTypes.GET_ACTIVITIES,
         activities: data.rows,
-      });
+      });      
     })
     .catch((err) => {
       console.error('couldnt get activities from db', err);
     });
-};
-
+  };
+  
 const addActivityToItinerary = activityData => (dispatch, getState) => {  
   const tripId = getState().tripReducer.currentTrip.trip_id
   const activity = {
     ...activityData,
     tripId,
   }
-
+    
+  const startdate = moment(getState().tripReducer.currentTrip.start_date, 'YYYY-MM-DD').format('YYYY-MM-DD')
+  const activitydate = moment(activityData.activityDate, 'MMMM D YYYY').format('YYYY-MM-DD')    
+  const day = moment(activitydate).diff(moment(startdate), 'days') + 1
+  
   axios.post('/api/activities', { params: activity })
-    .then(() => {      
-      dispatch(getActivitiesForDate(activity.activityDate));      
-    })
-    .catch((err) => {
+  .then(() => {      
+    dispatch(getActivitiesForDate(activity.activityDate));     
+  })
+  .then(() => {
+    dispatch(push(`/trip/${tripId}/details/${day}`));
+  })
+  .catch((err) => {
       console.error('couldnt save activity:', err);
     });
 };

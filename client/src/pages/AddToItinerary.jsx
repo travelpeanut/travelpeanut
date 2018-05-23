@@ -30,20 +30,14 @@ class AddToItinerary extends React.Component{
             startTime,
             activityName
         }
-        await this.props.actions.addActivityToItinerary(activityData)
-        console.log('trip start date: ', currentTrip)
-        console.log('activity date: ', activityDate)
-        const activityDateFixed = moment(activityDate, 'MMMM D YYYY').format('YYYY-MM-DD')
-        console.log('activityDateFixed: ', activityDateFixed)
-        console.log('trip start date: ', currentTrip.start_date.slice(0,10))
+        await this.props.actions.addActivityToItinerary(activityData)                
+        const activityDateFixed = moment(activityDate, 'MMMM D YYYY').format('YYYY-MM-DD')                
         const day = moment(activityDateFixed).diff(moment(currentTrip.start_date.slice(0,10)),'days') + 1
-        console.log('day: ', day)
-        this.props.history.push(`/trip/${tripId}/details/${day}`)        
+        // this.props.history.push(`/trip/${tripId}/details/${day}`)        
     }
 
     render(){
         let {tripState} = this.props
-        // console.log('currentTrip is: ', tripState.currentTrip)
         let start = new Date(tripState.currentTrip.start_date)
         let end = new Date(tripState.currentTrip.end_date)
         let dayCount = Math.round(Math.abs((end.getTime() - start.getTime())/(24*60*60*1000)))
