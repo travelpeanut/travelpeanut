@@ -19,14 +19,16 @@ const TripListHome = ({allTrips, goToTrip, currentUserId, deleteTrip}) => {
                     <img src="https://images.unsplash.com/photo-1446038202205-1c96430dbdab?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8bc8829ca2d952a157c651e7cb5facc9&auto=format&fit=crop&w=2849&q=80" alt=""/>
                   </div>
                   <div className="col col-2-of-4">
-                    <h3>{item.title}</h3>
-                    <span className="c-tripHome-location">{item.city}, {item.country}</span>
-                    <p>{startDate} - {endDate}</p>
-                    <button className="btn-tran draw-border" onClick={()=> goToTrip(item)}>Go to Trip</button>
-                    {item.owner_id === currentUserId ? 
-                      <button className="btn-tran draw-border" onClick={() => deleteTrip(item.trip_id)}>Delete</button>
-                      : ''
-                    }
+                    <div className="c-tripHome-content">
+                      <h3>{item.title}</h3>
+                      <span className="c-tripHome-location">{item.city}, {item.country}</span>
+                      <p>{startDate} - {endDate}</p>
+                      <button className="btn-tran draw-border" onClick={()=> goToTrip(item)}>Go to Trip</button>
+                      {item.owner_id === currentUserId ? 
+                        <button className="btn-tran draw-border" onClick={() => deleteTrip(item.trip_id)}>Delete</button>
+                        : ''
+                      }
+                    </div>
                   </div>
                 </div>
               </div>

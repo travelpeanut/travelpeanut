@@ -1,9 +1,9 @@
 import React from 'react';
 
 const Member = ({ member }) => (
-    <li>
+    <span className="members-container-listItem__content">
      {member}
-     </li>
+     </span>
 );
 
 export default Member;

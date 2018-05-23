@@ -9,13 +9,13 @@ const pool = new pg.Pool({
   database: config.DATABASE,
 });
 
-pool.on('connect', (client) => {
-  console.log('successfully connected', client)
-})
+// pool.on('connect', (client) => {
+//   console.log('successfully connected', client)
+// })
 
-pool.on('error', (trouble) => {
-  console.log('trouble connecting', trouble)
-})
+// pool.on('error', (trouble) => {
+//   console.log('trouble connecting', trouble)
+// })
 
 // ============
 // Helper Functions
@@ -130,8 +130,8 @@ const saveInvite = (email, tripId, ownerId) => {
     });
 };
 
-const getPendingInvites = (userId, tripId) => {
-  const query = `SELECT USER_EMAIL FROM INVITATIONS WHERE TRIP_ID = ${tripId} AND OWNER_ID = ${userId};`;
+const getPendingInvites = (tripId) => {
+  const query = `SELECT USER_EMAIL FROM INVITATIONS WHERE TRIP_ID = ${tripId};`;
   return pool.query(query)
     .catch((err) => {
       console.error(err);
