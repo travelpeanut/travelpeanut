@@ -293,15 +293,17 @@
 .discover-image {
   height: 100%;
   width: 100%;
-  border-radius: 5%; }
+  border-radius: 5%;
+  transition: .3; }
   .discover-image:hover {
-    filter: blur(1px) brightness(60%);
+    filter: blur(2px) brightness(80%);
     transition: .3s; }
 
 .category {
   font-size: 2em;
   position: absolute;
-  color: white; }
+  color: white;
+  z-index: 1; }
 
 .yelp {
   margin: 0.5% 0 0 1%;
