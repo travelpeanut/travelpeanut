@@ -294,21 +294,24 @@ input {
     flex: 1;
     justify-content: center;
     align-items: center; }
-    .discover-categories-category:hover {
-      opacity: .75;
-      transition: .2s; }
 
 .discover-image {
   height: 100%;
   width: 100%;
-  border-radius: 5%; }
+  border-radius: 5%;
+  transition: .3; }
+  .discover-image:hover {
+    filter: blur(2px) brightness(80%);
+    transition: .3s; }
 
 .category {
   font-size: 2em;
   position: absolute;
-  color: white; }
+  color: white;
+  z-index: 1; }
 
 .yelp {
+  margin: 0.5% 0 0 1%;
   font-style: italic; }
   .yelp-result {
     height: 150px;
@@ -317,8 +320,8 @@ input {
     font-size: 2em;
     color: black; }
     .yelp-header:hover {
-      color: #6495ed;
-      transition: 0.3s; }
+      color: #fe8c73;
+      transition: 0.2s; }
   .yelp-phone {
     font-style: italic; }
 
