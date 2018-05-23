@@ -7,21 +7,26 @@ import * as discoveryActions from '../actions/discoveryActions.js'
 class Places extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {      
+    this.state = {
+      place: this.props.place      
     }
     this.addToItenerary = this.addToItenerary.bind(this)
     this.redirectAddPlace = this.redirectAddPlace.bind(this)
   }
 
+  componentWillMount() {
+    this.setState({
+      places: null
+    })
+  }
+
   addToItenerary() {
     const place = this.props.place    
     this.props.actions.stagePlace(place)
-    setTimeout(() => this.redirectAddPlace(place.name), 1000)    
+    this.redirectAddPlace(place.name)
   }
 
-  redirectAddPlace(){
-    console.log("place: ", this.props.place)
-    console.log('this.props: ', this.props)
+  redirectAddPlace(){        
     let placeName = this.props.place.name.trim()
     let tripCity = this.props.tripState.currentTrip.city.trim()
     let discoverType = window.location.pathname.split(`/`)[4];
@@ -29,21 +34,30 @@ class Places extends React.Component {
   }
 
   render() {
-    console.log('places component: ', this.props.name)
     return (
       <div>
-        <h3>{this.props.name}</h3>
-        <h4>{this.props.vicinity}</h4>      
-        <div className="google">
-          <iframe className="google-map" src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_PLACES}&q=${this.props.lat},${this.props.lng}`}></iframe>
+
+        <div>
+          <a href={this.state.place.url}>{this.state.place.name}</a>
+          <h4>{this.state.place.location.display_address[0].concat(this.state.place.location.display_address[1])}</h4>
+          <div>phone number: {this.state.place.display_phone}</div>      
+          <span>rating: {this.state.place.rating} || </span>
+          <span>reviews: {this.state.place.review_count}</span>
+          <div>price: {this.state.place.price}</div>
         </div>
-        <div>rating: {this.props.rating}</div>
+
         <button className="addToItenerary" onClick={this.addToItenerary}>add to trip</button>
+
+        <div>
+          <img src={this.state.place.image_url}/>
+        </div>
+        <div className="google">
+          <iframe className="google-map" src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_PLACES}&q=${this.state.place.name}`}></iframe>
+        </div>
       </div>
     )      
   }
 }
-
 
 export default connect(
   state => ({
@@ -53,18 +67,3 @@ export default connect(
       actions: bindActionCreators( discoveryActions , dispatch)
   })
 )(Places);
-
-
- {/* <div className="" key={place.id}>
-              <h3>{place.name}</h3>
-              <h4>{place.vicinity}</h4>
-
-              <div className="google">
-                <iframe className="google-map" src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_PLACES}&q=${place.geometry.location.lat},${place.geometry.location.lng}`}></iframe>
-              </div>
-              
-              <p>rating: {place.rating}</p>
-              <button className="addToItinerary" onClick={() => this.addToItinerary(place)}>Add To Itinerary</button>
-                
-              <hr />
-            </div> */}

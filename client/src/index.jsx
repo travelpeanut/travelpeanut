@@ -23,6 +23,7 @@ import userReducer from './reducers/userReducer.js'
 import tripReducer from './reducers/tripReducer.js'
 import chatReducer from './reducers/chatReducer.js'
 import commentReducer from './reducers/commentReducer.js'
+import discoveryReducer from './reducers/discoveryReducer.js'
 
 import LandingPage from './pages/LandingPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
@@ -51,6 +52,7 @@ const rootReducer = combineReducers({
   tripReducer,
   chatReducer,
   commentReducer,
+  discoveryReducer,
   router: routerReducer
 })
 

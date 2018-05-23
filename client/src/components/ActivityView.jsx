@@ -50,19 +50,19 @@ class ActivityView extends React.Component{
     }
 
     render(){
-        let votesData = this.props.tripState.votesForThisDate;
+        // let votesData = this.props.tripState.votesForThisDate;
         let activity = this.props.activity;
-        let upvoteCount = 0
-        let downvoteCount = 0
-        if (typeof votesData.data.rows !== 'undefined'){
-            votesData.data.rows.forEach(row => {
-                if (row.activity_id === activity.id && row.vote){
-                    upvoteCount += 1
-                } else if (row.activity_id === activity.id && !row.vote){
-                    downvoteCount += 1
-                }
-            })
-        }
+        // let upvoteCount = 0
+        // let downvoteCount = 0
+        // if (typeof votesData.data.rows !== 'undefined'){
+        //     votesData.data.rows.forEach(row => {
+        //         if (row.activity_id === activity.id && row.vote){
+        //             upvoteCount += 1
+        //         } else if (row.activity_id === activity.id && !row.vote){
+        //             downvoteCount += 1
+        //         }
+        //     })
+        // }
         return(
             <div>
                 <p>{moment(activity.start_time, "HH:mm:ss").format("h:mm a")}</p>
@@ -75,8 +75,8 @@ class ActivityView extends React.Component{
                     toggleEdit={this.toggleEdit}
                 />
                 : null }
-                <div>Upvotes: {upvoteCount}</div>
-                <div>Downvotes: {downvoteCount}</div>
+                {/* <div>Upvotes: {upvoteCount}</div>
+                <div>Downvotes: {downvoteCount}</div> */}
               <hr />
                 <Comments activity={activity}/>
             </div>
