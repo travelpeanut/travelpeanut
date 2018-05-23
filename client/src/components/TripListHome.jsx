@@ -7,8 +7,8 @@ const TripListHome = ({allTrips, goToTrip, currentUserId, deleteTrip}) => {
     <div>
       {
         allTrips.map((item, i) => {
-          let startDate = moment(item.start_date).subtract(10, 'days').calendar();
-          let endDate = moment(item.end_date).subtract(10, 'days').calendar();
+          let startDate = moment(item.start_date).calendar();
+          let endDate = moment(item.end_date).calendar();
 
           return (
 
