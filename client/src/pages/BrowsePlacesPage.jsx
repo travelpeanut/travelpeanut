@@ -26,7 +26,6 @@ class BrowsePlaces extends React.Component {
    
   render() {
     const places = this.props.discoveryState.places
-
     return(
       <div className="">
         {places.map((place, key) => {
