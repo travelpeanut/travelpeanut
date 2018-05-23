@@ -2,25 +2,25 @@
   &-map
     width: 500px
     height: 300px
+    border: none
 
 .discover  
   &-categories
     display: grid
     grid-template-columns: 1fr 1fr 1fr 
     grid-template-rows: 1fr 1fr 1fr    
-    grid-column-gap: 3%
     &-category
       border-radius: 5%
       cursor: pointer
-      height: 175px
-      margin: 25px
+      height: 200px
+      margin: 20px
       display: flex
       flex: 1
       justify-content: center
       align-items: center
       &:hover
         opacity: .75
-        transition: .4s
+        transition: .2s
   &-image
     height: 100%
     width: 100%
@@ -30,3 +30,23 @@
   font-size: 2em
   position: absolute
   color: white
+
+.yelp
+  &-result
+    height: 150px
+    width: 150px
+  &-header
+    font-size: 2em
+    color: black
+    &:hover
+      color:  #6495ed
+      transition: 0.3s
+  &-phone
+    font-style: italic
+  &-rating
+  font-style: italic
+
+.photos
+  &-container
+    margin: 2% 0 5% 0
+  &-photos

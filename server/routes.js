@@ -155,11 +155,10 @@ router.route('/getCoordinates')
   });
 
 router.route('/getNearbyPlacesByType')
-  .get((req, res) => {
-    console.log('req.query: ', req.query)
+  .get((req, res) => {    
     const searchQuery = req.query.types
     const searchLocation = req.query.location
-    const url = `https://api.yelp.com/v3/businesses/search?term=${searchQuery}&location=${searchLocation}&sort_by=rating&limit=15`
+    const url = `https://api.yelp.com/v3/businesses/search?term=${searchQuery}&location=${searchLocation}&sort_by=rating&limit=15`    
     const options = {
       headers: {
         Authorization: YELP_API_KEY
@@ -167,31 +166,12 @@ router.route('/getNearbyPlacesByType')
     }
 
     axios.get(url, options)
-      .then(({data}) => {
-        console.log('response from yelpAPI: ', data)
+      .then(({data}) => {        
         res.send(data.businesses)
       })
       .catch((err) => {
         console.error('err from yelp: ', err)
-      })
-    // Promise.all(req.query[0].map(type => axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${req.query[1]},${req.query[2]}&radius=1500&type=${type}&key=${GOOGLE_PLACES}`)))
-    //   .then((places) => {
-    //     const placeData = places.map(received => received.data.results);
-    //     let outArr = [];
-    //     for (let i = 0; i < placeData.length; i++) {
-    //       outArr = outArr.concat(placeData[i]);
-    //     }
-    //     outArr = _.uniq(outArr, false, place => place.id);
-    //     outArr.sort((a,b) => {
-    //       return b.rating - a.rating
-    //     });
-    //     let results = outArr.slice(0,9)
-    //     res.status(200).send(results);
-    //   })
-    //   .catch((err) => {
-    //     console.log('couldnt get all places in server:', err);
-    //     res.status(400).send(err);
-    //   });
+      })    
   });
 
 router.route('/trip/members')
@@ -898,12 +878,36 @@ router.route('/itinerary')
     let {tripId} = req.query
     db.getVotes(tripId)
     .then(data => {
-      console.log('just got alll the votes!!!!!')
       res.status(200).send(data)
     })
     .catch(err => {
       console.log('couldnt get response from db:', err)
     })
   })
+
+  router.route('/reviews')
+    .get((req, res) => {                  
+      
+      const id = req.query.id
+      const options = {
+        headers: {
+          Authorization: YELP_API_KEY
+        }
+      }
+
+      const url = `https://api.yelp.com/v3/businesses/${id}/reviews`
+
+      axios.get(url, options)
+        .then(({data}) => {
+          console.log('data from yelp review search: ', data)
+          res.send(data)
+        })
+        .catch((err) => {
+          console.error('could not get yelp review: ', err)
+          res.end()
+        })
+
+
+    })
 
 module.exports = router;

@@ -273,25 +273,25 @@
 
 .google-map {
   width: 500px;
-  height: 300px; }
+  height: 300px;
+  border: none; }
 
 .discover-categories {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-column-gap: 3%; }
+  grid-template-rows: 1fr 1fr 1fr; }
   .discover-categories-category {
     border-radius: 5%;
     cursor: pointer;
-    height: 175px;
-    margin: 25px;
+    height: 200px;
+    margin: 20px;
     display: flex;
     flex: 1;
     justify-content: center;
     align-items: center; }
     .discover-categories-category:hover {
       opacity: .75;
-      transition: .4s; }
+      transition: .2s; }
 
 .discover-image {
   height: 100%;
@@ -302,6 +302,23 @@
   font-size: 2em;
   position: absolute;
   color: white; }
+
+.yelp {
+  font-style: italic; }
+  .yelp-result {
+    height: 150px;
+    width: 150px; }
+  .yelp-header {
+    font-size: 2em;
+    color: black; }
+    .yelp-header:hover {
+      color: #6495ed;
+      transition: 0.3s; }
+  .yelp-phone {
+    font-style: italic; }
+
+.photos-container {
+  margin: 2% 0 5% 0; }
 
 * {
   margin: 0;
