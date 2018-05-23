@@ -6,6 +6,8 @@ import * as chatActions from '../actions/chatActions.js'
 import moment from 'moment'
 import Chat from './ChatPage.jsx'
 import TripDay from './TripDay.jsx'
+import Navbar from '../components/Navbar.jsx'
+
 
 class TripItinerary extends React.Component {
   constructor(props) {
@@ -41,8 +43,12 @@ class TripItinerary extends React.Component {
       tripDurationArr.push(i)
     }    
     return(
-      <div>
-        <h1>TRIP: {currentTrip.title}</h1>
+      <div className="tripItinerary">
+        <Navbar {...this.props} ifLoginPage={false} />
+        <div className="home-hero">
+          <span className="home-hero__text">{currentTrip.title}</span>
+        </div>
+
         {tripDurationArr.map((day, i) => {
           return (
             <TripDay
