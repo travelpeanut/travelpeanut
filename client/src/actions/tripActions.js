@@ -112,15 +112,14 @@ const deleteTripMember = memberId => (dispatch, getState) => {
 };
 
 const getPendingInvites = () => (dispatch, getState) => {
-  const userId = getState().userReducer.currentUser.id;
   const tripId = getState().tripReducer.currentTrip.trip_id;
   axios.get('/api/trip/invite', {
     params: {
-      userId,
-      tripId,
+      tripId
     },
   })
     .then(({ data }) => {
+      console.log('data back', data)
       dispatch({
         type: ActionTypes.GET_PENDING_INVITES,
         pendingInvites: data,
@@ -145,6 +144,7 @@ const sendInvite = toEmail => (dispatch, getState) => {
     },
   })
     .then(() => {
+      console.log('hi pending')
       dispatch(getPendingInvites());
     })
     .catch((err) => {
