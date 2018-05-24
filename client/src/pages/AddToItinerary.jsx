@@ -14,6 +14,10 @@ class AddToItinerary extends React.Component{
         this.getActivities = this.getActivities.bind(this)
     }
 
+    componentDidMount(){
+        this.getActivities()
+    }
+
     async addActivity(activityName, currentTrip){        
         let tripId = currentTrip.trip_id;        
         let activityDate = this.date.value
@@ -32,7 +36,7 @@ class AddToItinerary extends React.Component{
         // this.props.history.push(`/trip/${tripId}/details/${day}`)        
     }
 
-    async getActivities(){
+    getActivities(){
         this.props.actions.getActivitiesForDate(this.date.value)
     }
 
@@ -55,7 +59,6 @@ class AddToItinerary extends React.Component{
         for (let i = 0; i < 48; i++) {
             time.push(moment(start, 'YYYY-MM-DD hh:mm a').add(15*(i), 'minutes').format('hh:mm'))
         }
-        let activitiesForPreview = this.state.activitiesForPreview;
         return(
             <div>
                 <h3>Add To Itinerary: {tripState.placeToAdd.name}</h3>
