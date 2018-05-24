@@ -12,7 +12,6 @@ const initialState = {
   pendingInvites: [],
   placeToAdd: {},
   activitiesForThisDate: [],
-  votesForThisDate: [],
 };
 
 const tripReducer = (state = initialState, action) => {
@@ -65,16 +64,11 @@ const tripReducer = (state = initialState, action) => {
         ...state,
         activitiesForThisDate: action.activities,
       };      
-    case 'GET_VOTES':
-      return {
-        ...state,
-        votesForThisDate: action.votes
-      };
     case 'CLEAR_ACTIVITIES':
       return {
         ...state,
         activitiesForThisDate: action.activities
-      }
+      };
     default:
       return Object.assign({}, state);
   }

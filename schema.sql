@@ -24,10 +24,6 @@ CREATE TABLE activities (
   id SERIAL PRIMARY KEY,
   trip_id INTEGER NOT NULL,
   description VARCHAR,
-  up_vote INTEGER DEFAULT 0,
-  down_vote INTEGER DEFAULT 0,
-  type VARCHAR,
-  activity_level VARCHAR DEFAULT NULL,
   comment_id INTEGER,
   date_of_activity DATE,
   start_time TIME
