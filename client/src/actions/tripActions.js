@@ -119,7 +119,6 @@ const getPendingInvites = () => (dispatch, getState) => {
     },
   })
     .then(({ data }) => {
-      console.log('data back', data)
       dispatch({
         type: ActionTypes.GET_PENDING_INVITES,
         pendingInvites: data,
@@ -201,7 +200,6 @@ const addActivityToItinerary = activityData => (dispatch, getState) => {
 
 const updateActivity = (activityId, activityName, dateOfActivity, startTime) => (dispatch, getState) => {  
   const tripId = getState().tripReducer.currentTrip.trip_id
-  console.log(activityId, activityName, dateOfActivity, startTime)
   axios.patch('/api/activities', {params: {activityId, activityName, startTime}})
   .then(() => {
     dispatch(getActivitiesForDate(dateOfActivity, tripId))    
@@ -234,48 +232,6 @@ const exportItinerary = (accessToken) => (dispatch, getState) => {
   })
 }
 
-const upVote = upVoteData => (dispatch, getState) => {
-  const {activityId, userId, tripId, activityDate} = upVoteData
-  axios.post('/api/upVoteActivity', {params: {activityId, userId, tripId}})
-  .then((data) => {
-    dispatch({
-      type: ActionTypes.GET_VOTES,
-      votes: data
-    })
-  })
-  .catch(err => {
-    console.log('couldnt upVote activity:', err)
-  })
-}
-
-const downVote = downVoteData => (dispatch, getState) => {
-  const {activityId, userId, tripId, activityDate} = downVoteData
-  axios.post('/api/downVoteActivity', {params: {activityId, userId, tripId}})
-  .then((data) => {
-    dispatch({
-      type: ActionTypes.GET_VOTES,
-      votes: data
-    })
-  })
-  .catch(err => {
-    console.log('couldnt downVote activity:', err)
-  })
-}
-
-const getVotesForTrip = tripData => (dispatch, getState) => {
-  const {tripId} = tripData
-  axios.get('/api/votes', {params: {tripId}})
-  .then(data => {
-    dispatch({
-      type: ActionTypes.GET_VOTES,
-      votes: data
-    })
-  })
-  .catch(err => {
-    console.log('couldnt get votes:', err)
-  })
-}
-
 const clearActivities = () => (dispatch, getState) => {
   dispatch({
     type: ActionTypes.CLEAR_ACTIVITIES,
@@ -300,8 +256,5 @@ module.exports = {
   updateActivity,
   deleteActivity,
   exportItinerary,
-  upVote,
-  downVote,
-  getVotesForTrip,
   clearActivities,
 };

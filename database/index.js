@@ -151,7 +151,6 @@ const getInvitations = (email) => {
   INNER JOIN USERS
   ON INVITATIONS.OWNER_ID = USERS.ID
   WHERE USER_EMAIL = '${email}';`;
-  console.log('getInvitations query: ', query);
   return pool.query(query)
     .catch((err) => {
       console.error(err);
@@ -193,7 +192,6 @@ const getAllActivities = (tripId) => {
 
 const updateActivity = (activityId, activityName, startTime) => {
   const query = `UPDATE activities SET description = '${activityName}', start_time='${startTime}' WHERE id = ${activityId};`
-  console.log('query: ', query)
   return pool.query(query)
     .catch(err => {
       console.error('couldnt update table:', err)
@@ -208,54 +206,24 @@ const deleteActivity = (activityId) => {
     });
 }
 
-const upVoteActivity = (activityId, userId, tripId) => {
-  const query = `INSERT INTO activities_votes (user_id, activity_id, vote, trip_id) values (${userId}, ${activityId}, true, ${tripId});`   
+const voteActivity = (activityId, userId, tripId, vote) => {
+  const query = `INSERT INTO activities_votes (user_id, activity_id, trip_id, vote) values (${userId}, ${activityId}, ${tripId}, ${vote});`   
   return pool.query(query)
-  .catch(err => {    
-    query = `UPDATE activities_votes SET vote = true WHERE user_id=${userId} AND activity_id=${activityId};`
-    return pool.query(query)
-  })
-  .catch(err => {
-    console.error('couldnt update to upvote:', err)
-  })
-  .then(() => {
-    console.log('can i reach this?')
-    query = `SELECT * FROM activities_votes WHERE trip_id = ${tripId};`
-    return pool.query(query)
-  })
-  .catch(err => {
-    console.log('issue with db query:', err)
-  })
+   .catch(err => {    
+     const updatequery = `UPDATE activities_votes SET vote = ${vote} WHERE user_id=${userId} AND activity_id=${activityId};`
+     return pool.query(updatequery)
+     .catch(err => {
+     console.error('couldnt update vote:', err)
+   })
+   })
 }
 
-const downVoteActivity = (activityId, userId, tripId) => {
-  const query = `INSERT INTO activities_votes (user_id, activity_id, vote, trip_id) values (${userId}, ${activityId}, false, ${tripId});` 
-  console.log('query for downvoting!: ', query)
+
+const getVotesForActivity = ( activityId ) => {
+  const query = `SELECT activity_id, vote, count(*) FROM activities_votes WHERE activity_id = ${activityId} group by activity_id, vote;`
   return pool.query(query)
   .catch(err => {
     console.error('issue with db query:', err)
-    query = `UPDATE activities_votes SET vote = false WHERE user_id=${userId} AND activity_id=${activityId};`
-    return pool.query(query)
-  })
-  .catch(err => {
-    console.log('couldnt Update to downvote:', err)
-  })
-  .then(() => {
-    console.log('can i reach this?')
-    query = `SELECT * FROM activities_votes WHERE trip_id = ${tripId};`
-    return pool.query(query)
-  })
-  .catch(err => {
-    console.log('issue with db query:', err)
-  })
-}
-
-const getVotes = (tripId) => {
-  console.log('tripid at query:', tripId)
-  const query = `SELECT * FROM activities_votes WHERE trip_id = ${tripId};`
-  return pool.query(query)
-  .catch(err => {
-    console.log('issue with db query:', err)
   })
 }
 
@@ -279,7 +247,6 @@ exports.addActivity = addActivity;
 exports.getActivites = getActivites;
 exports.updateActivity = updateActivity;
 exports.deleteActivity = deleteActivity;
-exports.downVoteActivity = downVoteActivity;
-exports.upVoteActivity = upVoteActivity;
-exports.getVotes = getVotes;
+exports.voteActivity = voteActivity;
+exports.getVotesForActivity = getVotesForActivity;
 exports.getAllActivities = getAllActivities;

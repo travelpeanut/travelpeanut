@@ -18,7 +18,6 @@ router.route('/login')
     // let token = req.query['0']
     db.checkLogin(userInfo.email)
       .then((data) => {
-        console.log('db back', data);
         if (data.rowCount === 0) {
         // console.log('hi new user!!!!')
         // query insert new data
@@ -848,45 +847,31 @@ router.route('/itinerary')
     //     }
     //   };
 })
-
-  router.route('/upVoteActivity')
-    .post((req, res) => {
-      let {activityId, userId, tripId} = req.body.params
-      db.upVoteActivity(activityId, userId, tripId)
-      .then((success) => {
-        res.status(200).send(success)
-      })
-      .catch(err => {
-        console.error('couldnt update activity votes:', err)
-        res.status(400).send(err)
-      })
-    })
-
-  router.route('/downVoteActivity')
-  .post((req, res) => {
-    let {activityId, userId, tripId} = req.body.params
-    db.downVoteActivity(activityId, userId, tripId)
-    .then((success) => {
-      res.status(200).send(success)
-    })
-    .catch(err => {
-      console.error('couldnt update activity votes:', err)
-      res.status(400).send(err)
-    })
-  })
-
+  
   router.route('/votes')
-  .get((req,res) => {
-    let {tripId} = req.query
-    db.getVotes(tripId)
-    .then(data => {
-      res.status(200).send(data)
-    })
-    .catch(err => {
-      console.log('couldnt get response from db:', err)
-    })
-  })
-
+    .get((req,res) => {
+      const { activityId} = req.query
+      db.getVotesForActivity(activityId)
+     .then((data) => {
+        res.status(200).send(data)
+     })
+      .catch(err => {
+        console.log('couldnt get response from db:', err)
+      })
+   })
+    .post((req, res) => {
+     const {activityId, userId, tripId, vote} = req.body.params
+     console.log(activityId, userId, tripId, vote)
+     db.voteActivity(activityId, userId, tripId, vote)
+     .then((success) => {
+       res.status(200).send(success)
+     })
+      .catch(err => {
+       console.error('couldnt update activity votes:', err)
+       res.status(400).send(err)
+     })
+   })
+  
   router.route('/reviews')
     .get((req, res) => {                  
       
