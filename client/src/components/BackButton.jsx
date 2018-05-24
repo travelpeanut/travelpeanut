@@ -1,4 +1,4 @@
-import React from 'React'
+import React from 'react'
 import Icon from '../styles/img/back.png'
 
 const BackButton = ({handleBack, content}) => {
