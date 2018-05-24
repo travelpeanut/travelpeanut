@@ -6,48 +6,58 @@ import Member from '../components/Member.jsx';
 import Navbar from '../components/Navbar.jsx'
 import { Switch, Route } from 'react-router-dom'
 import Cross from '../styles/img/cross.png'
+import BackBtn from '../components/BackButton.jsx'
 
 
 class MembersPage extends React.Component {
   constructor(props) {
     super(props);
-    this.sendInvite = this.sendInvite.bind(this);
-    this.deleteTripMember = this.deleteTripMember.bind(this);
-    this.deleteInvite = this.deleteInvite.bind(this);
+    this.sendInvite = this.sendInvite.bind(this)
+    this.deleteTripMember = this.deleteTripMember.bind(this)
+    this.deleteInvite = this.deleteInvite.bind(this)
+    this.handleBack = this.handleBack.bind(this)
   }
 
   componentDidMount() {
-    this.props.actions.getPendingInvites();
-    this.props.actions.getTripMembers();
+    this.props.actions.getPendingInvites()
+    this.props.actions.getTripMembers()
   }
 
   sendInvite(toEmail) {
-    this.props.actions.sendInvite(toEmail);
-    this.toEmail.value = '';
+    this.props.actions.sendInvite(toEmail)
+    this.toEmail.value = ''
   }
 
   deleteInvite(email) {
-    this.props.actions.deleteInvite(email);
+    this.props.actions.deleteInvite(email)
   }
 
   deleteTripMember(memberId) {
-    this.props.actions.deleteTripMember(memberId);
+    this.props.actions.deleteTripMember(memberId)
   }
 
+  handleBack(){
+    const {currentTrip} = this.props.tripState
+    this.props.actions.setCurrentTrip(currentTrip)
+  }
+
+
   render() {
-    const { currentTrip, pendingInvites, tripMembers } = this.props.tripState;
+    const { currentTrip, pendingInvites, tripMembers } = this.props.tripState
     console.log('current', pendingInvites)
-    const { currentUser } = this.props.userState;
+    const { currentUser } = this.props.userState
 
     return (
       <div className="members">
         <Navbar {...this.props} ifLoginPage={false} />
         <div className="home-hero">
-          <span className="home-hero__text">{currentTrip.title}</span>
+          <p className="home-hero__text">{currentTrip.title}</p>
+          <p className="home-hero__textLocation">{currentTrip.city}, {currentTrip.country}</p>
         </div>
 
         <div className="members-container">
           <h2>Invite/Manage Members</h2>
+          <BackBtn content={"Back to Trip Menu"} handleBack={this.handleBack}/>
 
           <div className="grid">
             <div className="row members-container-inner">

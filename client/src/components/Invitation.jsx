@@ -1,9 +1,9 @@
 import React from 'react';
 
 const Invitation = ({ invitation }) => (
-    <li>
+    <div>
      <strong>{invitation.first_name}</strong> is inviting you to partake in the magical <strong>"{invitation.title}"</strong> journey!
-     </li>
+    </div>
 );
 
 export default Invitation;

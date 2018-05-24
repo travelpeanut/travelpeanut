@@ -23,6 +23,7 @@ const TripListHome = ({allTrips, goToTrip, currentUserId, deleteTrip}) => {
                       <span className="c-tripHome-location">{item.city}, {item.country}</span>
                       <p>{startDate} - {endDate}</p>
                       <button className="btn-tran draw-border" onClick={()=> goToTrip(item)}>Go to Trip</button>
+                      <br/>
                       {item.owner_id === currentUserId ? 
                         <button className="btn-tran draw-border" onClick={() => deleteTrip(item.trip_id)}>Delete</button>
                         : ''

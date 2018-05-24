@@ -50,11 +50,14 @@ class Discovery extends React.Component {
   }
 
   render() {
+    const {currentTrip} = this.props.tripState
+
     return (
        <div className="discover">
         <Navbar {...this.props} ifLoginPage={false} />
         <div className="home-hero">
-          <span className="home-hero__text"></span>
+          <p className="home-hero__text">{currentTrip.title}</p>
+          <p className="home-hero__textLocation">{currentTrip.city}, {currentTrip.country}</p>
         </div>
 
 
