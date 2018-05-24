@@ -12,11 +12,8 @@ class Places extends React.Component {
     this.state = {
       place: this.props.place,     
     }
-    this.addToItenerary = this.addToItenerary.bind(this)
-    this.redirectAddPlace = this.redirectAddPlace.bind(this)
-  }
-
-  componentDidMount() {
+    this.addToItinerary = this.addToItinerary.bind(this)
+    // this.redirectAddPlace = this.redirectAddPlace.bind(this)
   }
 
   componentWillUnmount() {
@@ -25,18 +22,20 @@ class Places extends React.Component {
     })
   }
 
-  addToItenerary() {
+  addToItinerary() {
     const place = this.props.place    
     this.props.actions.stagePlace(place)
-    this.redirectAddPlace(place.name)
+    // this.redirectAddPlace(place.name)
+    this.props.handleShowPopup()
   }
 
-  redirectAddPlace(){        
-    let placeName = this.props.place.name.trim()
-    let tripCity = this.props.tripState.currentTrip.city.trim()
-    let discoverType = window.location.pathname.split(`/`)[4];
-    this.props.history.push(`/trip/${tripCity}/discovery/${discoverType}/${placeName}/addToItinerary`)
-  }
+  // redirectAddPlace(){        
+  //   let placeName = this.props.place.name.trim()
+  //   let tripCity = this.props.tripState.currentTrip.city.trim()
+  //   let discoverType = window.location.pathname.split(`/`)[4];
+  //   this.props.history.push(`/trip/${tripCity}/discovery/${discoverType}/${placeName}/addToItinerary`)
+  // }
+
 
   render() {
     return (
@@ -51,6 +50,7 @@ class Places extends React.Component {
           <div className="">
             <a className="yelp-info-title" href={this.state.place.url} target="_blank">{this.state.place.name}</a>
             <div className="yelp-info">{this.state.place.location.display_address[0].concat(' ', this.state.place.location.display_address[1] || '')}</div>
+            <br/>
             <div className="yelp-info">phone number: {this.state.place.display_phone}</div>      
             <div className="yelp-info">rating: {this.state.place.rating}</div>
             <div className="yelp-info">{this.state.place.price}</div>
@@ -58,7 +58,7 @@ class Places extends React.Component {
 
         </div>
 
-        <button className="yelp-btn btn-tran draw-border" onClick={this.addToItenerary}>add to trip</button>
+        <button className="yelp-btn btn-tran draw-border" onClick={this.addToItinerary}>add to trip</button>
 
         <div className="photos-container">
           <LazyLoad height={"100%"} once={true} offset={200}>            

@@ -113,8 +113,6 @@ class HomePage extends React.Component {
         </div>
 
 
-        <div className="landing-footer">footer content</div>
-
 
       </div>
     );

@@ -4,11 +4,19 @@ import { bindActionCreators } from "redux";
 import axios from 'axios';
 import * as discoveryActions from '../actions/discoveryActions.js'
 import Places from '../../src/components/Places.jsx'
+import Popup from '../components/AddFromDiscoverPopup.jsx'
+import BackBtn from '../components/BackButton.jsx'
 
 class BrowsePlaces extends React.Component {
   constructor(props) {    
     super(props);
     this.redirectAddPlace = this.redirectAddPlace.bind(this)
+    this.handleClosePopup = this.handleClosePopup.bind(this)
+    this.handleShowPopup = this.handleShowPopup.bind(this)
+    this.handleBack = this.handleBack.bind(this)
+    this.state = {
+      show: 'none',
+    }
   }
 
   componentWillMount(){
@@ -23,20 +31,50 @@ class BrowsePlaces extends React.Component {
     let discoverType = window.location.pathname.split(`/`)[4];
     this.props.history.push(`/trip/${tripCity}/discovery/${discoverType}/${placeName}/addToItinerary`)
   }
+
+  handleClosePopup(){
+    this.setState({
+      show: 'none'
+    })
+  }
+
+  handleShowPopup() {
+    this.setState({
+      show: 'block',
+    });
+  }
+
+  handleBack(){
+    let {id} = this.props.tripState.currentTrip
+    this.props.history.push(`/trip/${id}/discovery`)
+
+  }
+ 
    
   render() {
     const places = this.props.discoveryState.places
     return(
       <div className="yelp">
-        {places.map((place, key) => {
-          return (
-            <Places
-              {...this.props}
-              key={place.id}
-              place={place}
-            />           
-            )
+        {/* <div className="discoverResults-back" > */}
+          <BackBtn classname={"discoverResults-backBtn"} content={"Back to Discover Menu"} handleBack={this.handleBack}/>
+        {/* </div> */}
+
+        <Popup show={this.state.show}  handleClosePopup={this.handleClosePopup}/>
+
+
+        <div className="discoverResults-container">
+          {places.map((place, key) => {
+            return (
+              <Places
+                {...this.props}
+                key={place.id}
+                place={place}
+                handleShowPopup={this.handleShowPopup}
+              />           
+              )
           })}
+        </div>
+
       </div>
     )
   }

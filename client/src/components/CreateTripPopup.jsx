@@ -48,8 +48,12 @@ class CreateTripPopup extends React.Component {
             <br/>
             <input className="c-input-basic" type="date" placeholder="End Date" ref={endDate => this.endDate = endDate}/>
             <br/>          
-            <button onClick={this.closePopup}>Cancel</button>
-            <button onClick={this.handleSubmit}>Submit</button>
+            <br/>  
+            <div className="btn-duo-position">
+              <button className="btn-tran btn-tran-small draw-border"  onClick={this.closePopup}>Cancel</button>
+              <button className="btn-tran btn-tran-small draw-border-orange" onClick={this.handleSubmit}>Submit</button>
+            </div>
+
           </div>
 
 

@@ -84,8 +84,8 @@
 .c-popup {
   position: relative;
   width: 500px;
-  height: 380px;
-  margin: 12% auto;
+  height: 430px;
+  margin: 10% auto;
   padding: 40px;
   background-color: #F0F0F0;
   -webkit-border-radius: 4px;
@@ -123,8 +123,21 @@
   .c-popup h3 {
     color: #444;
     padding-bottom: 35px;
-    font-weight: 200;
-    font-size: 1.6em; }
+    font-weight: 300;
+    font-size: 1.8em; }
+
+.c-discoverPopup {
+  width: 800px !important;
+  height: 450px !important;
+  margin: 9% auto !important; }
+
+.preview {
+  margin-top: 20px; }
+  .preview-item {
+    padding: 10px; }
+  .preview-hr {
+    width: 70px;
+    margin: 10px auto; }
 
 .chatIcon {
   bottom: 15px;
@@ -249,7 +262,7 @@
   margin-bottom: 20px; }
 
 .c-input-textarea {
-  width: 250px;
+  width: 66%;
   outline: none;
   padding: 9px;
   border-radius: 2px;
@@ -260,6 +273,22 @@ input {
   font-weight: 100; }
   input:focus {
     border: 1px solid #58b9d1; }
+
+.c-select {
+  outline: none;
+  padding: 9px;
+  border-radius: 2px;
+  border: 2px;
+  margin: 20px auto 10px;
+  font-size: 13px;
+  height: 42px;
+  cursor: pointer; }
+  .c-select:focus {
+    border: 1px solid #58b9d1; }
+  .c-select-basic {
+    width: 270px; }
+  .c-select-time {
+    width: 200px; }
 
 .c-backbtn {
   position: absolute;
@@ -272,7 +301,7 @@ input {
     font-weight: 200;
     color: #666;
     position: absolute;
-    width: 150px;
+    width: 200px;
     left: 55px;
     top: 13px; }
 
@@ -327,7 +356,8 @@ input {
         top: 50px;
         right: 0;
         background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 3px; }
+        border-radius: 3px;
+        padding: 20px 20px 0px; }
         .navbar__right-section_notifyBox-arrow {
           position: absolute;
           border-color: transparent transparent rgba(0, 0, 0, 0.5);
@@ -426,6 +456,19 @@ input {
   letter-spacing: 0.05rem;
   width: 200px;
   margin-top: 13px; }
+  .btn-tran:focus {
+    outline: 0; }
+  .btn-tran-small {
+    width: 100px;
+    padding: 0.5em 1em;
+    margin-left: 12px; }
+  .btn-tran-mini {
+    width: 100px;
+    padding: .4em .4em;
+    margin-right: 8px; }
+
+.btn-duo-position {
+  margin-right: 15px; }
 
 .google-map {
   border: none;
@@ -473,15 +516,18 @@ input {
 
 .yelp-container {
   margin: 25px;
+  padding: 35px;
   position: relative;
-  background-color: #F0F0F0; }
+  background-color: #F0F0F0;
+  font-weight: 300; }
 
 .yelp-result {
   height: 150px;
   width: 150px; }
 
 .yelp-header {
-  padding: 10px; }
+  padding: 10px;
+  font-weight: 200; }
   .yelp-header img {
     height: 150px;
     margin-right: 25px; }
@@ -491,7 +537,8 @@ input {
   .yelp-info-title {
     font-style: normal;
     font-size: 2em;
-    color: black; }
+    color: black;
+    cursor: pointer; }
     .yelp-info-title:hover {
       color: #fe8c73;
       transition: 0.3s; }
@@ -499,11 +546,26 @@ input {
 .yelp-btn {
   margin: 10px; }
 
+.discoverResults-backBtn {
+  left: 35px !important;
+  top: 22px !important; }
+
+.discoverResults-container {
+  margin: 7% 70px; }
+
 .photos-container {
   position: absolute;
-  right: 200px;
-  top: 0;
-  height: 100%; }
+  right: 100px;
+  top: 22px;
+  height: 90%; }
+
+.discoverPopup {
+  color: #666; }
+  .discoverPopup-formContainer {
+    margin-bottom: 20px; }
+    .discoverPopup-formContainer h4 {
+      font-weight: 200;
+      font-size: 20px; }
 
 * {
   margin: 0;
@@ -628,7 +690,18 @@ input {
       left: 23%;
       transform: translate(-50%, -50%);
       font-size: 2em;
-      color: white; }
+      font-weight: 300;
+      color: white;
+      text-shadow: 2px 2px 6px #444; }
+    .home-hero__textLocation {
+      position: absolute;
+      top: 47%;
+      left: 23%;
+      font-weight: 200;
+      transform: translate(-18%, 70%);
+      font-size: 1.6em;
+      color: white;
+      text-shadow: 2px 2px 5px #444; }
     .home-hero__create {
       position: absolute;
       right: 35px;
@@ -656,7 +729,7 @@ input {
       font-weight: 300;
       color: #444; }
     .home-container-list {
-      margin: 6% 22%; }
+      margin: 4% 22%; }
 
 @media only screen and (max-device-width: 480px) {
   .home-container-list {
@@ -705,7 +778,7 @@ input {
     margin: 36px 0; }
   .members-container h3 {
     font-weight: 100;
-    font-size: 38px;
+    font-size: 35px;
     margin: 20px 0; }
   .members-container p {
     font-weight: 500;
@@ -717,8 +790,8 @@ input {
   .members-container-listItem {
     margin-bottom: 20px; }
     .members-container-listItem__content {
-      font-size: 25px;
-      font-weight: 500; }
+      font-size: 20px;
+      font-weight: 400; }
     .members-container-listItem__icon {
       cursor: pointer;
       width: 4%;
