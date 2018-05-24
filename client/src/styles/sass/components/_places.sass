@@ -4,16 +4,23 @@
     height: 300px
     border: none
 
-.discover  
+.discover 
+  &-container
+    h2
+      text-align: center  
+      font-size: 40px
+      font-weight: 300
+      margin: 36px 0 
+      color: #444
   &-categories
     display: grid
     grid-template-columns: 1fr 1fr 1fr 
-    grid-template-rows: 1fr 1fr 1fr    
+    grid-template-rows: 1fr 1fr 1fr  
+    margin: 0 45px  
     &-category
-      border-radius: 5%
       cursor: pointer
-      height: 200px
-      margin: 20px
+      height: 230px
+      padding: 40px
       display: flex
       flex: 1
       justify-content: center
@@ -21,8 +28,8 @@
   &-image
     height: 100%
     width: 100%
-    border-radius: 5%    
-    transition: : .3s
+    border-radius: 3px    
+    transition: .3s
     &:hover
       filter: blur(2px) brightness(80%)
       transition: .3s
@@ -32,6 +39,8 @@
   position: absolute
   color: white
   z-index: 1
+  font-weight: 200
+  text-shadow: 2px 2px 2px #444
 
 .yelp
   margin: 0.5% 0 0 1%
