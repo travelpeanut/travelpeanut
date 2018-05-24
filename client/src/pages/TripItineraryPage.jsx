@@ -65,9 +65,9 @@ class TripItinerary extends React.Component {
           <BackBtn content={"Back to Trip Menu"} handleBack={this.handleBack}/>
 
           <div className="tripItinerary-container-btnContainer">
-            <div className="tripItinerary-container-btnContainer-exportBtn" onClick={this.exportItinerary}>
+            <div className="tripItinerary-container-btnContainer-exportBtn">
 
-              <button className="btn-tran draw-border-orange"  onClick={() => this.redirectToTripDetails(dayOfWeek, dateOfDayOfWeek)}>              
+              <button className="btn-tran draw-border-orange"  onClick={this.exportItinerary}>              
                 <img src={Calendar} /> Sync Itinerary to Google Calendar
               </button>
 

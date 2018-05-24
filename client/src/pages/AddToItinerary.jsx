@@ -36,22 +36,19 @@ class AddToItinerary extends React.Component{
     }
 
     getActivities(){
-        this.props.actions.getActivitiesForDate(this.date.value)
+        this.props.actions.getActivitiesForDate(moment(this.date.value).format('YYYY-MM-DD'))
     }
 
     render(){
-        let {tripState} = this.props
-        let start = new Date(tripState.currentTrip.start_date)
-        let end = new Date(tripState.currentTrip.end_date)
-        let dayCount = Math.round(Math.abs((end.getTime() - start.getTime())/(24*60*60*1000)))
-        let dayArr = [];
-        for(var i=0; i<=dayCount; i++){
-            let day = moment(start).add(24*i,'hours');
-            let dateValue = moment(day).format("MMMM D YYYY")
-            let date = moment(day).format('MMMM Do YYYY')
-            let name = moment(day).format('dddd')
-            dayArr.push([i, date, name, dateValue]);
-          }
+        const {tripState} = this.props
+        const {currentTrip} = this.props.tripState
+        const start = moment(this.props.tripState.currentTrip.start_date, 'YYYY-MM-DD').format('YYYY-MM-DD hh:mm a')        
+        // Finding the number of days the trip lasts. Adding +1 to account for the start day of the trip
+        const tripDuration = moment(currentTrip.end_date).diff(moment(currentTrip.start_date), 'days') + 1    
+        const tripDurationArr = [];
+        for (let i = 1; i <= tripDuration; i++) {
+          tripDurationArr.push([i, currentTrip.start_date])
+        }    
         let time = [];
         for (let i = 0; i < 48; i++) {
             time.push(moment(start, 'YYYY-MM-DD hh:mm a').add(15*(i), 'minutes').format('hh:mm'))
@@ -61,9 +58,10 @@ class AddToItinerary extends React.Component{
                 <h3>Add To Itinerary: {tripState.placeToAdd.name}</h3>
                 <h4>Day:</h4>
                 <select id="date" onChange={this.getActivities} ref={(date) => this.date = date}>
-                    {dayArr.map((info, key) => {
+                    {tripDurationArr.map((date, i) => {
+                        const activityDate = moment(currentTrip.start_date).add(i, 'days').format('YYYY-MM-DD')
                         return (
-                            <option key={info[0]} value={info[3]}>Day {info[0]+1}, {info[2]}, {info[1]}</option>
+                            <option key={i} value={activityDate}>Day {date[0]}, {moment(activityDate).format('dddd')}, {moment.parseZone(activityDate).format('MMMM Do YYYY')}</option>
                         )
                     })}
                 </select>
@@ -79,7 +77,7 @@ class AddToItinerary extends React.Component{
                 </select>
                 <button onClick={() => this.addActivity(tripState.placeToAdd.name, tripState.currentTrip)}>Add!</button>
                 <div> Simple Preview </div>
-                <PreviewItinerary activities={this.props.tripState.activitiesForThisDate} />
+                <PreviewItinerary/>
             </div>
         )
     }

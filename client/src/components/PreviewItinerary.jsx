@@ -1,7 +1,5 @@
 import React from 'react';
-import ActivityView from './ActivityView.jsx'
 import { connect } from "react-redux";
-import * as tripActions from '../actions/tripActions.js'
 import moment from 'moment';
 
 
@@ -10,7 +8,7 @@ class PreviewItinerary extends React.Component {
       super(props)
     }
     render(){
-        let activities = this.props.activities
+        let activities = this.props.tripState.activitiesForThisDate
         return (
         <div className="preview">
             {activities.map((activity, i) => {

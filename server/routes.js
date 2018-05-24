@@ -763,7 +763,7 @@ router.route('/activities')
       });
   })
   .post((req, res) => {
-    let {tripId, activityDate, startTime, activityName} = req.body.params    
+    const {tripId, activityDate, startTime, activityName} = req.body.params    
     db.addActivity(tripId, activityDate, startTime, activityName)
       .then((success) => {
         res.status(200).send(success);
@@ -811,7 +811,7 @@ router.route('/itinerary')
         const hour = moment(activity.start_time, 'hh:mm:ss').hour()
         const minute = moment(activity.start_time, 'hh:mm:ss').minute()
         let resource = {
-          "summary": activity.description,
+          "summary": decodeURI(activity.description),
           "location": city, 
           "start": {
             "dateTime": moment(activity.date_of_activity, 'YYYY-MM-DD').toDate()
@@ -834,18 +834,6 @@ router.route('/itinerary')
     })
     .then(() => res.sendStatus(201))
     .catch((error) => res.sendStatus(400))
-    // let resource = {
-    //     "summary": "Appointment",
-    //     "location": "Somewhere",
-    //     "start": {
-    //       'dateTime': '2018-05-28T17:00:00',
-    //       'timeZone': 'America/Los_Angeles'              
-    //     },
-    //     "end": {
-    //       'dateTime': '2018-05-28T18:00:00',
-    //       'timeZone': 'America/Los_Angeles'
-    //     }
-    //   };
 })
   
   router.route('/votes')

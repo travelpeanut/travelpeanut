@@ -24,7 +24,7 @@ class TripDetail extends React.Component {
     this.handleBack = this.handleBack.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getActivities()    
   }  
   
@@ -47,20 +47,14 @@ class TripDetail extends React.Component {
   addActivity(){    
     const activityDate = moment(this.props.location.dateOfDayOfWeek,'MMM Do YYYY').format('YYYY-MM-DD')
     const startTime = moment(this.time.value + ' ' + this.ampm.value, 'hh:mm a').format('hh:mm a')
-
-    const activityData = {
-      activityName: this.activity.value,
-      startTime: startTime,
-      activityDate: activityDate
-    }
-    this.props.actions.addActivityToItinerary(activityData)
+    this.props.actions.addCustomActivity(this.activity.value, startTime, activityDate)
   }
 
   getActivities() {
-    const date = moment(this.props.location.dateOfDayOfWeek, 'MMM Do YYYY').format('YYYY-MM-DD')    
+    const date = moment(this.props.location.dateOfDayOfWeek, 'MMM Do YYYY').format('YYYY-MM-DD')
     this.props.actions.getActivitiesForDate(date)
   }
-//hi david nice shorts
+
   handleBack() {
     const tripId = this.props.tripState.currentTrip.trip_id
     this.props.history.push(`/trip/${tripId}/itinerary`)
@@ -71,9 +65,6 @@ class TripDetail extends React.Component {
     const tripStartDate = this.props.tripState.currentTrip.start_date
     const start = moment(tripStartDate, 'YYYY-MM-DD').format('YYYY-MM-DD hh:mm a')    
     const time = [];
-    // for (let i = 0; i < 96; i++) {
-    //   time.push(moment(start, 'YYYY-MM-DD hh:mm a').add(15*(i), 'minutes').format('hh:mm a'))
-    // }
     for (let i = 0; i < 48; i++) {
       time.push(moment(start, 'YYYY-MM-DD hh:mm a').add(15*(i), 'minutes').format('hh:mm'))
     }
