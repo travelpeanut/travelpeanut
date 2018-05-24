@@ -433,15 +433,22 @@ input {
   height: 100%;
   position: relative; }
 
+.discover-container h2 {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 300;
+  margin: 36px 0;
+  color: #444; }
+
 .discover-categories {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr; }
+  grid-template-rows: 1fr 1fr 1fr;
+  margin: 0 45px; }
   .discover-categories-category {
-    border-radius: 5%;
     cursor: pointer;
-    height: 200px;
-    margin: 20px;
+    height: 230px;
+    padding: 40px;
     display: flex;
     flex: 1;
     justify-content: center;
@@ -450,7 +457,7 @@ input {
 .discover-image {
   height: 100%;
   width: 100%;
-  border-radius: 5%;
+  border-radius: 3px;
   transition: .3s; }
   .discover-image:hover {
     filter: blur(2px) brightness(80%);
@@ -460,7 +467,9 @@ input {
   font-size: 2em;
   position: absolute;
   color: white;
-  z-index: 1; }
+  z-index: 1;
+  font-weight: 200;
+  text-shadow: 2px 2px 2px #444; }
 
 .yelp-container {
   margin: 25px;
