@@ -1,8 +1,9 @@
 .google
   &-map
-    width: 500px
-    height: 300px
     border: none
+    width: 500px
+    height: 100%
+    position: relative
 
 .discover  
   &-categories
@@ -22,7 +23,7 @@
     height: 100%
     width: 100%
     border-radius: 5%    
-    transition: : .3s
+    transition: .3s
     &:hover
       filter: blur(2px) brightness(80%)
       transition: .3s
@@ -34,22 +35,33 @@
   z-index: 1
 
 .yelp
-  margin: 0.5% 0 0 1%
+  &-container
+    margin: 25px
+    position: relative
+    background-color: #F0F0F0
   &-result
     height: 150px
     width: 150px
   &-header
-    font-size: 2em
-    color: black
-    &:hover
-      color:  #fe8c73
-      transition: 0.2s
-  &-phone
+    padding: 10px
+    img
+      height: 150px
+      margin-right: 25px
+  &-info
     font-style: italic
-  &-rating
-  font-style: italic
+    &-title
+      font-style: normal //overwrite
+      font-size: 2em
+      color: black
+      &:hover
+        color:  #fe8c73
+        transition: 0.3s
+  &-btn
+    margin: 10px
 
 .photos
   &-container
-    margin: 2% 0 5% 0
-  &-photos
+    position: absolute
+    right: 200px
+    top: 0
+    height: 100%

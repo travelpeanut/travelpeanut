@@ -8,6 +8,7 @@ import EditActivity from '../components/EditActivity.jsx';
 import moment from 'moment';
 import ActivityView from '../components/ActivityView.jsx';
 import Comments from '../components/Comments.jsx';
+import BackBtn from '../components/BackButton.jsx';
 
 class TripDetail extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class TripDetail extends React.Component {
     this.getActivities = this.getActivities.bind(this)
     this.addActivity = this.addActivity.bind(this)
     this.getVotes = this.getVotes.bind(this)
+    this.handleBack = this.handleBack.bind(this)
   }
 
   componentWillMount() {
@@ -70,6 +72,11 @@ class TripDetail extends React.Component {
     const date = moment(this.props.location.dateOfDayOfWeek, 'MMM Do YYYY').format('YYYY-MM-DD')    
     this.props.actions.getActivitiesForDate(date)
   }
+//hi david nice shorts
+  handleBack() {
+    const tripId = this.props.tripState.currentTrip.trip_id
+    this.props.history.push(`/trip/${tripId}/itinerary`)
+  }
 
   render() {
     console.log('tripState in TripDetailPage: ', this.props.tripState)
@@ -87,6 +94,8 @@ class TripDetail extends React.Component {
     console.log('activities in TripDetailPage: ', activities)
     return(
       <div>
+        <BackBtn content={"Back to Trip Itinerary"} handleBack={this.handleBack}/>
+
         <h1>trip details for day: {this.props.location.day}</h1>
         <div>
           <input type="text" placeholder='activity name' ref={(activity) => this.activity = activity}/>

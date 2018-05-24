@@ -428,9 +428,10 @@ input {
   margin-top: 13px; }
 
 .google-map {
+  border: none;
   width: 500px;
-  height: 300px;
-  border: none; }
+  height: 100%;
+  position: relative; }
 
 .discover-categories {
   display: grid;
@@ -450,7 +451,7 @@ input {
   height: 100%;
   width: 100%;
   border-radius: 5%;
-  transition: .3; }
+  transition: .3s; }
   .discover-image:hover {
     filter: blur(2px) brightness(80%);
     transition: .3s; }
@@ -461,23 +462,39 @@ input {
   color: white;
   z-index: 1; }
 
-.yelp {
-  margin: 0.5% 0 0 1%;
-  font-style: italic; }
-  .yelp-result {
+.yelp-container {
+  margin: 25px;
+  position: relative;
+  background-color: #F0F0F0; }
+
+.yelp-result {
+  height: 150px;
+  width: 150px; }
+
+.yelp-header {
+  padding: 10px; }
+  .yelp-header img {
     height: 150px;
-    width: 150px; }
-  .yelp-header {
+    margin-right: 25px; }
+
+.yelp-info {
+  font-style: italic; }
+  .yelp-info-title {
+    font-style: normal;
     font-size: 2em;
     color: black; }
-    .yelp-header:hover {
+    .yelp-info-title:hover {
       color: #fe8c73;
-      transition: 0.2s; }
-  .yelp-phone {
-    font-style: italic; }
+      transition: 0.3s; }
+
+.yelp-btn {
+  margin: 10px; }
 
 .photos-container {
-  margin: 2% 0 5% 0; }
+  position: absolute;
+  right: 200px;
+  top: 0;
+  height: 100%; }
 
 * {
   margin: 0;

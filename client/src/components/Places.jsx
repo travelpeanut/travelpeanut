@@ -40,21 +40,29 @@ class Places extends React.Component {
 
   render() {
     return (
-      <div className="yelp">
+      <div className="yelp-container">
 
-        <div>
-          <a className="yelp-header" href={this.state.place.url} target="_blank">{this.state.place.name}</a>
-          <div className="yelp-address">{this.state.place.location.display_address[0].concat(' ', this.state.place.location.display_address[1])}</div>
-          <div className="yelp-phone">phone number: {this.state.place.display_phone}</div>      
-          <div className="yelp-rating">rating: {this.state.place.rating}</div>
-          <div className="yelp-price">{this.state.place.price}</div>
+        <div className="yelp-header">
+
+          <LazyLoad once={true} height={150} offset={200}>
+            <img src={this.state.place.image_url} />
+          </LazyLoad>
+
+          <div className="">
+            <a className="yelp-info-title" href={this.state.place.url} target="_blank">{this.state.place.name}</a>
+            <div className="yelp-info">{this.state.place.location.display_address[0].concat(' ', this.state.place.location.display_address[1] || '')}</div>
+            <div className="yelp-info">phone number: {this.state.place.display_phone}</div>      
+            <div className="yelp-info">rating: {this.state.place.rating}</div>
+            <div className="yelp-info">{this.state.place.price}</div>
+          </div>
+
         </div>
 
-        <button className="btn-tran draw-border" onClick={this.addToItenerary}>add to trip</button>
+        <button className="yelp-btn btn-tran draw-border" onClick={this.addToItenerary}>add to trip</button>
 
         <div className="photos-container">
-          <LazyLoad height={300} once={true} offset={200}>
-            <iframe className="photos-photo google-map" src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_PLACES}&q=${this.state.place.name}`}></iframe>
+          <LazyLoad height={"100%"} once={true} offset={200}>            
+            <iframe className="google-map" src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_PLACES}&q=${this.state.place.name}`}></iframe>
           </LazyLoad>
         </div>        
 
