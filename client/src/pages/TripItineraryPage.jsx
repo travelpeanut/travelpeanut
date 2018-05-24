@@ -7,17 +7,19 @@ import moment from 'moment'
 import Chat from './ChatPage.jsx'
 import TripDay from './TripDay.jsx'
 import Navbar from '../components/Navbar.jsx'
-
+import Calendar from '../styles/img/calendar.png'
+import ChatIcon from '../styles/img/chat.png'
+import BackBtn from '../components/BackButton.jsx'
 
 class TripItinerary extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       showChat: false
-
     }
     this.toggleChat = this.toggleChat.bind(this)
     this.exportItinerary = this.exportItinerary.bind(this)
+    this.handleBack = this.handleBack.bind(this)
   }
 
   exportItinerary() {
@@ -34,14 +36,20 @@ class TripItinerary extends React.Component {
     })
   }
 
+  handleBack(){
+    const {currentTrip} = this.props.tripState
+    this.props.actions.setCurrentTrip(currentTrip)
+  }
+
   render() {
-    const currentTrip = this.props.tripState.currentTrip
+    const {currentTrip} = this.props.tripState
     // Finding the number of days the trip lasts. Adding +1 to account for the start day of the trip
     const tripDuration = moment(currentTrip.end_date).diff(moment(currentTrip.start_date), 'days') + 1    
     let tripDurationArr = [];
     for (let i = 1; i <= tripDuration; i++) {
       tripDurationArr.push(i)
     }    
+
     return(
       <div className="tripItinerary">
         <Navbar {...this.props} ifLoginPage={false} />
@@ -49,30 +57,52 @@ class TripItinerary extends React.Component {
           <span className="home-hero__text">{currentTrip.title}</span>
         </div>
 
-        {tripDurationArr.map((day, i) => {
-          return (
-            <TripDay
-              {...this.props}
-              startDate={currentTrip.start_date}
-              endDate={currentTrip.end_date}
-              key={i}
-              day={day}
-            />
-          )
-        })}
+
+        <div className="tripItinerary-container">
+          <h2>Trip Itinerary</h2>
+
+          <BackBtn content={"Back to Trip Menu"} handleBack={this.handleBack}/>
+
+          <div className="tripItinerary-container-btnContainer">
+            <div className="tripItinerary-container-btnContainer-exportBtn" onClick={this.exportItinerary}>
+
+              <button className="btn-tran draw-border-orange"  onClick={() => this.redirectToTripDetails(dayOfWeek, dateOfDayOfWeek)}>              
+                <img src={Calendar} /> Sync Itinerary to Google Calendar
+              </button>
+
+            </div>
+          </div>
+           
+
+          <div className="tripItinerary-container-list">
+            {tripDurationArr.map((day, i) => {
+              return (
+                <TripDay
+                  {...this.props}
+                  startDate={currentTrip.start_date}
+                  endDate={currentTrip.end_date}
+                  key={i}
+                  day={day}
+                />
+              )
+            })}
+          </div>
+
+        </div>
+
+
         <div>
           {this.state.showChat
             ? <Chat showChat={this.state.showChat} toggleChat={this.toggleChat}/>
-            : <span className="chat chat-btn" onClick={this.toggleChat}>+</span>      
+            : <span className="chatIcon chat-btn" onClick={this.toggleChat}>
+                <img className="chatIcon-img" src={ChatIcon} />
+              </span>      
           }
-       </div>
-
-      <button onClick={this.exportItinerary}>
-        Export Itinerary To Google Calendar
-      </button>
+        </div>
 
       </div>
-    )  
+    )
+
   }
 }
 
@@ -85,3 +115,48 @@ export default connect(
       actions: bindActionCreators( Object.assign({}, tripActions, chatActions) , dispatch)
   })
 )(TripItinerary);
+
+
+
+
+//   let {currentTrip} = this.props.tripState
+//   let start = new Date(currentTrip.start_date)
+//   let end = new Date(currentTrip.end_date)
+//   let dayCount = Math.round(Math.abs((end.getTime() - start.getTime())/(24*60*60*1000)))
+//   let dayArr = [];
+//   for(var dayNumber = 1; dayNumber <= dayCount+1; dayNumber++){
+//     let day = moment(start).add(24*(dayNumber-1),'hours');
+//     let date = moment(day).date()
+//     let month = moment(day).month()+1
+//     let year = moment(day).year()
+//     let dayOfWeek = moment(day).format('dddd')
+//     let fullDate = moment(day).format('MMMM D YYYY')
+//     dayArr.push({dayNumber, month, date, year, dayOfWeek, fullDate})
+//   }
+//   return(
+//     <div>
+//      <h1>This is Trip: {currentTrip.title}</h1>
+
+//     {
+//       dayArr.map((item, dayNumber) => {
+//         return(
+//           <div key={dayNumber}>
+//             <p>{item.dayOfWeek} - Day {item.dayNumber} </p>
+//             <p>{item.month}/{item.date}/{item.year} </p>
+//             <button onClick={() => this.redirectToDetails(item.fullDate, dayNumber+1)}>View Details</button>
+//           </div>
+//         )
+//       })
+//     }
+//     <div>
+//       {this.state.showChat
+//       ? <Chat showChat={this.state.showChat} toggleChat={this.toggleChat}/>
+//       : <span className="chat chat-btn" onClick={this.toggleChat}>+</span>      
+//       }
+//     </div>
+//     <button onClick={this.exportItinerary}
+//     >Export Itinerary To Google Calendar
+//     </button>
+//     </div>
+//   )
+// }
