@@ -35,7 +35,6 @@ class Navbar extends React.Component {
 
   toggleNotifyBox(){
     let showStatus = this.state.show === 'none' ? 'block' : 'none'
-    console.log(showStatus)
     this.setState({
       show: showStatus
     })
@@ -72,6 +71,7 @@ class Navbar extends React.Component {
              
               </span>
               <span className="navbar__right-section_notifyBox" style={{'display': `${this.state.show}`}}>
+                <span className="navbar__right-section_notifyBox-arrow"></span>
                   {invitations.length > 0 ? invitations.map((invitation, index) => {
                       return (
                       <div key={index}>
@@ -86,7 +86,6 @@ class Navbar extends React.Component {
                     
                   }  
               </span>
-              <span className="navbar__right-section_notifyBox-arrow"></span>
 
               <span>
                 <span className="navbar__right-section_border"></span>

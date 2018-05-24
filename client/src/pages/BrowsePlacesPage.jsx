@@ -27,13 +27,13 @@ class BrowsePlaces extends React.Component {
   render() {
     const places = this.props.discoveryState.places
     return(
-      <div className="">
+      <div className="yelp">
         {places.map((place, key) => {
           return (
             <Places
               {...this.props}
               key={place.id}
-              place={place}               
+              place={place}
             />           
             )
           })}

@@ -126,68 +126,90 @@
     font-weight: 200;
     font-size: 1.6em; }
 
+.chatIcon {
+  bottom: 15px;
+  right: 15px; }
+  .chatIcon-img {
+    width: 35px;
+    margin-top: 10px; }
+
 .chat {
   width: 25%;
-  bottom: 0;
+  bottom: 5px;
   right: 10px;
-  border: 2px solid black;
-  border-top: none; }
+  color: #fff; }
   .chat-header {
     width: 100%;
-    border: 2px solid black;
-    border-left: 0;
-    border-right: 0;
-    height: 6%;
-    background-color: #0066ff; }
+    height: 6%; }
   .chat-btn {
     position: fixed;
     text-align: center;
     text-shadow: 2px 2px 4px #000000;
     cursor: pointer;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    background-color: #0066ff;
-    border-color: #0066ff;
+    width: 60px;
+    height: 60px;
+    background-color: #fe8c73;
+    border-color: #fe8c73;
     color: white;
     vertical-align: middle;
     line-height: 1.5;
     font-size: 2em; }
   .chat-btn:hover {
-    opacity: 0.75; }
+    opacity: 0.75;
+    transition: opacity .5s ease-out;
+    -moz-transition: opacity .5s ease-out;
+    -webkit-transition: opacity .5s ease-out;
+    -o-transition: opacity .5s ease-out; }
   .chat-box {
     position: fixed;
-    border: 2px solid black;
-    border-top: none;
-    height: 350px;
-    transition: all 1s ease-in-out; }
+    height: 425px;
+    border-radius: 3px;
+    transition: all 1s ease-in-out;
+    background: rgba(254, 140, 115, 0.8); }
   .chat-close {
     cursor: pointer;
     position: absolute;
     right: 2%;
-    top: 0.5%;
-    color: #cce0ff; }
+    top: 0.5%; }
+    .chat-close img {
+      margin-top: 7px;
+      width: 15px; }
   .chat-title {
     font-size: 125%;
     position: absolute;
     left: 4%;
-    color: #e6f0ff; }
+    margin-top: 8px; }
 
-.msg {
-  border: 1px solid black; }
-  .msg-form {
-    width: 100%;
-    position: absolute;
-    bottom: 0; }
-  .msg-text {
-    width: 65%; }
-  .msg-container {
-    height: 305px;
-    display: block;
-    overflow: auto; }
-  .msg img {
-    border-radius: 50%;
-    width: 47px; }
+.msg-form {
+  width: 100%;
+  position: absolute;
+  margin: 0 20px; }
+
+.msg-btn {
+  border: 1px solid white;
+  padding: 3% 0%;
+  width: 13%;
+  position: absolute;
+  right: 37px;
+  top: 4px; }
+
+.msg-text {
+  width: 65%; }
+
+.msg-container {
+  height: 290px;
+  display: block;
+  overflow: auto;
+  border: 2px solid white;
+  margin: 18px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 12px; }
+
+.msg img {
+  border-radius: 50%;
+  width: 47px; }
 
 .me {
   text-align: right; }
@@ -226,11 +248,107 @@
   border: 2px;
   margin-bottom: 20px; }
 
+.c-input-textarea {
+  width: 250px;
+  outline: none;
+  padding: 9px;
+  border-radius: 2px;
+  border: 2px; }
+
 input {
   font-size: 15px;
   font-weight: 100; }
   input:focus {
     border: 1px solid #58b9d1; }
+
+.c-backbtn {
+  position: absolute;
+  left: 22px;
+  top: 430px;
+  cursor: pointer; }
+  .c-backbtn img {
+    width: 45px; }
+  .c-backbtn-content {
+    font-weight: 200;
+    color: #666;
+    position: absolute;
+    width: 150px;
+    left: 55px;
+    top: 13px; }
+
+.navbar {
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+  color: white; }
+  .navbar__logo {
+    cursor: pointer;
+    width: 250px; }
+    .navbar__logo img {
+      width: 40px;
+      margin: 15px;
+      margin-top: 15px;
+      margin-left: 15px;
+      margin-right: 5px; }
+  .navbar h2 {
+    display: inline;
+    position: absolute;
+    top: 15px;
+    font-size: 30px;
+    font-family: 'Arima Madurai', cursive; }
+  .navbar__right {
+    font-family: 'Work Sans', sans-serif; }
+    .navbar__right-section {
+      position: absolute;
+      top: 32%;
+      right: 10%; }
+      .navbar__right-section_userImg {
+        display: inline;
+        position: absolute;
+        top: -13px;
+        right: 10px; }
+        .navbar__right-section_userImg img {
+          width: 47px;
+          border-radius: 50%;
+          cursor: pointer; }
+      .navbar__right-section_notifyDot {
+        height: 15px;
+        width: 15px;
+        background-color: #fe6340;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+        top: -16px;
+        right: -35px; }
+      .navbar__right-section_notifyBox {
+        width: 350px;
+        height: 315px;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 3px; }
+        .navbar__right-section_notifyBox-arrow {
+          position: absolute;
+          border-color: transparent transparent rgba(0, 0, 0, 0.5);
+          border-style: solid;
+          border-width: 0px 12px 12px;
+          height: 0;
+          top: -12px;
+          right: 20px;
+          width: 0;
+          z-index: 12; }
+      .navbar__right-section_logout {
+        display: inline;
+        cursor: pointer;
+        position: absolute;
+        width: 67px;
+        margin-left: 14px; }
+      .navbar__right-section_border {
+        border-left: 1px solid white; }
+
+.iconRef {
+  display: none; }
 
 .draw-border {
   box-shadow: inset 0 0 0 2px #58afd1;
@@ -265,6 +383,39 @@ input {
     .draw-border:hover::after {
       transition-delay: 0s, 0.25s, 0s; }
 
+.draw-border-orange {
+  box-shadow: inset 0 0 0 2px #fe8c73;
+  color: #fe8c73;
+  transition: color 0.25s 0.08333s;
+  position: relative; }
+  .draw-border-orange::before, .draw-border-orange::after {
+    border: 0 solid transparent;
+    box-sizing: border-box;
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: 0;
+    right: 0; }
+  .draw-border-orange::before {
+    border-bottom-width: 2px;
+    border-left-width: 2px; }
+  .draw-border-orange::after {
+    border-top-width: 2px;
+    border-right-width: 2px; }
+  .draw-border-orange:hover {
+    color: #58b9d1; }
+    .draw-border-orange:hover::before, .draw-border-orange:hover::after {
+      border-color: #58b9d1;
+      transition: border-color 0s, width 0.25s, height 0.25s;
+      width: 100%;
+      height: 100%; }
+    .draw-border-orange:hover::before {
+      transition-delay: 0s, 0s, 0.25s; }
+    .draw-border-orange:hover::after {
+      transition-delay: 0s, 0.25s, 0s; }
+
 .btn-tran {
   background: none;
   border: none;
@@ -277,9 +428,10 @@ input {
   margin-top: 13px; }
 
 .google-map {
+  border: none;
   width: 500px;
-  height: 300px;
-  border: none; }
+  height: 100%;
+  position: relative; }
 
 .discover-categories {
   display: grid;
@@ -299,7 +451,7 @@ input {
   height: 100%;
   width: 100%;
   border-radius: 5%;
-  transition: .3; }
+  transition: .3s; }
   .discover-image:hover {
     filter: blur(2px) brightness(80%);
     transition: .3s; }
@@ -310,23 +462,39 @@ input {
   color: white;
   z-index: 1; }
 
-.yelp {
-  margin: 0.5% 0 0 1%;
-  font-style: italic; }
-  .yelp-result {
+.yelp-container {
+  margin: 25px;
+  position: relative;
+  background-color: #F0F0F0; }
+
+.yelp-result {
+  height: 150px;
+  width: 150px; }
+
+.yelp-header {
+  padding: 10px; }
+  .yelp-header img {
     height: 150px;
-    width: 150px; }
-  .yelp-header {
+    margin-right: 25px; }
+
+.yelp-info {
+  font-style: italic; }
+  .yelp-info-title {
+    font-style: normal;
     font-size: 2em;
     color: black; }
-    .yelp-header:hover {
+    .yelp-info-title:hover {
       color: #fe8c73;
-      transition: 0.2s; }
-  .yelp-phone {
-    font-style: italic; }
+      transition: 0.3s; }
+
+.yelp-btn {
+  margin: 10px; }
 
 .photos-container {
-  margin: 2% 0 5% 0; }
+  position: absolute;
+  right: 200px;
+  top: 0;
+  height: 100%; }
 
 * {
   margin: 0;
@@ -547,76 +715,25 @@ input {
       width: 4%;
       margin-left: 30px; }
 
-.navbar {
-  position: absolute;
-  width: 100%;
-  z-index: 100;
-  color: white; }
-  .navbar__logo {
-    cursor: pointer;
-    width: 250px; }
-    .navbar__logo img {
-      width: 40px;
-      margin: 15px;
-      margin-top: 15px;
-      margin-left: 15px;
-      margin-right: 5px; }
-  .navbar h2 {
-    display: inline;
-    position: absolute;
-    top: 15px;
-    font-size: 30px;
-    font-family: 'Arima Madurai', cursive; }
-  .navbar__right {
-    font-family: 'Work Sans', sans-serif; }
-    .navbar__right-section {
-      position: absolute;
-      top: 32%;
-      right: 10%; }
-      .navbar__right-section_userImg {
-        display: inline;
-        position: absolute;
-        top: -13px;
-        right: 10px; }
-        .navbar__right-section_userImg img {
-          width: 47px;
-          border-radius: 50%;
-          cursor: pointer; }
-      .navbar__right-section_notifyDot {
-        height: 15px;
-        width: 15px;
-        background-color: #fe6340;
-        border-radius: 50%;
-        display: inline-block;
-        position: relative;
-        top: -16px;
-        right: -35px; }
-      .navbar__right-section_notifyBox {
-        width: 350px;
-        height: 315px;
-        position: absolute;
-        top: 50px;
-        right: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 3px; }
-        .navbar__right-section_notifyBox-arrow {
-          position: absolute;
-          border-color: transparent transparent rgba(0, 0, 0, 0.5);
-          border-style: solid;
-          border-width: 0px 12px 12px;
-          height: 0;
-          top: 38px;
-          left: -47px;
-          width: 0;
-          z-index: 12; }
-      .navbar__right-section_logout {
-        display: inline;
-        cursor: pointer;
-        position: absolute;
-        width: 67px;
-        margin-left: 14px; }
-      .navbar__right-section_border {
-        border-left: 1px solid white; }
+.tripItinerary-container h2 {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 300;
+  margin: 36px 0; }
 
-.iconRef {
-  display: none; }
+.tripItinerary-container-list {
+  margin: 0 23%; }
+
+.tripItinerary-container .btn-itinerary {
+  width: 250px !important; }
+
+.tripItinerary-container-btnContainer {
+  position: absolute;
+  right: 35px;
+  top: 420px; }
+  .tripItinerary-container-btnContainer-exportBtn button {
+    width: 270px !important; }
+  .tripItinerary-container-btnContainer-exportBtn img {
+    width: 40px;
+    position: absolute;
+    left: 13px; }

@@ -23,6 +23,7 @@ class AddToItinerary extends React.Component{
         let activityDate = this.date.value
         let startTime = moment(this.time.value + ' ' + this.ampm.value, 'hh:mm a').format('hh:mm a')
         let userId = this.props.userState.currentUser.id
+
         let activityData = {
             tripId,
             userId,
@@ -30,10 +31,8 @@ class AddToItinerary extends React.Component{
             startTime,
             activityName
         }
-        await this.props.actions.addActivityToItinerary(activityData)                
-        const activityDateFixed = moment(activityDate, 'MMMM D YYYY').format('YYYY-MM-DD')                
-        const day = moment(activityDateFixed).diff(moment(currentTrip.start_date.slice(0,10)),'days') + 1
-        // this.props.history.push(`/trip/${tripId}/details/${day}`)        
+
+        this.props.actions.addActivityToItinerary(activityData)                
     }
 
     getActivities(){
@@ -51,8 +50,6 @@ class AddToItinerary extends React.Component{
             let dateValue = moment(day).format("MMMM D YYYY")
             let date = moment(day).format('MMMM Do YYYY')
             let name = moment(day).format('dddd')
-            // let m = moment(day).month()+1
-            // let year = moment(day).year()
             dayArr.push([i, date, name, dateValue]);
           }
         let time = [];
