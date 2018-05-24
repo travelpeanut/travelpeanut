@@ -46,13 +46,16 @@
 .yelp
   &-container
     margin: 25px
+    padding: 35px
     position: relative
     background-color: #F0F0F0
+    font-weight: 300
   &-result
     height: 150px
     width: 150px
   &-header
     padding: 10px
+    font-weight: 200
     img
       height: 150px
       margin-right: 25px
@@ -62,15 +65,34 @@
       font-style: normal //overwrite
       font-size: 2em
       color: black
+      cursor: pointer
       &:hover
         color:  #fe8c73
         transition: 0.3s
   &-btn
     margin: 10px
 
+.discoverResults
+  &-backBtn
+    left: 35px !important
+    top: 22px !important
+
+  &-container
+    margin: 7% 70px
+
+
 .photos
   &-container
     position: absolute
-    right: 200px
-    top: 0
-    height: 100%
+    right: 100px
+    top: 22px
+    height: 90%
+
+
+.discoverPopup
+  color: #666
+  &-formContainer
+    margin-bottom: 20px
+    h4
+      font-weight: 200
+      font-size: 20px

@@ -12,17 +12,15 @@ class PreviewItinerary extends React.Component {
     render(){
         let activities = this.props.activities
         return (
-        <div>
+        <div className="preview">
             {activities.map((activity, i) => {
             return (
               <div key={i}>
-                <hr/>
-                    <div>
-                        <p>{moment(activity.start_time, "HH:mm:ss").format("h:mm a")}</p>
-                        <div>{unescape(activity.description)}</div>
-                        <hr />
+                    <div className="preview-item">
+                        <span className="preview-item-time">{moment(activity.start_time, "HH:mm:ss").format("h:mm a")} - </span>
+                        <span className="preview-item-detail">{unescape(activity.description)}</span>
                     </div>
-                <hr/>
+                    <hr className="preview-hr"/>
               </div>
             )})}
         </div>

@@ -45,6 +45,22 @@ input
     // box-shadow: 0 0 5px  #fe8c73
     border: 1px solid #58b9d1
 
+.c-select
+  outline: none
+  padding: 9px
+  border-radius: 2px
+  border: 2px
+  margin: 20px auto 10px
+  font-size: 13px
+  height: 42px
+  cursor: pointer
+  &:focus
+    border: 1px solid #58b9d1
+  &-basic
+    width: 270px
+  &-time
+    width: 200px
+
 
 .c-backbtn
   position: absolute
@@ -57,7 +73,7 @@ input
     font-weight: 200
     color: #666
     position: absolute
-    width: 150px
+    width: 200px
     left: 55px
     top: 13px
 
@@ -114,6 +130,7 @@ input
         right: 0
         background-color: rgba(0, 0, 0, 0.5)
         border-radius: 3px
+        padding: 20px 20px 0px
         &-arrow
           position: absolute
           border-color: transparent transparent rgba(0, 0, 0, 0.5)

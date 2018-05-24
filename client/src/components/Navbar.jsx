@@ -75,11 +75,14 @@ class Navbar extends React.Component {
                   {invitations.length > 0 ? invitations.map((invitation, index) => {
                       return (
                       <div key={index}>
-                      <Invitation
-                        invitation={invitation}
-                      />
-                      <button onClick={() => this.handleAccept(currentUser.email, invitation.id)}>Yes</button>
-                      <button onClick={() => this.handleReject(currentUser.email, invitation.id)}>No</button> 
+                        <Invitation
+                          invitation={invitation}
+                        />
+
+                        <div>
+                          <button className="btn-tran btn-tran-mini draw-border-orange" onClick={() => this.handleAccept(currentUser.email, invitation.id)}>Join</button>
+                          <button className="btn-tran btn-tran-mini draw-border"  onClick={() => this.handleReject(currentUser.email, invitation.id)}>Delete</button> 
+                        </div>
                       </div>
                     )}) 
                     : <span>No pending invitations!</span>
