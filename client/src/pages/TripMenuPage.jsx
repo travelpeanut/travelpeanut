@@ -3,17 +3,23 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as tripActions from '../actions/tripActions.js'
 import Navbar from '../components/Navbar.jsx'
+import BackBtn from '../components/BackButton.jsx'
 
 
 class TripMenu extends React.Component {
   constructor(props) {
     super(props)
     this.redirectItinerary = this.redirectItinerary.bind(this)
+    this.handleBack = this.handleBack.bind(this)
   }
 
   redirectItinerary(type){    
     let { trip_id } = this.props.tripState.currentTrip
     this.props.history.push(`/trip/${trip_id}/${type}`)
+  }
+
+  handleBack(){
+    this.props.history.push('/home')
   }
 
   render() {
@@ -28,6 +34,8 @@ class TripMenu extends React.Component {
         
         <div className="grid tripmenu-grid">
           <h2>Trip Menu</h2>
+          <BackBtn content={"Back to Home"} handleBack={this.handleBack}/>
+
           <div className="row">
             <div className="col col-4-of-12 tripmenu-category">
               <div className="tripmenu-category__img">

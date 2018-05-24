@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import Message from '../components/Message.jsx';
 import * as tripActions from '../actions/tripActions';
 import * as chatActions from '../actions/chatActions';
+import Cross from '../styles/img/cross.png'
 
 class Chat extends React.Component {
   constructor(props) {
@@ -29,7 +30,9 @@ class Chat extends React.Component {
       <div className="chat chat-box">
         <div className="chat-header">
           <span className="chat-title">{`${title} in ${city}`}</span>
-          <span className="chat-close" onClick={this.props.toggleChat}>x</span>
+          <span className="chat-close" onClick={this.props.toggleChat}>
+            <img src={Cross}/>
+          </span>
         </div>        
 
           <div className="msg-container">
@@ -51,8 +54,8 @@ class Chat extends React.Component {
           </div>
 
         <div className="msg-form">
-          <input className="msg-text" type="text" placeholder="enter message" ref={(message) => { this.message = message; }}/>          
-          <button className="msg-btn" onClick={this.handleSubmitMessage}>Send Message</button>          
+          <textarea className="c-input-textarea" type="text" placeholder="enter message" ref={(message) => { this.message = message; }}/>          
+          <button className="msg-btn" onClick={this.handleSubmitMessage}>Send</button>          
         </div>
 
       </div>
