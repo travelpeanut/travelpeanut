@@ -542,51 +542,26 @@ input {
   .team-name {
     text-align: center; }
   .team-image img {
-    border: 5px solid black;
+    border: 5px solid white;
     border-radius: 50%;
     height: 200px;
-    cursor: pointer; }
+    transition: .3s; }
+    .team-image img:hover {
+      filter: blur(5px) brightness(80%);
+      transition: .3s; }
+  .team-image:not(img) {
+    opacity: 1; }
+  .team-container {
+    position: relative; }
+  .team-info {
+    position: absolute;
+    text-align: center;
+    margin-top: 50%;
+    color: white; }
 
-.flip-container {
-  perspective: 1000px; }
-  .flip-container:hover {
-    transform: rotateY(180deg); }
-
-.flipper {
-  transition: 0.6s;
-  transform-style: preserve-3d;
-  position: relative; }
-
-/* flip the pane when hovered */
-.flip-container:hover .flipper, .flip-container.hover .flipper {
-  transform: rotateY(180deg); }
-
-.flip-container, .front, .back {
-  width: 235px;
-  height: 235px; }
-
-/* flip speed goes here */
-.flipper {
-  transition: 0.6s;
-  transform-style: preserve-3d;
-  position: relative; }
-
-/* hide back of pane during swap */
-.front, .back {
-  backface-visibility: hidden;
-  position: absolute;
-  top: 0;
-  left: 0; }
-
-/* front pane, placed above back */
-.front {
-  z-index: 2;
-  /* for firefox 31 */
-  transform: rotateY(0deg); }
-
-/* back, initially hidden pane */
-.back {
-  transform: rotateY(180deg); }
+.github:hover {
+  transition: .3s;
+  opacity: .6; }
 
 * {
   margin: 0;
