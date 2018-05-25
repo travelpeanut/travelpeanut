@@ -166,7 +166,7 @@ const deleteInvitation = (email, tripId) => {
 };
 
 const addActivity = (tripId, activityDate, startTime, activityName) => {
-  // const { tripId, activityDate, startTime, activityName } = activityData.params;
+  console.log(tripId, activityDate, startTime, activityName)
   const query = `INSERT INTO activities (trip_id, description, date_of_activity, start_time) values (${tripId}, '${escape(activityName)}', '${activityDate}', '${startTime}');`;
   return pool.query(query)
     .catch((err) => {

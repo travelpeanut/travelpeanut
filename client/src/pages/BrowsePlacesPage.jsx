@@ -19,12 +19,6 @@ class BrowsePlaces extends React.Component {
     }
   }
 
-  componentWillMount(){
-    // console.log('this.props.discoveryState: ', this.props.discoveryState)
-    // console.log('places: ', places)
-    // let categoryName = window.location.pathname.split( '/' )[4];
-  }
-
   redirectAddPlace(place){
     let placeName = place.trim()
     let tripCity = this.props.tripState.currentTrip.city.trim()
@@ -55,9 +49,7 @@ class BrowsePlaces extends React.Component {
     const places = this.props.discoveryState.places
     return(
       <div className="yelp">
-        {/* <div className="discoverResults-back" > */}
           <BackBtn classname={"discoverResults-backBtn"} content={"Back to Discover Menu"} handleBack={this.handleBack}/>
-        {/* </div> */}
 
         <Popup show={this.state.show}  handleClosePopup={this.handleClosePopup}/>
 

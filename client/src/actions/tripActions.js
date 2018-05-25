@@ -182,6 +182,26 @@ const getActivitiesForDate = (activityDate) => (dispatch, getState) => {
       console.error('couldnt get activities from db', err);
     });
   };
+
+const addCustomActivity = (activityName, startTime, activityDate) => (dispatch, getState) => {
+  const tripId = getState().tripReducer.currentTrip.trip_id
+  axios.post('/api/activities', {
+    params: {
+      tripId,
+      activityDate,
+      startTime,
+      activityName
+    }
+  })
+  .then(() => {      
+    console.log(activityDate)
+    dispatch(getActivitiesForDate(activityDate));     
+  })
+  .catch((err) => {
+    console.error('couldnt save activity:', err);
+  });
+}
+
   
 const addActivityToItinerary = activityData => (dispatch, getState) => {  
   const tripId = getState().tripReducer.currentTrip.trip_id
@@ -191,11 +211,13 @@ const addActivityToItinerary = activityData => (dispatch, getState) => {
   }
     
   const startdate = moment(getState().tripReducer.currentTrip.start_date, 'YYYY-MM-DD').format('YYYY-MM-DD')
-  const activitydate = moment(activityData.activityDate, 'MMMM D YYYY').format('YYYY-MM-DD')    
-  const day = moment(activitydate).diff(moment(startdate), 'days') + 1
-  
+  // const activitydate = moment(activityData.activityDate, 'MMMM D YYYY').format('YYYY-MM-DD')    
+  const day = moment(activity.activityDate).diff(moment(startdate), 'days') + 1
+  console.log(activityData.activityDate)
+
   axios.post('/api/activities', { params: activity })
   .then(() => {      
+    console.log(activity.activityDate)
     dispatch(getActivitiesForDate(activity.activityDate));     
   })
   .then(() => {
@@ -260,6 +282,7 @@ module.exports = {
   getTripMembers,
   deleteTripMember,
   getActivitiesForDate,
+  addCustomActivity,
   addActivityToItinerary,
   updateActivity,
   deleteActivity,

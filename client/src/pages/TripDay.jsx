@@ -19,7 +19,6 @@ class TripDay extends React.Component {
     let {currentTrip} = this.props.tripState
     let tripId = this.props.tripState.currentTrip.trip_id
     const day = this.props.day
-    // this.props.actions.getActivitiesForDate(date, tripId)
     const pathname = `/trip/${tripId}/details/${this.props.day}`
     this.props.history.push({
       pathname,
@@ -27,7 +26,6 @@ class TripDay extends React.Component {
       dateOfDayOfWeek,
       day,
     })
-    // setTimeout(() => this.props.history.push(`/trip/${tripId}/details/${dayNumber}`), 500)
   }
 
   render() {
