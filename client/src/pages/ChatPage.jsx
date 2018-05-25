@@ -54,8 +54,13 @@ class Chat extends React.Component {
           </div>
 
         <div className="msg-form">
-          <textarea className="c-input-textarea" type="text" placeholder="enter message" ref={(message) => { this.message = message; }}/>          
-          <button className="msg-btn" onClick={this.handleSubmitMessage}>Send</button>          
+          <input className="c-input-textarea" type="text" placeholder="enter message" ref={(message) => { this.message = message; }}  
+            onKeyPress={event => {
+              if (event.key === "Enter") {
+                this.handleSubmitMessage();
+              }
+            }}/>          
+          {/* <button className="msg-btn" onClick={this.handleSubmitMessage}>Send</button>           */}
         </div>
 
       </div>

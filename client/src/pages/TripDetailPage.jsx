@@ -1,14 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as tripActions from '../actions/tripActions.js';
+import * as tripActions from '../actions/tripActions.js'
 import * as discoverActions from '../actions/discoveryActions.js'
-import EditActivity from '../components/EditActivity.jsx';
+import EditActivity from '../components/EditActivity.jsx'
 
 import moment from 'moment';
-import ActivityView from '../components/ActivityView.jsx';
-import Comments from '../components/Comments.jsx';
-import BackBtn from '../components/BackButton.jsx';
+import ActivityView from '../components/ActivityView.jsx'
+import Comments from '../components/Comments.jsx'
+import BackBtn from '../components/BackButton.jsx'
+import Navbar from '../components/Navbar.jsx'
+import CreateBtn from '../components/CreateTripBtn.jsx'
+import Popup from '../components/AddActivityPopup.jsx'
 
 class TripDetail extends React.Component {
   constructor(props) {
@@ -17,11 +20,14 @@ class TripDetail extends React.Component {
       addActivityView: false,
       showEdit: false,
       editActivityKey: null, 
+      showPopup: 'none'
     }
     this.showEdit = this.showEdit.bind(this)
     this.getActivities = this.getActivities.bind(this)
     this.addActivity = this.addActivity.bind(this)
     this.handleBack = this.handleBack.bind(this)
+    this.handleCreate = this.handleCreate.bind(this)
+    this.handleClosePopup = this.handleClosePopup.bind(this)
   }
 
   componentDidMount() {
@@ -60,44 +66,60 @@ class TripDetail extends React.Component {
     this.props.history.push(`/trip/${tripId}/itinerary`)
   }
 
-  render() {
-    console.log('tripState in TripDetailPage: ', this.props.tripState)
-    const tripStartDate = this.props.tripState.currentTrip.start_date
-    const start = moment(tripStartDate, 'YYYY-MM-DD').format('YYYY-MM-DD hh:mm a')    
-    const time = [];
-    for (let i = 0; i < 48; i++) {
-      time.push(moment(start, 'YYYY-MM-DD hh:mm a').add(15*(i), 'minutes').format('hh:mm'))
-    }
+  handleCreate(){
+    this.setState({
+      showPopup: 'block'
+    })
+  }
 
+  handleClosePopup(){
+    this.setState({
+      showPopup: 'none'
+    })
+  }
+
+  render() {
+    const {currentTrip} = this.props.tripState
     const activities = this.props.tripState.activitiesForThisDate
+    console.log('tripState in TripDetailPage: ', this.props.tripState)
     console.log('activities in TripDetailPage: ', activities)
+    
+    // const tripStartDate = this.props.tripState.currentTrip.start_date
+    // const start = moment(tripStartDate, 'YYYY-MM-DD').format('YYYY-MM-DD hh:mm a')    
+    // const time = [];
+    // for (let i = 0; i < 48; i++) {
+    //   time.push(moment(start, 'YYYY-MM-DD hh:mm a').add(15*(i), 'minutes').format('hh:mm'))
+    // }
+
     return(
-      <div>
+      <div className="tripDetails">
+
+        <Navbar {...this.props} ifLoginPage={false} />
+        <div className="home-hero">
+          <p className="home-hero__text">{currentTrip.title}</p>
+          <p className="home-hero__textLocation">{currentTrip.city}, {currentTrip.country}</p>
+          <CreateBtn handleCreate={this.handleCreate}/>
+        </div>
+
+        <Popup show={this.state.showPopup} location={this.props.location} handleClosePopup={this.handleClosePopup}/>
+
+
         <BackBtn content={"Back to Trip Itinerary"} handleBack={this.handleBack}/>
 
-        <h1>trip details for day: {this.props.location.day}</h1>
-        <div>
-          <input type="text" placeholder='activity name' ref={(activity) => this.activity = activity}/>
-          <button onClick={this.addActivity}>add</button>
-          <h4>time</h4>
-          <select id="time" ref={(time) => this.time = time}>
-            {time.map((el, i) => {
-              return <option key={i}>{el}</option>
-            })}
-          </select>
-          <select id="ampm" ref={(ampm) => this.ampm = ampm}>
-            <option>AM</option>
-            <option>PM</option>
-          </select>
-          {activities.map((activity, i) => {
-            return (
-              <div key={i}>
-                <hr/>
+        <div className="tripDetails-container">
+          <h2>Day: {this.props.location.day}</h2>
+
+          <div className="tripDetails-container-list">
+         
+            {activities.map((activity, i) => {
+              return (
+                <div key={i}>
                   <ActivityView activity={activity}/>
-                <hr/>
-              </div>
-            )
-          })}
+                </div>
+              )
+            })}
+          </div>
+
         </div>
       </div>
     )

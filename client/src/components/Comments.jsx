@@ -50,16 +50,26 @@ class Comments extends React.Component{
 
   render() {    
     return(
-      <div>
-        <div>Comment Box</div>
-        {this.state.comments.map((item, i) => {
-          const key = item[0]
-          return (
-            <Comment key={i} commentKey={key} comment={item[1]} deleteComment={this.deleteComment}/>
-          )
-        })}
-        <input placeholder='enter comment' type="text" ref={(comment) => this.comment = comment}/>
-        <button onClick={this.handleSubmit}>submit comment</button>
+      <div className="activity-comments">
+        <div className="activity-comments-list">
+          {this.state.comments.map((item, i) => {
+            const key = item[0]
+            return (
+              <Comment key={i} commentKey={key} comment={item[1]} deleteComment={this.deleteComment}/>
+            )
+          })}
+        </div>
+
+        <div className="activity-comments-form">
+          <input className="c-input-comment" placeholder='enter comment..' type="text" ref={(comment) => this.comment = comment}
+            onKeyPress={event => {
+              if (event.key === "Enter") {
+                this.handleSubmit();
+              }
+            }}
+          />
+          {/* <button onClick={this.handleSubmit}>Submit</button> */}
+        </div>
       </div>
     )
   }

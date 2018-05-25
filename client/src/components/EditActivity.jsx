@@ -35,25 +35,28 @@ class EditActivity extends React.Component{
     for (let i = 0; i < 48; i++) {
       time.push(moment(start, 'YYYY-MM-DD hh:mm a').add(15*(i), 'minutes').format('hh:mm'))
     }
-
+    
+    console.log('blahh', this.props.activity)
     return(
-      <div>
-        <div>New Activity: 
-          <input id="activityName" ref={(activityName => this.activityName = activityName)}/>
-        </div>
-        <div>New Time:
-        <select id="time" ref={(time) => this.time = time}>
+
+      <div className="activity-edit">
+        <h3 className="activity-edit-header">Edit</h3>
+        <p>Activity Name</p>
+        <input className="c-input-comment" id="activityName" defaultValue={this.props.activity.description} ref={(activityName => this.activityName = activityName)}/>
+
+        <select className="c-select c-select-timeSmall" id="time" ref={(time) => this.time = time}>
             {time.map((el, i) => {
               return <option key={i}>{el}</option>
             })}
-          </select>
-          <select id="ampm" ref={(ampm) => this.ampm = ampm}>
-            <option>AM</option>
-            <option>PM</option>
-          </select>
-                <button onClick={this.updateActivity}>save</button>
-                <button onClick={this.cancelEdit}>cancel</button>
-        </div>
+        </select>
+        <select className="c-select c-select-timeSmall" id="ampm" ref={(ampm) => this.ampm = ampm}>
+          <option>AM</option>
+          <option>PM</option>
+        </select>
+        <br/>
+        <button className="btn-tran btn-tran-medium draw-border" style={{'marginRight':'10px'}} onClick={this.cancelEdit}>Cancel</button>
+        <button className="btn-tran btn-tran-medium draw-border-orange" onClick={this.updateActivity}>Save</button>
+
       </div>
     )
   }
