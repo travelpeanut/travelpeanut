@@ -166,7 +166,6 @@ const deleteInvitation = (email, tripId) => {
 };
 
 const addActivity = (tripId, activityDate, startTime, activityName) => {
-  console.log(tripId, activityDate, startTime, activityName)
   const query = `INSERT INTO activities (trip_id, description, date_of_activity, start_time) values (${tripId}, '${escape(activityName)}', '${activityDate}', '${startTime}');`;
   return pool.query(query)
     .catch((err) => {
@@ -175,7 +174,9 @@ const addActivity = (tripId, activityDate, startTime, activityName) => {
 };
 
 const getActivites = (tripId, activityDate) => {  
+  console.log(activityDate)
   const query = `SELECT * FROM activities WHERE date_of_activity='${activityDate}' AND trip_id=${tripId} order by start_time asc`;
+  console.log(query)
   return pool.query(query)
     .catch((err) => {
       console.error('couldnt get activities:', err);      

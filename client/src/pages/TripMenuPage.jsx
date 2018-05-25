@@ -28,6 +28,7 @@ class TripMenu extends React.Component {
 
   render() {
     let {currentTrip} = this.props.tripState
+    console.log('menu page', this.props.tripState)
 
     return(
       <div className="tripmenu">

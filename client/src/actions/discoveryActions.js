@@ -4,7 +4,6 @@ import ActionTypes from '../constants/ActionTypes';
 import { GOOGLE_PLACES, unsplashAPI } from '../../../config'
 
 const getCoordinatesByCity = cityAndState => (dispatch, getState) => {
-  // console.log('in discoveryActions: ', cityAndState)
   axios.get('/api/getCoordinates', { params: cityAndState })
     .then((cityData) => {
       dispatch({
