@@ -24,7 +24,7 @@ const LandingPageHow = () => {
             <img src={Yelp}/>
             {/* Text */}
             <div className="landing-how-info-text">
-              We utilize the Yelp API to find recommendations based on what you're looking for. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt, metus id cursus malesuada, neque mauris tincidunt ipsum, 
+              We utilize the Yelp API to find recommendations based on what you're looking for, so that you exactly what you want out of your trip.
             </div>
           </div>
 
@@ -36,7 +36,7 @@ const LandingPageHow = () => {
           <img src={Firebase}/>
           {/* text */}
           <div className="landing-how-info-text">
-            Our chat is powered by Firebase, Google's real time database, which allows us to dynamically render any changes in the database 
+            Our chat is powered by Firebase, Google's real time database, allowing us to dynamically render any new messages that are sent.
           </div>
         </div>
 
