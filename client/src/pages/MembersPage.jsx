@@ -33,7 +33,11 @@ class MembersPage extends React.Component {
   }
 
   deleteTripMember(memberId) {
-    this.props.actions.deleteTripMember(memberId)
+    if (memberId !== this.props.tripState.currentTrip.owner_id) {
+      this.props.actions.deleteTripMember(memberId)
+    } else {
+      alert('please contact the trip owner to delete this member!')
+    }
   }
 
   handleBack(){
