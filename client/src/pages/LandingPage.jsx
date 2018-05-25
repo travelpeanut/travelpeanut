@@ -5,6 +5,10 @@ import * as userActions from '../actions/userActions.js';
 import Navbar from '../components/Navbar.jsx'
 import Logo from '../styles/img/peanut.png'
 
+import LandingPageFeatures from '../components/LandingPageFeatures.jsx'
+import LandingPageHow from '../components/LandingPageHow.jsx'
+import LandingPageTech from '../components/LandingPageTech.jsx'
+import LandingPageTeam from '../components/LandingPageTeam.jsx'
 
 class LandingPage extends React.Component {
   constructor(props) {
@@ -38,15 +42,21 @@ class LandingPage extends React.Component {
           </div>
         </div>
 
-        <div className="landing-content landing-content-a">
-          content
+        <div className="landing-content landing-content-a">          
+          <LandingPageFeatures/>
         </div>
   
-        <div className="landing-content landing-content-b">content</div>
+        <div className="landing-content landing-content-b">
+          <LandingPageHow />  
+        </div>        
 
-        <div className="landing-content landing-content-c">content</div>
+        <div className="landing-content landing-content-c">
+          <LandingPageTeam />
+        </div>
 
-        <div className="landing-footer">footer content</div>
+        <div className="landing-footer">
+          <LandingPageTech />
+        </div>
 
 
 

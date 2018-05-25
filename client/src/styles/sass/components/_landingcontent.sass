@@ -1,0 +1,100 @@
+.landing
+  &-header
+    text-align: center
+    margin-top: 30px
+    margin-bottom: 20px
+  &-a
+    &-container
+      display: flex
+    &-info
+      text-align: center
+      width: 33.33%
+      margin-right: 30px
+      margin-left: 30px
+      img
+        margin-bottom: 40px
+    &-title
+      margin-bottom: 40px
+  &-how
+    position: absolute
+    display: inline-block
+    &-info
+      position: relative
+      margin: 0 40px 0 40px
+      img
+        &-text
+          margin-bottom: 30px
+  &-c
+    &-container
+      display: flex
+
+.gif
+  height: 350px
+
+.technology
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  img
+    height: 128px
+
+.team
+  margin-left: 50px
+  margin-right: 50px
+  &-name
+    text-align: center
+  &-image
+    img
+      border: 5px solid black
+      border-radius: 50%
+      height: 200px
+      cursor: pointer
+      &:hover
+
+.flip-container 
+  perspective: 1000px
+  &:hover
+    transform: rotateY(180deg)
+
+.flipper
+  transition: 0.6s
+  transform-style: preserve-3d
+  position: relative
+
+
+/* flip the pane when hovered */
+.flip-container:hover .flipper, .flip-container.hover .flipper 
+  transform: rotateY(180deg)
+
+
+.flip-container, .front, .back 
+  width: 235px
+  height: 235px
+
+
+/* flip speed goes here */
+.flipper 
+  transition: 0.6s
+  transform-style: preserve-3d
+  position: relative
+
+
+/* hide back of pane during swap */
+.front, .back 
+  backface-visibility: hidden
+  position: absolute
+  top: 0
+  left: 0
+
+
+/* front pane, placed above back */
+.front 
+  z-index: 2
+  /* for firefox 31 */
+  transform: rotateY(0deg)
+
+
+/* back, initially hidden pane */
+.back 
+  transform: rotateY(180deg)
+
+  

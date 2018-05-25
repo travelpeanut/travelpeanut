@@ -27,7 +27,7 @@ class TripDetail extends React.Component {
     this.handleBack = this.handleBack.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getActivities()    
   }  
   
