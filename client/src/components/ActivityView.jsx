@@ -41,7 +41,7 @@ class ActivityView extends React.Component{
         this.props.actions.deleteActivity(this.props.activity.id, this.props.activity.date_of_activity)
     }
 
-    async voteActivity(bool) {
+    voteActivity(bool) {
         axios.post('/api/votes', {
             params: {
                 activityId: this.props.activity.id,
