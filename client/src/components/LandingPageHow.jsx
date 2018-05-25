@@ -16,17 +16,6 @@ const LandingPageHow = () => {
       {/* Container */}
       <div className="landing-how">
 
-        {/* Info 1 */}
-        <div className="landing-how-info">
-          {/* Google Calender icon */}
-          <img src={Firebase}/>
-          {/* text */}
-          <div className="landing-how-info-text">
-            Our chat is powered by Firebase, Google's real time database, which allows us to dynamically render any changes in the database 
-          </div>
-        </div>
-
-
         {/* Info 2 */}
         <div className="landing-how-info">
 
@@ -40,6 +29,18 @@ const LandingPageHow = () => {
           </div>
 
         </div>
+
+        {/* Info 1 */}
+        <div className="landing-how-info">
+          {/* Google Calender icon */}
+          <img src={Firebase}/>
+          {/* text */}
+          <div className="landing-how-info-text">
+            Our chat is powered by Firebase, Google's real time database, which allows us to dynamically render any changes in the database 
+          </div>
+        </div>
+
+
         
       </div>
     </div>

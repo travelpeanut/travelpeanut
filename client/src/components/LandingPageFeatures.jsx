@@ -15,7 +15,7 @@ const LandingPageFeatures = () => {
 
         {/* Features */}
         <div className="landing-a-info">
-          <h2 className="landing-a-title">Plan Your Next Adventure</h2>
+          <h2 className="landing-a-title">Go Exploring</h2>
           <img src={Globe}/>
           <h4>Create and plan out your trip</h4>
           <br />

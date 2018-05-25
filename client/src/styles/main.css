@@ -527,9 +527,6 @@ input {
 .landing-c-container {
   display: flex; }
 
-.gif {
-  height: 350px; }
-
 .technology {
   display: grid;
   grid-template-columns: repeat(4, 1fr); }
@@ -537,31 +534,48 @@ input {
     height: 128px; }
 
 .team {
-  margin-left: 50px;
-  margin-right: 50px; }
-  .team-name {
-    text-align: center; }
-  .team-image img {
-    border: 5px solid white;
-    border-radius: 50%;
-    height: 200px;
-    transition: .3s; }
-    .team-image img:hover {
-      filter: blur(5px) brightness(80%);
-      transition: .3s; }
-  .team-image:not(img) {
-    opacity: 1; }
+  flex: 1;
+  position: relative; }
+  .team-position {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 3%; }
   .team-container {
     position: relative; }
   .team-info {
-    position: absolute;
+    display: inline-block;
+    position: relative;
     text-align: center;
-    margin-top: 50%;
-    color: white; }
+    margin-bottom: 5%;
+    left: 19%; }
+    .team-info img {
+      border-radius: 50%;
+      height: 200px;
+      transition: .2s; }
+    .team-info:hover img {
+      transition: .2s;
+      filter: blur(5px) brightness(60%); }
+    .team-info:hover div {
+      opacity: 1; }
+    .team-info-description {
+      position: absolute;
+      top: 40%;
+      color: white;
+      opacity: 0;
+      z-index: 1;
+      margin-left: 5px;
+      margin-right: 5px; }
+  .team-name {
+    font-weight: bold; }
 
-.github:hover {
-  transition: .3s;
-  opacity: .6; }
+.github {
+  align-items: center; }
+  .github-icon {
+    position: absolute;
+    left: 45%; }
+    .github-icon:hover {
+      transition: .2s;
+      opacity: .75; }
 
 * {
   margin: 0;

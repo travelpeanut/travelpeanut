@@ -40,9 +40,9 @@ const LandingPageTech = () => {
           <img src={postgres}/>
         </div>
 
-        <div>
+        {/* <div>
           <img src={express}/>
-        </div>
+        </div> */}
 
         <div>
           <img src={firebase}/>
