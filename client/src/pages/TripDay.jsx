@@ -19,8 +19,8 @@ class TripDay extends React.Component {
     const tripId = this.props.tripState.currentTrip.trip_id
     const day = this.props.day
     const pathname = `/trip/${tripId}/details/${this.props.day}`
-    const startDate = moment(this.props.startDate).format('MMMM-DD-YYYY')
-    const activityDate = moment(startDate).add(day-1, 'days').format('MMMM-DD-YYYY')
+    const startDate = moment(this.props.startDate).format('YYYY-MM-DD')
+    const activityDate = moment(startDate).add(day-1, 'days').format('YYYY-MM-DD')
 
     console.log(activityDate)
 

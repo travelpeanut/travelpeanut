@@ -567,6 +567,87 @@ input {
       font-weight: 200;
       font-size: 20px; }
 
+.landing-header {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px; }
+
+.landing-a-container {
+  display: flex; }
+
+.landing-a-info {
+  text-align: center;
+  width: 33.33%;
+  margin-right: 30px;
+  margin-left: 30px; }
+  .landing-a-info img {
+    margin-bottom: 40px; }
+
+.landing-a-title {
+  margin-bottom: 40px; }
+
+.landing-how {
+  position: absolute;
+  display: inline-block; }
+  .landing-how-info {
+    position: relative;
+    margin: 0 40px 0 40px; }
+    .landing-how-info img-text {
+      margin-bottom: 30px; }
+
+.landing-c-container {
+  display: flex; }
+
+.technology {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); }
+  .technology img {
+    height: 128px; }
+
+.team {
+  flex: 1;
+  position: relative; }
+  .team-position {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 3%; }
+  .team-container {
+    position: relative; }
+  .team-info {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    margin-bottom: 5%;
+    left: 19%; }
+    .team-info img {
+      border-radius: 50%;
+      height: 200px;
+      transition: .2s; }
+    .team-info:hover img {
+      transition: .2s;
+      filter: blur(5px) brightness(60%); }
+    .team-info:hover div {
+      opacity: 1; }
+    .team-info-description {
+      position: absolute;
+      top: 40%;
+      color: white;
+      opacity: 0;
+      z-index: 1;
+      margin-left: 5px;
+      margin-right: 5px; }
+  .team-name {
+    font-weight: bold; }
+
+.github {
+  align-items: center; }
+  .github-icon {
+    position: absolute;
+    left: 45%; }
+    .github-icon:hover {
+      transition: .2s;
+      opacity: .75; }
+
 * {
   margin: 0;
   font-family: 'Work Sans', sans-serif; }
