@@ -1,0 +1,85 @@
+.landing
+  &-header
+    text-align: center
+    margin-top: 30px
+    margin-bottom: 20px
+  &-a
+    &-container
+      display: flex
+    &-info
+      text-align: center
+      width: 33.33%
+      margin-right: 30px
+      margin-left: 30px
+      img
+        margin-bottom: 40px
+    &-title
+      margin-bottom: 40px
+  &-how
+    position: absolute
+    display: inline-block
+    &-info
+      position: relative
+      margin: 0 40px 0 40px
+      img
+        &-text
+          margin-bottom: 30px
+  &-c
+    &-container
+      display: flex
+
+.technology
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  img
+    height: 128px
+
+.team
+  flex: 1
+  position: relative
+  &-position
+    text-align: center  
+    margin-top: 5%
+    margin-bottom: 3%                    
+  &-container
+    position: relative
+  &-info
+    display: inline-block
+    position: relative
+    text-align: center   
+    margin-bottom: 5% 
+    left: 19%
+    img
+      border-radius: 50%
+      height: 200px
+      transition: .2s
+    &:hover
+      img
+        transition: .2s
+        filter: blur(5px) brightness(60%)
+      div
+        opacity: 1
+    &-description
+      position: absolute
+      top: 40%
+      color: white
+      opacity: 0
+      z-index: 1        
+      margin-left: 5px
+      margin-right: 5px
+  &-name
+    font-weight: bold
+
+.github
+  align-items: center
+  &-icon
+    position: absolute
+    left: 45%
+    &:hover
+      transition: .2s
+      opacity: .75
+
+
+
+
+  
