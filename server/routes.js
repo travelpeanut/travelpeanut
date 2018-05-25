@@ -280,6 +280,7 @@ router.route('/invitations')
 router.route('/activities')  
   .get((req, res) => {
     const { tripId, activityDate} = req.query
+    console.log('routejs', activityDate)
     db.getActivites(tripId, activityDate)
       .then((activities) => {
         res.status(200).send(activities);

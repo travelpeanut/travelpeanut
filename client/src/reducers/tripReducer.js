@@ -10,9 +10,9 @@ const initialState = {
   nearbyPlaces: [],
   destination: {},
   pendingInvites: [],
-  placeToAdd: {},
   activitiesForThisDate: [],
-  photosList: []
+  placeToAdd: {},
+  photosList: [],
 };
 
 const tripReducer = (state = initialState, action) => {
@@ -34,10 +34,6 @@ const tripReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         tripCoordinates: action.code,
       });
-    // case 'STORE_NEARBY_PLACES':
-    //   return Object.assign({}, state, {
-    //     nearbyPlaces: action.code,
-    //   });
     case 'ADD_MEMBER':
       return {
         ...state,

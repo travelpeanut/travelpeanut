@@ -18,21 +18,10 @@ class AddToItinerary extends React.Component{
         this.getActivities()
     }
 
-    async addActivity(activityName, currentTrip){        
-        let tripId = currentTrip.trip_id;        
-        let activityDate = this.date.value
+    addActivity(activityName){        
+        let activityDate = moment(this.date.value).format('YYYY-MM-DD')
         let startTime = moment(this.time.value + ' ' + this.ampm.value, 'hh:mm a').format('hh:mm a')
-        let userId = this.props.userState.currentUser.id
-
-        let activityData = {
-            tripId,
-            userId,
-            activityDate,
-            startTime,
-            activityName
-        }
-
-        this.props.actions.addActivityToItinerary(activityData)                
+        this.props.actions.addActivityToItinerary(activityName, activityDate, startTime)                
     }
 
     getActivities(){
@@ -75,7 +64,7 @@ class AddToItinerary extends React.Component{
                     <option>AM</option>
                     <option>PM</option>
                 </select>
-                <button onClick={() => this.addActivity(tripState.placeToAdd.name, tripState.currentTrip)}>Add!</button>
+                <button onClick={() => this.addActivity(tripState.placeToAdd.name)}>Add!</button>
                 <div> Simple Preview </div>
                 <PreviewItinerary/>
             </div>

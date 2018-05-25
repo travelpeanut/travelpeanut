@@ -20,50 +20,34 @@ class AddFromDiscoverPopup extends React.Component {
     this.getActivities()
   }
 
-  async addActivity(activityName, currentTrip){        
-      let tripId = currentTrip.trip_id;        
-      let activityDate = this.date.value
-      let startTime = moment(this.time.value + ' ' + this.ampm.value, 'hh:mm a').format('hh:mm a')
-      let userId = this.props.userState.currentUser.id
-
-      let activityData = {
-          tripId,
-          userId,
-          activityDate,
-          startTime,
-          activityName
-      }
-
-      this.props.actions.addActivityToItinerary(activityData)                
-  }
+  addActivity(activityName){        
+    let activityDate = moment(this.date.value).format('YYYY-MM-DD')
+    let startTime = moment(this.time.value + ' ' + this.ampm.value, 'hh:mm a').format('hh:mm a')
+    this.props.actions.addActivityToItinerary(activityName, startTime, activityDate)                
+}
 
   getActivities(){
-      this.props.actions.getActivitiesForDate(this.date.value)
+      this.props.actions.getActivitiesForDate(moment(this.date.value).format('YYYY-MM-DD'))
   }
-
 
   closePopup(){
     this.props.handleClosePopup()
   }
 
   render() {
-    let {tripState} = this.props
-    let start = new Date(tripState.currentTrip.start_date)
-    let end = new Date(tripState.currentTrip.end_date)
-    let dayCount = Math.round(Math.abs((end.getTime() - start.getTime())/(24*60*60*1000)))
-    let dayArr = [];
-    for(var i=0; i<=dayCount; i++){
-        let day = moment(start).add(24*i,'hours');
-        let dateValue = moment(day).format("MMMM D YYYY")
-        let date = moment(day).format('MMMM Do YYYY')
-        let name = moment(day).format('dddd')
-        dayArr.push([i, date, name, dateValue]);
-      }
+    const {tripState} = this.props
+    const {currentTrip} = this.props.tripState
+    const start = moment(this.props.tripState.currentTrip.start_date, 'YYYY-MM-DD').format('YYYY-MM-DD hh:mm a')        
+    // Finding the number of days the trip lasts. Adding +1 to account for the start day of the trip
+    const tripDuration = moment(currentTrip.end_date).diff(moment(currentTrip.start_date), 'days') + 1    
+    const tripDurationArr = [];
+    for (let i = 1; i <= tripDuration; i++) {
+      tripDurationArr.push([i, currentTrip.start_date])
+    }    
     let time = [];
     for (let i = 0; i < 48; i++) {
         time.push(moment(start, 'YYYY-MM-DD hh:mm a').add(15*(i), 'minutes').format('hh:mm'))
     }
-
 
     return (
       <div className="c-popup--overlay" style={{'display':`${this.props.show}`}}>
@@ -82,11 +66,12 @@ class AddFromDiscoverPopup extends React.Component {
                   <div className="discoverPopup-formContainer">
                     <h4> Select Day:</h4>
                     <select className="c-select c-select-basic" id="date" onChange={this.getActivities} ref={(date) => this.date = date}>
-                        {dayArr.map((info, key) => {
-                            return (
-                                <option key={info[0]} value={info[3]}>Day {info[0]+1}, {info[2]}, {info[1]}</option>
-                            )
-                        })}
+                    {tripDurationArr.map((date, i) => {
+                        const activityDate = moment(currentTrip.start_date).add(i, 'days').format('YYYY-MM-DD')
+                        return (
+                            <option key={i} value={activityDate}>Day {date[0]}, {moment(activityDate).format('dddd')}, {moment(activityDate).format('MMMM Do YYYY')}</option>
+                        )
+                    })}
                     </select>
                   </div>
 
@@ -105,14 +90,14 @@ class AddFromDiscoverPopup extends React.Component {
 
                   <div className="btn-duo-position">
                     <button className="btn-tran btn-tran-small draw-border" onClick={this.closePopup} >Cancel</button>
-                    <button className="btn-tran btn-tran-small draw-border-orange" onClick={() => this.addActivity(tripState.placeToAdd.name, tripState.currentTrip)} >Add!</button>
+                    <button className="btn-tran btn-tran-small draw-border-orange" onClick={() => this.addActivity(tripState.placeToAdd.name)} >Add!</button>
                   </div>
                   
                 </div>
                 <div className="col col-2-of-4">
                   <div className="discoverPopup-formContainer">
                     <h4>{this.date ? this.date.value : ''}: Itinerary Preview</h4>
-                    <PreviewItinerary activities={this.props.tripState.activitiesForThisDate} />
+                    <PreviewItinerary/>
                   </div>
                 </div>
               </div>

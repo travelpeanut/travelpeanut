@@ -19,14 +19,9 @@ class TripDetail extends React.Component {
       editActivityKey: null, 
     }
     this.showEdit = this.showEdit.bind(this)
-    this.getActivities = this.getActivities.bind(this)
     this.addActivity = this.addActivity.bind(this)
     this.handleBack = this.handleBack.bind(this)
   }
-
-  componentDidMount() {
-    this.getActivities()    
-  }  
   
   componentWillUnmount() {        
     this.props.actions.clearActivities()    
@@ -50,10 +45,6 @@ class TripDetail extends React.Component {
     this.props.actions.addCustomActivity(this.activity.value, startTime, activityDate)
   }
 
-  getActivities() {
-    const date = moment(this.props.location.dateOfDayOfWeek, 'MMM Do YYYY').format('YYYY-MM-DD')
-    this.props.actions.getActivitiesForDate(date)
-  }
 
   handleBack() {
     const tripId = this.props.tripState.currentTrip.trip_id
@@ -70,12 +61,11 @@ class TripDetail extends React.Component {
     }
 
     const activities = this.props.tripState.activitiesForThisDate
-    console.log('activities in TripDetailPage: ', activities)
     return(
       <div>
         <BackBtn content={"Back to Trip Itinerary"} handleBack={this.handleBack}/>
 
-        <h1>trip details for day: {this.props.location.day}</h1>
+        <h1>trip details for day: {window.location.pathname.split('/')[4]}</h1>
         <div>
           <input type="text" placeholder='activity name' ref={(activity) => this.activity = activity}/>
           <button onClick={this.addActivity}>add</button>

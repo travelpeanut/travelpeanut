@@ -15,11 +15,17 @@ class TripDay extends React.Component {
   this.redirectToTripDetails = this.redirectToTripDetails.bind(this)
   }
 
-  redirectToTripDetails(dayOfWeek, dateOfDayOfWeek){
-    let {currentTrip} = this.props.tripState
-    let tripId = this.props.tripState.currentTrip.trip_id
+  async redirectToTripDetails(dayOfWeek, dateOfDayOfWeek){
+    const tripId = this.props.tripState.currentTrip.trip_id
     const day = this.props.day
     const pathname = `/trip/${tripId}/details/${this.props.day}`
+    const startDate = moment(this.props.startDate).format('MMMM-DD-YYYY')
+    const activityDate = moment(startDate).add(day-1, 'days').format('MMMM-DD-YYYY')
+
+    console.log(activityDate)
+
+    await this.props.actions.getActivitiesForDate(activityDate)
+
     this.props.history.push({
       pathname,
       dayOfWeek,
@@ -29,6 +35,7 @@ class TripDay extends React.Component {
   }
 
   render() {
+    console.log('daypage', this.props.tripState)
     const dayOfWeek = moment(this.props.startDate).add(this.props.day-1, 'days').format('dddd')
     const dateOfDayOfWeek = moment(this.props.startDate).add(this.props.day-1, 'days').format('MMM Do YYYY')
     return (

@@ -160,7 +160,6 @@ const sendInvite = toEmail => (dispatch, getState) => {
     },
   })
     .then(() => {
-      console.log('hi pending')
       dispatch(getPendingInvites());
     })
     .catch((err) => {
@@ -187,6 +186,7 @@ const deleteInvite = email => (dispatch, getState) => {
 
 const getActivitiesForDate = (activityDate) => (dispatch, getState) => {
   const tripId = getState().tripReducer.currentTrip.trip_id
+  console.log('getActivitiesForDate', activityDate)
   axios.get('/api/activities', { params: { activityDate, tripId, } })
     .then(({data}) => {
       dispatch({
@@ -210,7 +210,6 @@ const addCustomActivity = (activityName, startTime, activityDate) => (dispatch, 
     }
   })
   .then(() => {      
-    console.log(activityDate)
     dispatch(getActivitiesForDate(activityDate));     
   })
   .catch((err) => {
@@ -218,23 +217,35 @@ const addCustomActivity = (activityName, startTime, activityDate) => (dispatch, 
   });
 }
 
-  
-const addActivityToItinerary = activityData => (dispatch, getState) => {  
-  const tripId = getState().tripReducer.currentTrip.trip_id
-  const activity = {
-    ...activityData,
-    tripId,
-  }
-    
-  const startdate = moment(getState().tripReducer.currentTrip.start_date, 'YYYY-MM-DD').format('YYYY-MM-DD')
-  // const activitydate = moment(activityData.activityDate, 'MMMM D YYYY').format('YYYY-MM-DD')    
-  const day = moment(activity.activityDate).diff(moment(startdate), 'days') + 1
-  console.log(activityData.activityDate)
+// const pushToTripDetailPage = (tripDay) => (dispatch, getState) => {
+//   const tripId = getState().tripReducer.currentTrip.trip_id
 
-  axios.post('/api/activities', { params: activity })
+
+// }
+
+
+const addActivityToItinerary = (activityName, startTime, activityDate) => (dispatch, getState) => {  
+  const tripId = getState().tripReducer.currentTrip.trip_id
+  const startdate = moment(getState().tripReducer.currentTrip.start_date, 'YYYY-MM-DD').format('YYYY-MM-DD')
+  const day = moment(activityDate).diff(moment(startdate), 'days') + 1
+
+  // console.log('name', activityName)
+  // console.log('tripid', tripId)
+  // console.log('startDate', startdate)
+  // console.log('day', day)
+  // console.log('starttime', startTime)
+  // console.log('activityDate', activityDate)
+
+  axios.post('/api/activities', { 
+    params: {
+      tripId,
+      activityDate,
+      startTime,
+      activityName
+    } 
+})
   .then(() => {      
-    console.log(activity.activityDate)
-    dispatch(getActivitiesForDate(activity.activityDate));     
+    dispatch(getActivitiesForDate(activityDate));     
   })
   .then(() => {
     dispatch(push(`/trip/${tripId}/details/${day}`));
