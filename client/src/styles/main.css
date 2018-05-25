@@ -571,6 +571,8 @@ input {
   text-align: center;
   margin-top: 30px;
   margin-bottom: 20px; }
+  .landing-header h1 {
+    font-weight: 400; }
 
 .landing-a-container {
   display: flex; }
@@ -584,7 +586,14 @@ input {
     margin-bottom: 40px; }
 
 .landing-a-title {
-  margin-bottom: 40px; }
+  margin-bottom: 40px;
+  font-weight: 300; }
+
+.landing-a-feature {
+  font-weight: 400; }
+
+.landing-a-descr {
+  font-weight: 300; }
 
 .landing-how {
   position: absolute;
@@ -638,6 +647,8 @@ input {
       margin-right: 5px; }
   .team-name {
     font-weight: bold; }
+  .team-title {
+    font-weight: 300; }
 
 .github {
   align-items: center; }
