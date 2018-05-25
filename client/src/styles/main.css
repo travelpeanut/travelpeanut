@@ -588,10 +588,20 @@ input {
 
 .landing-header {
   text-align: center;
-  margin-top: 30px;
-  margin-bottom: 20px; }
+  margin-top: 50px;
+  margin-bottom: 70px;
+  color: #444; }
   .landing-header h1 {
-    font-weight: 400; }
+    font-weight: 200; }
+  .landing-header-b {
+    padding-top: 50px;
+    color: #666; }
+    .landing-header-b-content {
+      margin-top: -48px;
+      font-weight: 100; }
+    .landing-header-b-grid {
+      width: 1250px !important;
+      color: #666; }
 
 .landing-a-container {
   display: flex; }
@@ -618,10 +628,10 @@ input {
   position: absolute;
   display: inline-block; }
   .landing-how-info {
-    position: relative;
-    margin: 0 40px 0 40px; }
-    .landing-how-info img-text {
-      margin-bottom: 30px; }
+    position: relative; }
+    .landing-how-info-text {
+      margin-bottom: 30px;
+      font-weight: 100; }
 
 .landing-c-container {
   display: flex; }
@@ -741,6 +751,7 @@ input {
   .landing-content {
     height: 500px; }
     .landing-content-b {
+      height: 700px;
       background-color: #e0d3cb; }
   .landing-footer {
     background-color: #ffffff;
