@@ -7,6 +7,8 @@ import * as tripActions from '../actions/tripActions.js';
 import * as discoverActions from '../actions/discoveryActions.js';
 import Comments from './Comments.jsx'
 import axios from 'axios'
+import Happy from '../styles/img/happy.png'
+import Sad from '../styles/img/sad.png'
 
 class ActivityView extends React.Component{
     constructor(props){
@@ -66,20 +68,63 @@ class ActivityView extends React.Component{
         const upVoteCount = this.state.votes.filter((item, i) => item.vote === true)[0] || {}
         const downVoteCount = this.state.votes.filter((item, i) => item.vote === false)[0] || {}
         return(
-            <div>
-                <p>{moment(activity.start_time, "HH:mm:ss").format("h:mm a")}</p>
-                <div>{unescape(activity.description)}</div>
-                <button onClick={() => this.voteActivity(true)}>LET'S DO IT {upVoteCount.count || 0}</button>
-                <button onClick={() => this.voteActivity(false)}>MAYBE NOT {downVoteCount.count || 0}</button>
-                <button onClick={this.toggleEdit} > Edit </button>
-                <button onClick={this.deleteActivity} >delete</button>
-                {this.state.showEdit ? <EditActivity
-                    activity={activity}
-                    toggleEdit={this.toggleEdit}
-                />
-                : null }
-              <hr />
-                <Comments activity={activity}/>
+            <div className="activity">
+
+                <div className="grid">
+                    <div className="row">
+                        <div className="col col-2-of-12">
+                            <p className="activity-time">{moment(activity.start_time, "HH:mm:ss").format("h:mm a")}</p>
+                          
+                        </div>
+                        <div className="col col-8-of-12">
+                            <p className="activity-title">{unescape(activity.description)}</p>
+                            <hr className="activity-title-hr"/>
+                        </div>
+                        <div className="col col-2-of-12 activity-votes">
+                            <div className="activity-upvote">
+                                <div className="activity-upvote-happy" onClick={() => this.voteActivity(true)}>
+                                    <img className="activity-upvote-happy-img" src={Happy} alt=""/>
+                                </div>
+                                <span className="activity-count">{upVoteCount.count || 0}</span>
+                            </div>
+                            <div className="activity-downvote">
+                                <div className="activity-downvote-sad" onClick={() => this.voteActivity(false)}>
+                                    <img className="activity-downvote-sad-img" src={Sad} alt=""/>
+                                </div>
+                                <span className="activity-count">{downVoteCount.count || 0}</span>
+                            </div>
+
+                      
+                        
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col col-3-of-12 center">
+                            <Comments activity={activity}/>
+                        </div>
+                        <div className="col col-2-of-12">
+                            <div className="activity-selection">
+                                <button className="btn-tran btn-tran-medium draw-border" onClick={this.toggleEdit} >Edit Activity</button>
+                                <button className="btn-tran btn-tran-medium draw-border" onClick={this.deleteActivity} >Delete Activity</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div className="row">
+                        <div className="col col-5-of-12 center">
+                            {this.state.showEdit ? <EditActivity
+                                activity={activity}
+                                toggleEdit={this.toggleEdit}
+                            />
+                            : null }
+                        </div>
+
+                    </div>
+
+                   
+                </div>
+
+
             </div>
         )
     }

@@ -95,7 +95,7 @@ class HomePage extends React.Component {
           <CreateTripBtn handleCreate={this.handleCreate}/>
         </div>
 
-        <Popup show={this.state.show} handleSubmit={this.handleSubmit} handleClosePopup={this.handleClosePopup}/>
+        <Popup  show={this.state.show} location={this.props.location} handleSubmit={this.handleSubmit} handleClosePopup={this.handleClosePopup}/>
         
         <div className="home-container">
 

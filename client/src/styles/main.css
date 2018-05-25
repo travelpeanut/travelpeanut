@@ -125,6 +125,10 @@
     padding-bottom: 35px;
     font-weight: 300;
     font-size: 1.8em; }
+  .c-popup h5 {
+    font-size: 1.2em;
+    font-weight: 100;
+    color: #444; }
 
 .c-discoverPopup {
   width: 800px !important;
@@ -261,8 +265,16 @@
   border: 2px;
   margin-bottom: 20px; }
 
+.c-input-comment {
+  width: 350px;
+  outline: none;
+  padding: 9px;
+  border-radius: 2px;
+  border: 1px solid #2222;
+  margin-bottom: 20px; }
+
 .c-input-textarea {
-  width: 66%;
+  width: 75%;
   outline: none;
   padding: 9px;
   border-radius: 2px;
@@ -289,6 +301,9 @@ input {
     width: 270px; }
   .c-select-time {
     width: 200px; }
+  .c-select-timeSmall {
+    width: 150px;
+    margin-right: 10px; }
 
 .c-backbtn {
   position: absolute;
@@ -466,6 +481,10 @@ input {
     width: 100px;
     padding: .4em .4em;
     margin-right: 8px; }
+  .btn-tran-medium {
+    width: 170px;
+    padding: 0.5em 0.5em;
+    font-size: 14px; }
 
 .btn-duo-position {
   margin-right: 15px; }
@@ -569,10 +588,20 @@ input {
 
 .landing-header {
   text-align: center;
-  margin-top: 30px;
-  margin-bottom: 20px; }
+  margin-top: 50px;
+  margin-bottom: 70px;
+  color: #444; }
   .landing-header h1 {
-    font-weight: 400; }
+    font-weight: 200; }
+  .landing-header-b {
+    padding-top: 50px;
+    color: #666; }
+    .landing-header-b-content {
+      margin-top: -48px;
+      font-weight: 100; }
+    .landing-header-b-grid {
+      width: 1250px !important;
+      color: #666; }
 
 .landing-a-container {
   display: flex; }
@@ -599,10 +628,10 @@ input {
   position: absolute;
   display: inline-block; }
   .landing-how-info {
-    position: relative;
-    margin: 0 40px 0 40px; }
-    .landing-how-info img-text {
-      margin-bottom: 30px; }
+    position: relative; }
+    .landing-how-info-text {
+      margin-bottom: 30px;
+      font-weight: 100; }
 
 .landing-c-container {
   display: flex; }
@@ -722,6 +751,7 @@ input {
   .landing-content {
     height: 500px; }
     .landing-content-b {
+      height: 700px;
       background-color: #e0d3cb; }
   .landing-footer {
     background-color: #ffffff;
@@ -911,3 +941,78 @@ input {
     width: 40px;
     position: absolute;
     left: 13px; }
+
+.tripDetails-container h2 {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 300;
+  margin: 36px 0; }
+
+.tripDetails-container-list {
+  margin: 7% 0; }
+
+.activity {
+  margin-top: 20px; }
+  .activity .grid {
+    width: 1200px; }
+  .activity-time {
+    font-weight: 100;
+    font-size: 36px;
+    color: #666; }
+  .activity-title {
+    font-size: 40px;
+    font-weight: 500;
+    color: #444;
+    text-align: center;
+    padding: 0 10px; }
+    .activity-title-hr {
+      width: 400px;
+      margin: 40px auto 0px;
+      border: 0;
+      height: 1px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)); }
+  .activity-upvote {
+    margin-bottom: 5px; }
+    .activity-upvote-happy {
+      display: inline-block;
+      cursor: pointer; }
+      .activity-upvote-happy-img {
+        width: 50px; }
+    .activity-upvote-count {
+      display: inline-block; }
+  .activity-downvote-sad {
+    display: inline-block;
+    cursor: pointer; }
+    .activity-downvote-sad-img {
+      width: 50px; }
+  .activity-count {
+    display: inline-block;
+    font-size: 1.5em;
+    font-weight: 100;
+    position: relative;
+    left: 15px;
+    bottom: 15px; }
+  .activity-comments-hr {
+    width: 150px; }
+  .activity-comments-form {
+    margin-top: 20px; }
+  .activity-comments-item {
+    margin-bottom: 4px; }
+    .activity-comments-item__User {
+      font-weight: 500;
+      font-size: 1.2em;
+      margin-right: 4%; }
+    .activity-comments-item__Msg {
+      font-weight: 200; }
+  .activity-selection {
+    margin-top: 10px; }
+  .activity-edit {
+    border: 1px solid #2222;
+    padding: 30px; }
+    .activity-edit-header {
+      font-size: 30px;
+      font-weight: 100;
+      margin-bottom: 15px; }
+    .activity-edit p {
+      font-size: 15px;
+      font-weight: 300; }

@@ -42,11 +42,11 @@ class LandingPage extends React.Component {
           </div>
         </div>
 
-        <div className="landing-content landing-content-a">          
+        <div className="landing-content">          
           <LandingPageFeatures/>
         </div>
   
-        <div className="landing-content landing-content-b">
+        <div className="landing-content-b">
           <LandingPageHow />  
         </div>        
 
