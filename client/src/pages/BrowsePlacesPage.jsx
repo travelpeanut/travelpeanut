@@ -49,9 +49,7 @@ class BrowsePlaces extends React.Component {
     const places = this.props.discoveryState.places
     return(
       <div className="yelp">
-        {/* <div className="discoverResults-back" > */}
           <BackBtn classname={"discoverResults-backBtn"} content={"Back to Discover Menu"} handleBack={this.handleBack}/>
-        {/* </div> */}
 
         <Popup show={this.state.show}  handleClosePopup={this.handleClosePopup}/>
 

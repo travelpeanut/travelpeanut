@@ -61,7 +61,7 @@ class AddToItinerary extends React.Component{
                     {tripDurationArr.map((date, i) => {
                         const activityDate = moment(currentTrip.start_date).add(i, 'days').format('YYYY-MM-DD')
                         return (
-                            <option key={i} value={activityDate}>Day {date[0]}, {moment(activityDate).format('dddd')}, {moment.parseZone(activityDate).format('MMMM Do YYYY')}</option>
+                            <option key={i} value={activityDate}>Day {date[0]}, {moment(activityDate).format('dddd')}, {moment(activityDate).format('MMMM Do YYYY')}</option>
                         )
                     })}
                 </select>
