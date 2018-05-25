@@ -15,6 +15,22 @@ const getAllTrips = () => (dispatch, getState) => {
         type: ActionTypes.GET_ALL_TRIPS,
         code: data.rows,
       });
+      return data.rows
+    })
+    .then((trips) => {
+      console.log('trips,', trips)
+      let cities = []
+      trips.forEach((e) => cities.push(e.city))
+      return axios.get('/api/photos', {
+        params: {cities}
+      })
+    })
+    .then((res) => {
+      console.log('res with photos', res.data)
+      dispatch({
+        type: ActionTypes.SET_PHOTOS,
+        code: res.data,
+      });
     })
     .catch((err) => {
       console.error(err);

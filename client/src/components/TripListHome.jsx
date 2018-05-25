@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 
-const TripListHome = ({allTrips, goToTrip, currentUserId, deleteTrip}) => {
+const TripListHome = ({allTrips, goToTrip, currentUserId, deleteTrip, allPhotos}) => {
   return (
     <div>
       {
@@ -15,7 +15,7 @@ const TripListHome = ({allTrips, goToTrip, currentUserId, deleteTrip}) => {
               <div className="grid">
                 <div className="row">
                   <div className="col col-2-of-4">
-                    <img src="https://images.unsplash.com/photo-1446038202205-1c96430dbdab?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8bc8829ca2d952a157c651e7cb5facc9&auto=format&fit=crop&w=2849&q=80" alt=""/>
+                    <img src={allPhotos[i]} alt=""/>
                   </div>
                   <div className="col col-2-of-4">
                     <div className="c-tripHome-content">

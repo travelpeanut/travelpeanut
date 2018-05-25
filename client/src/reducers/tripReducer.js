@@ -12,6 +12,7 @@ const initialState = {
   pendingInvites: [],
   placeToAdd: {},
   activitiesForThisDate: [],
+  photosList: []
 };
 
 const tripReducer = (state = initialState, action) => {
@@ -69,6 +70,11 @@ const tripReducer = (state = initialState, action) => {
         ...state,
         activitiesForThisDate: action.activities
       };
+    case 'SET_PHOTOS':
+      return {
+        ...state,
+        photosList: action.code
+      }
     default:
       return Object.assign({}, state);
   }
