@@ -5,7 +5,12 @@ A web application to help organize a trip itinerary for group travelers.
 TravelPeanut was built buy a group of students at Hack Reactor. The concept was to create an application to easily collaborate among a group to create a trip itinerary.
  
 ## Screenshots
-Include logo/demo screenshot etc.
+![screen shot 2018-05-24 at 3 40 40 pm](https://user-images.githubusercontent.com/34013422/40551764-dce83d5c-600b-11e8-9870-beae338e6c0b.png)
+![screen shot 2018-05-24 at 3 58 29 pm](https://user-images.githubusercontent.com/34013422/40551766-dcfada2a-600b-11e8-9dd8-823b757a01b2.png)
+![screen shot 2018-05-24 at 3 58 44 pm](https://user-images.githubusercontent.com/34013422/40551767-dd1116a0-600b-11e8-9e73-5cd4a53eb667.png)
+![screen shot 2018-05-24 at 3 59 01 pm](https://user-images.githubusercontent.com/34013422/40551769-dd65847e-600b-11e8-8c5a-bd5dd80892ae.png)
+![screen shot 2018-05-24 at 3 59 27 pm](https://user-images.githubusercontent.com/34013422/40551770-dd7f58e0-600b-11e8-9fb1-ab601998931a.png)
+![screen shot 2018-05-24 at 4 00 55 pm](https://user-images.githubusercontent.com/34013422/40551771-dd9316f0-600b-11e8-880e-b7a8f8d27eae.png)
 
 ## Tech/framework used
 
