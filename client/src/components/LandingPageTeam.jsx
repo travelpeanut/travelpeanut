@@ -1,6 +1,6 @@
 import React from 'react'
 import github from '../styles/img/github.png'
-import brian from '../styles/img/brian.jpg'
+import brianfang from '../styles/img/brianfang.jpg'
 import david from '../styles/img/david.jpg'
 
 const LandingPageTeam = () => {
@@ -52,8 +52,8 @@ const LandingPageTeam = () => {
       {/* Brian */}
       <div className="team">
         <div className="team-info">
-          <img className="team-img" src="https://avatars3.githubusercontent.com/u/35786667?s=460&v=4" />
-          <div className="team-info-description">Loves BEING A STRAIGHT UP G</div>
+          <img className="team-img" src={brianfang} />
+          <div className="team-info-description">Loves being Brian Fang</div>
         </div>
 
         <div className="team-position">
@@ -70,7 +70,7 @@ const LandingPageTeam = () => {
       <div className="team">
         <div className="team-info">
           <img className="team-img" src="https://avatars1.githubusercontent.com/u/34013422?s=460&v=4" />
-          <div className="team-info-description">Loves the mountains, snowboarding, & all things cars</div>
+          <div className="team-info-description">Loves the mountains, snowboarding & all things cars</div>
         </div>
 
         <div className="team-position">
