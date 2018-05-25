@@ -11,7 +11,8 @@ const initialState = {
   destination: {},
   pendingInvites: [],
   activitiesForThisDate: [],
-  photosList: []
+  placeToAdd: {},
+  photosList: [],
 };
 
 const tripReducer = (state = initialState, action) => {
