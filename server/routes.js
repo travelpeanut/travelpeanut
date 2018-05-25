@@ -54,10 +54,26 @@ router.route('/users')
       });
   });
 
-router.route('/home')
-  .get()
-  .post()
-  .delete();
+router.route('/photos')
+  .get((req, res) => {
+    const {cities} = req.query
+    const photos = []
+    cities.forEach((city) => {
+      photos.push(
+        Promise.resolve(axios.get(`https://api.unsplash.com/search/photos/?query=${city}&client_id=${unsplashAPI}`)
+          .then((data) => {
+            const imgUrl = data.data.results[0].urls.regular;
+            return imgUrl
+          })
+        )
+      )
+    })
+    Promise.all(photos)
+      .then((photos) => {
+        res.status(200).send(photos)
+      })
+  })
+
 
 
 router.route('/trips')

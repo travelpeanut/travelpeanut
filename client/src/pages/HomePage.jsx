@@ -108,6 +108,7 @@ class HomePage extends React.Component {
               goToTrip={(item) => this.goToTrip(item)}
               currentUserId={userState.currentUser.id}
               deleteTrip={tripId => this.deleteTrip(tripId)}
+              allPhotos={tripState.photosList}
             />
           </div>
         </div>
