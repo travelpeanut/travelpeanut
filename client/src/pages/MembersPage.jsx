@@ -48,7 +48,6 @@ class MembersPage extends React.Component {
 
   render() {
     const { currentTrip, pendingInvites, tripMembers } = this.props.tripState
-    console.log('current', pendingInvites)
     const { currentUser } = this.props.userState
 
     return (

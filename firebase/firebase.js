@@ -1,24 +1,7 @@
-import * as firebase from 'firebase';
-
-const config = {
-  apiKey: 'AIzaSyBCRrBpDOeycW-y13E3yEZrfhxt-6NX2Ck',
-  authDomain: 'travelpeanut-26014.firebaseapp.com',
-  databaseURL: 'https://travelpeanut-26014.firebaseio.com',
-  projectId: 'travelpeanut-26014',
-  storageBucket: 'travelpeanut-26014.appspot.com',
-  messagingSenderId: '712830463027',
-
-  clientId: '712830463027-cni4cud2aoiblkjhmob17qeoti0ts5ft.apps.googleusercontent.com',
-
-  scopes: ['email',
-  'profile',
-  'https://www.googleapis.com/auth/calendar'
-  ],
-
-  discoveryDocs: [
-    'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'
-  ]
-};
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
+import config from './fbConfig.js'
 
 if (!firebase.apps.length) {
   firebase.initializeApp(config);

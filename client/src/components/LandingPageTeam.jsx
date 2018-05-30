@@ -2,6 +2,8 @@ import React from 'react'
 import github from '../styles/img/github.png'
 import brianfang from '../styles/img/brianfang.jpg'
 import david from '../styles/img/david.jpg'
+import heidi from '../styles/img/heidi.jpg'
+import ryan from '../styles/img/ryan.jpg'
 
 const LandingPageTeam = () => {
  return (
@@ -18,13 +20,13 @@ const LandingPageTeam = () => {
       {/* Heidi */}
       <div className="team">
         <div className="team-info">
-          <img className="team-img" src="https://avatars0.githubusercontent.com/u/12095864?s=460&v=4" />
-          <div className="team-info-description">Loves samoyeds, the great outdoors, and LINE stickers</div>
+          <img className="team-img" src={heidi} />
+          <div className="team-info-description">Loves photography, the great outdoors, and free diving</div>
         </div>
 
         <div className="team-position">
           <div className="team-name">Heidi Poon</div>
-          <div className="team-title">Product Lead | Full-Stack Developer</div>
+          <div className="team-title">Product Lead | Full-Stack Developer & UI Designer</div>
         </div>
 
         <div className="github">
@@ -69,7 +71,7 @@ const LandingPageTeam = () => {
       {/* Ryan */}
       <div className="team">
         <div className="team-info">
-          <img className="team-img" src="https://avatars1.githubusercontent.com/u/34013422?s=460&v=4" />
+          <img className="team-img" src={ryan} />
           <div className="team-info-description">Loves the mountains, snowboarding & all things cars</div>
         </div>
 

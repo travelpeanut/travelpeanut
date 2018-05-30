@@ -13,10 +13,6 @@ class TripMenu extends React.Component {
     this.handleBack = this.handleBack.bind(this)
   }
 
-  componentDidMount() {
-    console.log('tripState in TripMenuPage: ', this.props.tripState)
-  }
-
   redirectItinerary(type){    
     let { trip_id } = this.props.tripState.currentTrip
     this.props.history.push(`/trip/${trip_id}/${type}`)
@@ -27,8 +23,7 @@ class TripMenu extends React.Component {
   }
 
   render() {
-    let {currentTrip} = this.props.tripState
-    console.log('menu page', this.props.tripState)
+    let {currentTrip} = this.props.tripState    
 
     return(
       <div className="tripmenu">

@@ -9,7 +9,6 @@ const getComments = (activityId) => (dispatch, getState) => {
     .on('value', (snapshot) => {
       let comments = snapshot.val() || {};      
       comments = Object.keys(comments).map(key => [key, comments[key]]);      
-      console.log('comments: ', comments)
       dispatch({
         type: ActionTypes.GET_COMMENTS,
         comments,

@@ -9,14 +9,6 @@ const pool = new pg.Pool({
   database: config.DATABASE,
 });
 
-// pool.on('connect', (client) => {
-//   console.log('successfully connected', client)
-// })
-
-// pool.on('error', (trouble) => {
-//   console.log('trouble connecting', trouble)
-// })
-
 // ============
 // Helper Functions
 // ============
@@ -60,8 +52,6 @@ const addTripToTrips = ({ name, city, country, startDate, endDate, ownerId }) =>
 };
 
 const addTripsByUser = (userid, tripid) => {
-  // console.log('addTripsByUser userid: ', userid)
-  // console.log('addTripsByUser tripid: ', tripid)
   const query = `INSERT INTO USERS_TRIPS (user_id, trip_id)
                  VALUES (${userid}, ${tripid})`;
   return pool.query(query)
@@ -173,10 +163,8 @@ const addActivity = (tripId, activityDate, startTime, activityName) => {
     });
 };
 
-const getActivites = (tripId, activityDate) => {  
-  console.log(activityDate)
-  const query = `SELECT * FROM activities WHERE date_of_activity='${activityDate}' AND trip_id=${tripId} order by start_time asc`;
-  console.log(query)
+const getActivites = (tripId, activityDate) => {    
+  const query = `SELECT * FROM activities WHERE date_of_activity='${activityDate}' AND trip_id=${tripId} order by start_time asc`;  
   return pool.query(query)
     .catch((err) => {
       console.error('couldnt get activities:', err);      

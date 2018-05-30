@@ -36,7 +36,6 @@ class EditActivity extends React.Component{
       time.push(moment(start, 'YYYY-MM-DD hh:mm a').add(15*(i), 'minutes').format('hh:mm'))
     }
     
-    console.log('blahh', this.props.activity)
     return(
 
       <div className="activity-edit">
