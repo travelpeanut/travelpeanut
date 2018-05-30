@@ -402,4 +402,4 @@ router.route('/itinerary')
 
     })
 
-module.exports = router;
+module.exports = router

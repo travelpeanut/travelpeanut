@@ -239,3 +239,4 @@ exports.deleteActivity = deleteActivity;
 exports.voteActivity = voteActivity;
 exports.getVotesForActivity = getVotesForActivity;
 exports.getAllActivities = getAllActivities;
+

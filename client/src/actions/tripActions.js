@@ -288,7 +288,7 @@ const clearActivities = () => (dispatch, getState) => {
 
 }
 
-module.exports = {
+export default {
   createTrip,
   getAllTrips,
   setCurrentTrip,
