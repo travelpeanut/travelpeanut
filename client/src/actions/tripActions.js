@@ -17,16 +17,14 @@ const getAllTrips = () => (dispatch, getState) => {
       });
       return data.rows
     })
-    .then((trips) => {
-      console.log('trips,', trips)
+    .then((trips) => {      
       let cities = []
       trips.forEach((e) => cities.push(e.city))
       return axios.get('/api/photos', {
         params: {cities}
       })
     })
-    .then((res) => {
-      console.log('res with photos', res.data)
+    .then((res) => {      
       dispatch({
         type: ActionTypes.SET_PHOTOS,
         code: res.data,
@@ -185,8 +183,7 @@ const deleteInvite = email => (dispatch, getState) => {
 };
 
 const getActivitiesForDate = (activityDate) => (dispatch, getState) => {
-  const tripId = getState().tripReducer.currentTrip.trip_id
-  console.log('getActivitiesForDate', activityDate)
+  const tripId = getState().tripReducer.currentTrip.trip_id  
   axios.get('/api/activities', { params: { activityDate, tripId, } })
     .then(({data}) => {
       dispatch({
@@ -228,13 +225,7 @@ const addActivityToItinerary = (activityName, startTime, activityDate) => (dispa
   const tripId = getState().tripReducer.currentTrip.trip_id
   const startdate = moment(getState().tripReducer.currentTrip.start_date, 'YYYY-MM-DD').format('YYYY-MM-DD')
   const day = moment(activityDate).diff(moment(startdate), 'days') + 1
-
-  // console.log('name', activityName)
-  // console.log('tripid', tripId)
-  // console.log('startDate', startdate)
-  // console.log('day', day)
-  // console.log('starttime', startTime)
-  // console.log('activityDate', activityDate)
+            
 
   axios.post('/api/activities', { 
     params: {

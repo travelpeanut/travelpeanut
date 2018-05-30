@@ -10,11 +10,11 @@ import reactRouter from '../styles/img/react-router.png'
 
 const LandingPageTech = () => {
   return (
-    <div>
+    <div >
 
       {/* Header */}
-      <div>
-        <h1 className="landing-header">TravelPeanut is powered by:</h1>
+      <div className="landing-header landing-header-c">
+        <h1>TravelPeanut is powered by:</h1>
       </div>
 
       {/* Container */}

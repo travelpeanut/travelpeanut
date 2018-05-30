@@ -19,10 +19,7 @@ router.route('/login')
       .then((data) => {
         if (data.rowCount === 0) {
           return db.addNewUser(userInfo.firstName, userInfo.lastName, userInfo.email, userInfo.uid);
-        }
-        // console.log('matched', data.rows[0])
-        // res.json(data.rows[0])
-        // res.status(200).send('user exists, login success')
+        }                        
         return data;
       })
       .then((data) => {
@@ -89,14 +86,12 @@ router.route('/trips')
   .post((req, res) => {
   })
   .delete((req, res) => {
-    // console.log(req.body.tripId)
     db.deleteTrip(req.body.tripId)
       .then(() => {
-        // console.log('success in delete')
         res.status(200).send();
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   });
 
@@ -115,7 +110,6 @@ router.route('/newTrip')
 router.route('/tripId')
   .get((req, res) => {
     const owner = req.query.id;
-    // console.log('getting newly created trip for this owner: ', owner);
     db.getNewTripId(owner)
       .then((response) => {
         const newTrip = response.rows[0];
@@ -158,7 +152,7 @@ router.route('/getCoordinates')
         res.status(200).send(cityData);
       })
       .catch((err) => {
-        console.log('couldnt get data:', err);
+        console.error('couldnt get data:', err);
         res.status(400).send(err);
       });
   });
@@ -220,7 +214,6 @@ router.route('/trip/invite')
     const { tripId } = req.query;
     db.getPendingInvites(tripId)
       .then((data) => {
-        console.log('get response', data)
         res.json(data.rows);
       });
   })
@@ -280,7 +273,6 @@ router.route('/invitations')
 router.route('/activities')  
   .get((req, res) => {
     const { tripId, activityDate} = req.query
-    console.log('routejs', activityDate)
     db.getActivites(tripId, activityDate)
       .then((activities) => {
         res.status(200).send(activities);
@@ -327,7 +319,6 @@ router.route('/activities')
 router.route('/itinerary')
   .post((req, res) => {
     const {accessToken, tripId, city} = req.body.params
-    console.log(req.body.params)
     let oauth = new google.auth.OAuth2(
       CLIENT_ID, CLIENT_SECRET, REDIRECT_URIS[0]);
     oauth.setCredentials({access_token: accessToken});
@@ -372,12 +363,11 @@ router.route('/itinerary')
         res.status(200).send(data)
      })
       .catch(err => {
-        console.log('couldnt get response from db:', err)
+        console.error('couldnt get response from db:', err)
       })
    })
     .post((req, res) => {
      const {activityId, userId, tripId, vote} = req.body.params
-     console.log(activityId, userId, tripId, vote)
      db.voteActivity(activityId, userId, tripId, vote)
      .then((success) => {
        res.status(200).send(success)
@@ -402,7 +392,6 @@ router.route('/itinerary')
 
       axios.get(url, options)
         .then(({data}) => {
-          console.log('data from yelp review search: ', data)
           res.send(data)
         })
         .catch((err) => {

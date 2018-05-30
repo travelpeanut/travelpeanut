@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodejs server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "react-dev": "webpack -d --watch & npm run watch-css",
     "server-dev": "nodemon server/index.js",
-    "watch-css": "node-sass-chokidar client/src/styles/sass -o client/src/styles --watch --recursive"
+    "watch-css": "node-sass-chokidar client/src/styles/sass -o client/src/styles --watch --recursive",    
+    "build-css": "node-sass-chokidar client/src/styles/sass -o client/src/styles",
+    "production-mode": "webpack --mode production && pm2 start server/index.js"
   },
   "repository": {
     "type": "git",
@@ -32,7 +32,6 @@
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
     "axios": "^0.18.0",
-    "babel-eslint": "^8.2.3",
     "body-parser": "^1.18.2",
     "css-loader": "^0.28.11",
     "express": "^4.15.0",
@@ -51,9 +50,7 @@
     "redux": "^3.7.2",
     "redux-persist": "^5.9.1",
     "redux-thunk": "^2.2.0",
-    "request": "^2.81.0",
     "style-loader": "^0.21.0",
-    "underscore": "^1.9.0",
     "url-loader": "^1.0.1"
   },
   "bugs": {

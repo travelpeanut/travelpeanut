@@ -49,7 +49,6 @@ class Comments extends React.Component{
   }
 
   render() {    
-    console.log('comments', this.state.comments)
     return(
       <div className="activity-comments">
         <div className="activity-comments-list">
