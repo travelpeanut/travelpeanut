@@ -1,7 +1,7 @@
 import React from 'react'
 import Yelp from '../styles/img/yelp.png'
 import Firebase from '../styles/img/firebase.png'
-import preview from '../styles/img/samplepreview.mp4'
+import preview from '../styles/img/samplepreview.gif'
 
 const LandingPageHow = () => {
   return (
