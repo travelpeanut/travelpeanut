@@ -33,5 +33,10 @@ const sendMessage = message => (dispatch, getState) => {
     });
 };
 
-exports.getMessages = getMessages;
-exports.sendMessage = sendMessage;
+// exports.getMessages = getMessages;
+// exports.sendMessage = sendMessage;
+
+export {
+  getMessages,
+  sendMessage,
+}

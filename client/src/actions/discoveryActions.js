@@ -56,7 +56,7 @@ const getPlacesPhotos = place => (dispatch, getState) => {
 }
 
 
-module.exports = {
+export {
   getCoordinatesByCity,
   getNearbyPlacesByType,
   createTrip,

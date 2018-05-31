@@ -285,10 +285,9 @@ const clearActivities = () => (dispatch, getState) => {
     type: ActionTypes.CLEAR_ACTIVITIES,
     activities: []
   })  
-
 }
 
-module.exports = {
+export {
   createTrip,
   getAllTrips,
   setCurrentTrip,

@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux'
 import Logo from '../styles/img/peanut.png'
 import * as tripActions from '../actions/tripActions.js'
 import moment from 'moment';
-import _ from 'underscore';
 
 class EditActivity extends React.Component{
   constructor(props) {

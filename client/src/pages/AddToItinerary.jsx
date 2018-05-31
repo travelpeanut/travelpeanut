@@ -74,11 +74,11 @@ class AddToItinerary extends React.Component{
 
 
 export default connect(
-    state => ({
-      tripState: state.tripReducer,
-      userState: state.userReducer
-    }),
-    dispatch => ({
-      actions: bindActionCreators(Object.assign({}, tripActions, discoverActions), dispatch)
-    })
-  )(AddToItinerary);
+  state => ({
+    tripState: state.tripReducer,
+    userState: state.userReducer
+  }),
+  dispatch => ({
+    actions: bindActionCreators(Object.assign({}, tripActions, discoverActions), dispatch)
+  })
+)(AddToItinerary);

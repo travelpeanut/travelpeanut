@@ -15,6 +15,9 @@ const LandingPageHow = () => {
         <div className="row">
           <div className="col col-5-of-12">
             <img className="gif" src={preview}/>
+            {/* <video autoplay loop muted playsinline> 
+              <source src={preview} type="video/mp4"></source>
+            </video> */}
           </div>
 
           <div className="col col-1-of-12"></div>

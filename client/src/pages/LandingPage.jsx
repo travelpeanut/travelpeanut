@@ -72,9 +72,9 @@ class LandingPage extends React.Component {
 
 export default connect(
   state => ({
-      userState: state.userReducer,
+    userState: state.userReducer,
   }),
   dispatch => ({
-      actions: bindActionCreators( userActions , dispatch)
+    actions: bindActionCreators(userActions, dispatch)
   })
 )(LandingPage);

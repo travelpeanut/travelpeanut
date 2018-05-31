@@ -6,9 +6,9 @@
   "scripts": {
     "react-dev": "webpack -d --watch & npm run watch-css",
     "server-dev": "nodemon server/index.js",
-    "watch-css": "node-sass-chokidar client/src/styles/sass -o client/src/styles --watch --recursive",    
+    "watch-css": "node-sass-chokidar client/src/styles/sass -o client/src/styles --watch --recursive",
     "build-css": "node-sass-chokidar client/src/styles/sass -o client/src/styles",
-    "production-mode": "webpack --mode production && pm2 start server/index.js"
+    "production-mode": "webpack -p && pm2 start server/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.23.1",
-    "babel-loader": "^6.3.2",
+    "babel-loader": "^6.4.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
@@ -27,16 +27,21 @@
     "eslint-plugin-import": "^2.11.0",
     "nodemon": "^1.17.3",
     "redux-devtools-extension": "^2.13.2",
-    "webpack": "^2.2.1"
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.10.2",
+    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-cli": "^2.1.4"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
     "axios": "^0.18.0",
+    "babel-eslint": "^8.2.3",
     "body-parser": "^1.18.2",
     "css-loader": "^0.28.11",
     "express": "^4.15.0",
     "firebase": "^5.0.1",
     "googleapis": "^30.0.0",
+    "image-webpack-loader": "^4.2.0",
     "moment": "^2.22.1",
     "node-sass-chokidar": "^1.2.2",
     "path": "^0.12.7",

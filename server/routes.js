@@ -59,16 +59,23 @@ router.route('/photos')
       photos.push(
         Promise.resolve(axios.get(`https://api.unsplash.com/search/photos/?query=${city}&client_id=${unsplashAPI}`)
           .then((data) => {
+            console.log('data: ', data)
             const imgUrl = data.data.results[0].urls.regular;
             return imgUrl
+          })
+          .catch((error) => {
+            console.error(error)
           })
         )
       )
     })
     Promise.all(photos)
-      .then((photos) => {
-        res.status(200).send(photos)
+    .then((photos) => {
+      res.status(200).send(photos)
       })
+    .catch((error) => {
+      console.error(error)
+    })
   })
 
 
@@ -402,4 +409,4 @@ router.route('/itinerary')
 
     })
 
-module.exports = router;
+module.exports = router
