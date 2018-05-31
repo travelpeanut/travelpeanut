@@ -1,7 +1,7 @@
 import React from 'react'
 import github from '../styles/img/github.png'
 import brianfang from '../styles/img/brianfang.png'
-import david from '../styles/img/david.jpg'
+import david from '../styles/img/david.png'
 import heidi from '../styles/img/heidi.jpg'
 import ryan from '../styles/img/ryan.jpg'
 
