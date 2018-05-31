@@ -2,7 +2,10 @@ const path = require('path');
 
 const SRC_DIR = path.join(__dirname, '/client/src');
 const DIST_DIR = path.join(__dirname, '/client/dist');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
+const webpack = require('webpack')
 
 
 // WEBPACK 2 CONFIG
@@ -42,7 +45,6 @@ const DIST_DIR = path.join(__dirname, '/client/dist');
 
 // const path = require('path');
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 // module.exports = {
 // 	entry: './client/src/index.jsx',
@@ -73,9 +75,9 @@ const DIST_DIR = path.join(__dirname, '/client/dist');
 // Our Webpack 4 CONFIG
 
 module.exports = {
-	entry: './client/src/index.jsx',
+	entry: `${SRC_DIR}/index.jsx`,
 	output: {
-		path: path.join(__dirname, '/client/dist'),
+		path: DIST_DIR,
 		filename: 'bundle.js'
 	},
 	module: {
@@ -97,11 +99,15 @@ module.exports = {
           {
             test: /\.(pdf|jpg|png|gif|svg|ico)$/,
             use: [
-                {
-                    loader: 'url-loader'
-                }
+                {loader: 'url-loader'},
+                {loader: 'image-webpack-loader'}
             ] 
           }
         ]
-	},	
+  },	
+  plugins: [
+    new BundleAnalyzerPlugin(),
+    new UglifyJsPlugin(),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+  ]
 }

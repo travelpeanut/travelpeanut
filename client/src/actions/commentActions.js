@@ -37,7 +37,7 @@ const sendComment = (comment, activityId) => (dispatch, getState) => {
 // exports.getComments = getComments;
 // exports.sendComment = sendComment;
 
-export default {
+export {
   getComments,
   sendComment,
 }

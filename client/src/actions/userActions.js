@@ -137,7 +137,7 @@ const rejectInvitation = (email, tripId) => (dispatch, getState) => {
 };
 
 
-export default {
+export {
   goToLogin,
   loginGoogle,
   // checkLogin,

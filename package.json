@@ -8,7 +8,7 @@
     "server-dev": "nodemon server/index.js",
     "watch-css": "node-sass-chokidar client/src/styles/sass -o client/src/styles --watch --recursive",
     "build-css": "node-sass-chokidar client/src/styles/sass -o client/src/styles",
-    "production-mode": "webpack --mode production && node server/index.js"
+    "production-mode": "webpack -p && pm2 start server/index.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,9 @@
     "eslint-plugin-import": "^2.11.0",
     "nodemon": "^1.17.3",
     "redux-devtools-extension": "^2.13.2",
-    "webpack": "^4.0.0-beta.3",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.10.2",
+    "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^2.1.4"
   },
   "dependencies": {
@@ -38,6 +40,7 @@
     "express": "^4.15.0",
     "firebase": "^5.0.1",
     "googleapis": "^30.0.0",
+    "image-webpack-loader": "^4.2.0",
     "moment": "^2.22.1",
     "node-sass-chokidar": "^1.2.2",
     "path": "^0.12.7",

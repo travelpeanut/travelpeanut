@@ -18,6 +18,7 @@ class LandingPage extends React.Component {
   }
 
   handleLogin() {
+    console.log('LandingPage props: ', this.props)
     this.props.actions.goToLogin()
   }
 
@@ -75,6 +76,6 @@ export default connect(
       userState: state.userReducer,
   }),
   dispatch => ({
-      actions: bindActionCreators( userActions , dispatch)
+      actions: bindActionCreators(userActions, dispatch)
   })
 )(LandingPage);
