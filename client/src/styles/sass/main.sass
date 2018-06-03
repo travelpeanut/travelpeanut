@@ -1,0 +1,351 @@
+@import "components/mixins", "components/animation", "typographyColors", "components/popup", "components/chat",  "components/components", "components/buttons", "components/places", "components/landingcontent"
+
+*
+  margin: 0
+  font-family: 'Work Sans', sans-serif
+
+.landing
+  background-color: rgb(252, 249, 244)
+  &-hero
+    background-image: url('https://i.imgur.com/vNv6RpQ.jpg')
+    width: 100%
+    height: 700px
+    background-position: center
+    background-repeat: no-repeat
+    background-size: cover
+    position: relative
+    &__text
+      position: absolute
+      top: 42%
+      left: 30%
+      transform: translate(-50%, -50%)
+      color: white
+      font-family: 'Work Sans', sans-serif
+      h1
+        font-family: 'Arima Madurai', cursive
+        font-size: 5em
+  &-navbar
+    position: fixed !important
+    font-family: 'Work Sans', sans-serif
+    color: white
+    &__animate
+      text-decoration: none
+    &__animate:hover
+      color: white
+    &__animate:before
+      content: ""
+      position: absolute
+      width: 100%
+      height: 2px
+      bottom: -4px
+      left: 0
+      background-color: white
+      visibility: hidden
+      -webkit-transform: scaleX(0)
+      transform: scaleX(0)
+      -webkit-transition: all 0.3s ease-in-out 0s
+      transition: all 0.3s ease-in-out 0s
+    &__animate:hover:before
+      visibility: visible
+      -webkit-transform: scaleX(1)
+      transform: scaleX(1)
+      
+    &__login
+      position: fixed
+      top: 4%
+      right: 10%
+    &__signup
+      position: fixed
+      top: 14%
+      right: 5%
+      -ms-transform: rotate(90deg)
+      -webkit-transform: rotate(90deg)
+      transform: rotate(90deg)
+  &-content
+    height: 500px
+    &-b
+      height: 700px
+      background-color: rgb(224, 211, 203)
+    &-c
+      // background-color: rgb(255, 126, 96)
+  &-footer
+    // background-color: rgb(71, 90, 81)
+    background-color: #ffffff
+    height: 180px
+
+.login
+  position: fixed
+  width: 100%
+  height: 100%
+  top: 0px
+  left: 0px
+  font-family: 'Work Sans', sans-serif
+  color: white
+  // background-image: linear-gradient(-180deg, rgb(255, 235, 111) 1%, rgb(255, 235, 111) 14%, rgb(255, 119, 119))
+  // background-image: linear-gradient(-163deg, rgb(246,192,162) 14%, rgb(212,194,196) 33%, rgb(180,194,196) 50%)
+  // background-image: linear-gradient(-163deg, rgb(252, 249, 244) 14%, rgb(224, 211, 203) 33%, RGB(94, 82, 82) 50%)
+  background-color: rgb(203,201,197); 
+  &__container
+    margin: 15% auto
+    padding: 3% 5%
+    border: 6px solid white
+    width: 800px
+    &-section
+      display: inline-block
+      width: 48%
+      &-left
+        border-right: 1px solid white
+    &-btn
+      border: 1px solid white
+      padding: 2% 0%
+      width: 65%
+      margin: 60px auto
+      cursor: pointer
+
+
+  h2
+    font-weight: 100
+    font-size: 35px
+    text-align: center
+  p
+    display: inline
+    font-size: 20px
+    position: absolute
+    margin: 15px 20px
+  img
+    width: 20%
+    margin-left: 35px
+
+.home
+  font-family: 'Work Sans', sans-serif
+  background-color: #ffffff
+  // background-color: rgb(252, 249, 244)
+  &-hero
+    background-image: url('https://images.unsplash.com/photo-1495835788122-ca48931258be?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=acc48b0187b28f7a221362b843f15755&auto=format&fit=crop&w=1950&q=80')
+    width: 100%
+    height: 400px
+    background-position: center
+    background-repeat: no-repeat
+    background-size: cover
+    position: relative
+    &__text
+      position: absolute
+      top: 47%
+      left: 23%
+      transform: translate(-50%, -50%)
+      font-size: 2em
+      font-weight: 300
+      color: white
+      text-shadow: 2px 2px 6px #444
+    &__textLocation
+      position: absolute
+      top: 47%
+      left: 23%
+      font-weight: 200
+      transform: translate(-18%, 70%)
+      font-size: 1.6em
+      color: white
+      text-shadow: 2px 2px 5px #444
+    &__create
+      position: absolute
+      right: 35px
+      bottom: 23px
+      width: 60px
+      height: 60px
+      border-radius: 50%
+      background-color: #fe6340
+      cursor: pointer
+      -webkit-transition: -webkit-transform .8s ease-in-out
+      transition: transform .8s ease-in-out
+      img
+        transform: rotate(45deg)
+        width: 55px
+        padding-left: 3px
+      &:hover
+        -webkit-transform: rotate(360deg)
+        transform: rotate(360deg)
+  &-container
+    color: #3b3838
+    h2
+      text-align: center
+      padding-top: 20px
+      font-size: 40px
+      font-weight: 300
+      color: #444
+    &-list
+      margin: 4% 22%
+
+@media #{$phone}
+  .home-container-list
+    margin: 3% 3%
+
+
+.tripmenu
+  font-weight: 300
+  background: #F0F0F0
+  &-grid
+    width: 1200px !important
+    max-width: 78% !important
+    h2
+      margin: 30px auto
+      font-size: 40px
+      font-weight: 300
+      color: #444
+  &-category
+    width: 350px
+    height: 400px
+    background: #fff
+    img
+      max-width: 100%
+    h3
+      font-weight: 200
+      font-size: 25px
+      text-align: center
+      margin-top: 15px
+    &__btn
+      // margin: 50px 21%
+      width: 58%
+      margin: 20px auto
+      button
+        width: 100% !important
+
+.members
+  &-container
+    color: #444
+    margin-bottom: 5%
+    .row
+      background: #F0F0F0
+      padding-bottom: 10%
+    .col
+      text-align: center
+    h2
+      text-align: center  
+      font-size: 40px
+      font-weight: 300
+      margin: 36px 0
+    h3
+      font-weight: 100
+      font-size: 35px
+      margin: 20px 0
+    p
+      font-weight: 500
+      font-size: 18px
+    input
+      width: 300px
+      height: 25px
+      margin-top: 38px
+    &-listItem
+      margin-bottom: 20px
+      &__content
+        font-size: 20px
+        font-weight: 400
+      &__icon
+        cursor: pointer
+        width: 4%
+        margin-left: 30px
+      
+
+
+.tripItinerary
+  &-container
+    h2
+      text-align: center  
+      font-size: 40px
+      font-weight: 300
+      margin: 36px 0
+    &-list
+      margin: 0 23%
+    .btn-itinerary
+      width: 250px !important
+    &-btnContainer
+      position: absolute
+      right: 35px
+      top: 420px
+      &-exportBtn
+        button
+          width: 270px !important
+        img
+          width: 40px
+          position: absolute
+          left: 13px
+
+.tripDetails
+  &-container
+    h2
+      text-align: center  
+      font-size: 40px
+      font-weight: 300
+      margin: 36px 0
+    &-list
+      margin: 7% 0
+
+
+.activity
+  margin-top: 20px
+  .grid
+    width: 1200px
+  &-time
+    font-weight: 100
+    font-size: 36px
+    color: #666
+  &-title
+    font-size: 40px
+    font-weight: 500
+    color: #444
+    text-align: center
+    padding: 0 10px
+    &-hr
+      width: 400px
+      margin: 40px auto 0px
+      border: 0
+      height: 1px
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0))
+  &-upvote
+    margin-bottom: 5px
+    &-happy
+      display: inline-block
+      cursor: pointer
+      &-img
+        width: 50px
+    &-count
+      display: inline-block
+  &-downvote
+    &-sad
+      display: inline-block
+      cursor: pointer
+      &-img
+        width: 50px
+  &-count
+    display: inline-block
+    font-size: 1.5em
+    font-weight: 100
+    position: relative
+    left: 15px
+    bottom: 15px
+  &-comments
+    &-hr
+      width: 150px
+    &-list
+
+    &-form
+      margin-top: 20px
+    &-item
+      margin-bottom: 4px
+      &__User
+        font-weight: 500
+        font-size: 1.2em
+        margin-right: 4%
+      &__Msg
+        font-weight: 200
+  &-selection
+    margin-top: 10px
+  &-edit
+    border: 1px solid #2222
+    padding: 30px
+    &-header
+      font-size: 30px
+      font-weight: 100 
+      margin-bottom: 15px
+    p
+      font-size: 15px
+      font-weight: 300

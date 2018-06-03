@@ -1,0 +1,51 @@
+.c-popup--overlay
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 1000 //temp
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 100%
+  height: 100vh
+  background: rgba(0,0,0,0.4)
+  color: #fff //temp
+  text-align: center
+  //animation ($name, $duration, $method, $delay, $count)
+  @include animation(popupBcgFadeIn,.3s,ease-out,0,1)
+.c-popup
+  position: relative
+  width: 500px
+  height: 430px
+  margin: 10% auto
+  padding: 40px
+  background-color: #F0F0F0
+  @include border-radius(4px)
+  @include animation(popupEnter,.3s,ease-out,0,1)
+  h3
+    color: #444;
+    padding-bottom: 35px
+    font-weight: 300
+    font-size: 1.8em
+  h5
+    font-size: 1.2em
+    font-weight: 100
+    color: #444
+
+.c-discoverPopup
+  width: 800px !important
+  height: 450px !important
+  margin: 9% auto !important
+
+.preview
+  margin-top: 20px
+  &-item
+    padding: 10px
+    &-time
+      // position: relative
+      // left: -25px
+  &-hr
+    width: 70px
+    margin: 10px auto
+
+// .c-addActivityPopup

@@ -1,0 +1,98 @@
+.google
+  &-map
+    border: none
+    width: 500px
+    height: 100%
+    position: relative
+
+.discover 
+  &-container
+    h2
+      text-align: center  
+      font-size: 40px
+      font-weight: 300
+      margin: 36px 0 
+      color: #444
+  &-categories
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr 
+    grid-template-rows: 1fr 1fr 1fr  
+    margin: 0 45px  
+    &-category
+      cursor: pointer
+      height: 230px
+      padding: 40px
+      display: flex
+      flex: 1
+      justify-content: center
+      align-items: center
+  &-image
+    height: 100%
+    width: 100%
+    border-radius: 3px    
+    transition: .3s
+    &:hover
+      filter: blur(2px) brightness(80%)
+      transition: .3s
+
+.category
+  font-size: 2em
+  position: absolute
+  color: white
+  z-index: 1
+  font-weight: 200
+  text-shadow: 2px 2px 2px #444
+
+.yelp
+  &-container
+    margin: 25px
+    padding: 35px
+    position: relative
+    background-color: #F0F0F0
+    font-weight: 300
+  &-result
+    height: 150px
+    width: 150px
+  &-header
+    padding: 10px
+    font-weight: 200
+    img
+      height: 150px
+      margin-right: 25px
+  &-info
+    font-style: italic
+    &-title
+      font-style: normal //overwrite
+      font-size: 2em
+      color: black
+      cursor: pointer
+      &:hover
+        color:  #fe8c73
+        transition: 0.3s
+  &-btn
+    margin: 10px
+
+.discoverResults
+  &-backBtn
+    left: 35px !important
+    top: 22px !important
+
+  &-container
+    margin: 7% 70px
+
+
+.photos
+  &-container
+    position: absolute
+    right: 100px
+    top: 22px
+    height: 90%
+
+
+.discoverPopup
+  color: #666
+  &-formContainer
+    margin-bottom: 20px
+    h4
+      font-weight: 200
+      font-size: 20px
