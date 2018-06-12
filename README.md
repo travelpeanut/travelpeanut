@@ -3,7 +3,7 @@ A web application to help organize a trip for a group. Create a trip, add some a
 
 You can find the deployed application [here](http://ec2-52-91-87-32.compute-1.amazonaws.com/)
 
-## Local Installtion
+## Local Installation
 
 Clone this repository and create a local copy on your desktop:
 
@@ -30,7 +30,7 @@ Open the application by visiting [https://localhost:3000/](https://localhost:300
 TravelPeanut's client side is built with [React](https://reactjs.org/) and [Redux](https://redux.js.org/)
 
 ### Back-End
-TravelPeanut is powered by [Express](https://expressjs.com/) [Node](https://nodejs.org/en/) [PosgreSQL](https://postgresql.org) and [Firebase](https://firebase.google.com/)
+TravelPeanut is powered by [Express],(https://expressjs.com/) [Node],(https://nodejs.org/en/) [PosgreSQL],(https://postgresql.org) and [Firebase](https://firebase.google.com/)
 
 
 ## API Documentation
